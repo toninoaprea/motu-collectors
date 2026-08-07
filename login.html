@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login – MOTU Collectors</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    .login-section {
+      min-height: calc(100vh - 56px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--gray-1);
+      padding: 40px 24px;
+    }
+    .login-box {
+      background: var(--white);
+      max-width: 420px;
+      width: 100%;
+      padding: 48px 40px;
+      border-top: 4px solid var(--red);
+    }
+    .login-title {
+      font-family: var(--font-display);
+      font-size: 32px;
+      letter-spacing: 3px;
+      color: var(--black);
+      margin-bottom: 6px;
+    }
+    .login-sub {
+      font-size: 13px;
+      color: var(--gray-3);
+      margin-bottom: 32px;
+    }
+    .social-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      width: 100%;
+      padding: 12px;
+      border: 1.5px solid var(--gray-2);
+      background: var(--white);
+      font-family: var(--font-body);
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      cursor: pointer;
+      margin-bottom: 10px;
+      transition: border-color 0.15s;
+      text-decoration: none;
+      color: var(--black);
+    }
+    .social-btn:hover { border-color: var(--black); }
+    .divider {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 20px 0;
+    }
+    .divider::before, .divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--gray-2);
+    }
+    .divider span { font-size: 11px; color: var(--gray-3); letter-spacing: 2px; }
+    .form-field { margin-bottom: 16px; }
+    .form-field label {
+      display: block;
+      font-size: 10px;
+      letter-spacing: 2px;
+      font-weight: 600;
+      color: var(--black);
+      margin-bottom: 6px;
+    }
+    .form-field input {
+      width: 100%;
+      padding: 12px 14px;
+      border: 1.5px solid var(--gray-2);
+      font-family: var(--font-body);
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+    .form-field input:focus { border-color: var(--red); }
+    .btn-login {
+      width: 100%;
+      padding: 14px;
+      background: var(--red);
+      color: var(--white);
+      border: none;
+      font-family: var(--font-display);
+      font-size: 18px;
+      letter-spacing: 3px;
+      cursor: pointer;
+      margin-top: 8px;
+      transition: background 0.15s;
+    }
+    .btn-login:hover { background: var(--red-dark); }
+    .login-footer {
+      text-align: center;
+      margin-top: 20px;
+      font-size: 12px;
+      color: var(--gray-3);
+    }
+    .login-footer a { color: var(--red); text-decoration: none; }
+  </style>
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="nav-inner">
+      <div class="nav-logo">MOTU COLLECTORS</div>
+      <button class="nav-toggle" onclick="toggleMenu()">☰</button>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html">HOME</a></li>
+        <li><a href="about.html">ABOUT MOTU</a></li>
+        <li><a href="checklist.html">CHECKLIST</a></li>
+        <li><a href="leaderboard.html">LEADERBOARD</a></li>
+        <li><a href="contacts.html">CONTACTS</a></li>
+        <li><a href="login.html" class="nav-login active">LOGIN</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="login-section">
+    <div class="login-box">
+      <h1 class="login-title">WELCOME BACK</h1>
+      <p class="login-sub">Sign in to access your collection</p>
+
+      <!-- Social login -->
+      <a href="#" class="social-btn" id="googleBtn">
+        <svg width="18" height="18" viewBox="0 0 48 48"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.18 1.48-4.97 2.31-8.16 2.31-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg>
+        CONTINUE WITH GOOGLE
+      </a>
+      <a href="#" class="social-btn" id="facebookBtn">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="#1877F2"><path d="M24 12.073C24 5.405 18.627 0 12 0S0 5.405 0 12.073C0 18.1 4.388 23.094 10.125 24v-8.437H7.078v-3.49h3.047V9.41c0-3.025 1.792-4.697 4.533-4.697 1.312 0 2.686.235 2.686.235v2.97h-1.513c-1.491 0-1.956.93-1.956 1.886v2.268h3.328l-.532 3.49h-2.796V24C19.612 23.094 24 18.1 24 12.073z"/></svg>
+        CONTINUE WITH FACEBOOK
+      </a>
+
+      <div class="divider"><span>OR</span></div>
+
+      <div class="form-field">
+        <label>EMAIL</label>
+        <input type="email" placeholder="your@email.com" />
+      </div>
+      <div class="form-field">
+        <label>PASSWORD</label>
+        <input type="password" placeholder="••••••••" />
+      </div>
+      <button class="btn-login">SIGN IN</button>
+
+      <p class="login-footer">
+        No account yet? <a href="#">Register for free</a> &nbsp;·&nbsp;
+        <a href="#">Forgot password?</a>
+      </p>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
