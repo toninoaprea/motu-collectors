@@ -349,17 +349,18 @@ body { font-family: var(--font-body); background: var(--white); color: var(--bla
 /* ── RESPONSIVE ── */
 @media (max-width: 768px) {
   .nav-toggle { display: block; }
-  .nav-links {
-    display: none;
-    position: absolute;
-    top: 56px;
-    left: 0;
-    right: 0;
-    background: var(--red-dark);
-    flex-direction: column;
-    padding: 16px 0;
-    gap: 0;
-  }
+ .nav-links {
+  display: none;
+  position: fixed;
+  top: 56px;
+  left: 0;
+  right: 0;
+  background: var(--red-dark);
+  flex-direction: column;
+  padding: 16px 0;
+  gap: 0;
+  z-index: 999;
+}
   .nav-links.open { display: flex; }
   .nav-links a { padding: 12px 24px; border-radius: 0; }
   .nav-inner { position: relative; }
