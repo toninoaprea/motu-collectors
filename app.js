@@ -2,8 +2,16 @@
 function toggleMenu() {
   const links = document.getElementById('navLinks');
   const overlay = document.getElementById('navOverlay');
+  const toggle = document.getElementById('navToggle');
   links.classList.toggle('open');
   overlay.classList.toggle('active');
+  toggle.textContent = links.classList.contains('open') ? '✕' : '☰';
+}
+
+function closeMenu() {
+  document.getElementById('navLinks').classList.remove('open');
+  document.getElementById('navOverlay').classList.remove('active');
+  document.getElementById('navToggle').textContent = '☰';
 }
 
 function closeMenu() {
