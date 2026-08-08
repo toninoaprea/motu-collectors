@@ -6,8 +6,36 @@
   <title>About MOTU – MOTU Collectors</title>
   <link rel="stylesheet" href="style.css" />
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    .timeline-section { padding: 72px 24px; background: var(--white); }
+    .timeline { max-width: 800px; margin: 48px auto 0; position: relative; }
+    .timeline::before { content: ''; position: absolute; left: 50%; top: 0; bottom: 0; width: 3px; background: var(--gray-2); transform: translateX(-50%); }
+    .timeline-item { display: flex; justify-content: flex-end; padding-right: calc(50% + 40px); margin-bottom: 48px; position: relative; }
+    .timeline-item.right { justify-content: flex-start; padding-right: 0; padding-left: calc(50% + 40px); }
+    .timeline-dot { position: absolute; left: 50%; top: 20px; transform: translateX(-50%); width: 18px; height: 18px; border-radius: 50%; background: var(--red); border: 3px solid var(--white); box-shadow: 0 0 0 3px var(--red); z-index: 1; }
+    .timeline-card { background: var(--gray-1); padding: 24px 28px; border-top: 3px solid var(--red); max-width: 340px; width: 100%; }
+    .timeline-year { font-family: var(--font-display); font-size: 36px; color: var(--red); letter-spacing: 2px; line-height: 1; margin-bottom: 6px; }
+    .timeline-title { font-family: var(--font-display); font-size: 18px; letter-spacing: 1px; color: var(--black); margin-bottom: 8px; }
+    .timeline-body { font-size: 13px; color: #555; line-height: 1.7; }
+    .timeline-badge { display: inline-block; background: var(--red); color: var(--white); font-size: 9px; letter-spacing: 2px; font-weight: 700; padding: 3px 10px; margin-bottom: 10px; }
+    .about-hero { background: var(--red); padding: 64px 24px 72px; text-align: center; }
+    .about-hero h1 { font-family: var(--font-display); font-size: 56px; letter-spacing: 6px; color: var(--white); margin-bottom: 12px; }
+    .about-hero p { font-size: 16px; color: rgba(255,255,255,0.8); max-width: 600px; margin: 0 auto; line-height: 1.7; }
+    .about-intro { background: var(--black); padding: 56px 24px; text-align: center; }
+    .about-intro-inner { max-width: 700px; margin: 0 auto; }
+    .about-intro h2 { font-family: var(--font-display); font-size: 36px; letter-spacing: 3px; color: var(--white); margin-bottom: 16px; }
+    .about-intro p { font-size: 15px; color: #aaa; line-height: 1.8; }
+    .about-intro strong { color: var(--white); }
+    @media (max-width: 680px) {
+      .timeline::before { left: 16px; }
+      .timeline-item, .timeline-item.right { justify-content: flex-start; padding-right: 0; padding-left: 48px; }
+      .timeline-dot { left: 16px; }
+      .timeline-card { max-width: 100%; }
+    }
+  </style>
 </head>
 <body>
+
   <nav class="navbar">
     <div class="nav-inner">
       <div class="nav-logo">MOTU COLLECTORS</div>
@@ -22,26 +50,159 @@
       </ul>
     </div>
   </nav>
-  <section class="hero" style="padding: 60px 24px;">
-    <div class="hero-inner">
-      <p class="hero-sub">THE HISTORY</p>
-      <h1 style="font-family: var(--font-display); font-size: 48px; letter-spacing: 4px; color: white;">ABOUT MOTU</h1>
+
+  <section class="about-hero">
+    <div class="section-eyebrow" style="color: rgba(255,255,255,0.6);">THE HISTORY</div>
+    <h1>MASTERS OF THE UNIVERSE</h1>
+    <p>From a Mattel toy line to a global franchise spanning four decades — the story of He-Man, Skeletor, and the world of Eternia.</p>
+  </section>
+
+  <section class="about-intro">
+    <div class="about-intro-inner">
+      <h2>BY THE POWER OF GRAYSKULL</h2>
+      <p>In 1982, Mattel launched one of the most iconic action figure lines in history. <strong>Masters of the Universe</strong> introduced the world to He-Man — the most powerful man in the universe — and his arch-nemesis Skeletor. What started as a toy line became a global cultural phenomenon, spanning animated series, comics, films, and decades of collector passion.</p>
     </div>
   </section>
-  <section class="home-section">
-    <div class="section-inner">
-      <div class="section-eyebrow">COMING SOON</div>
-      <h2 class="section-title">The History of Masters of the Universe</h2>
-      <p class="section-body">This section will contain the full history of the MOTU franchise — from the original 1981 toy line to the 2026 live-action film. Stay tuned!</p>
+
+  <section class="timeline-section">
+    <div class="section-inner" style="text-align: center;">
+      <div class="section-eyebrow">ERA BY ERA</div>
+      <h2 class="section-title">40+ Years of History</h2>
+    </div>
+    <div class="timeline">
+
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-card">
+          <div class="timeline-badge">CLASSIC LINE</div>
+          <div class="timeline-year">1982</div>
+          <div class="timeline-title">The Original Toy Line</div>
+          <p class="timeline-body">Mattel launches the Masters of the Universe line with the first wave featuring He-Man, Skeletor, Teela, Man-At-Arms, Beast Man, Mer-Man, Stratos, and Zodac — each 5.5 inches tall with a unique action feature. Battle Cat and Castle Grayskull complete the first year.</p>
+        </div>
+      </div>
+
+      <div class="timeline-item right">
+        <div class="timeline-dot"></div>
+        <div class="timeline-card">
+          <div class="timeline-badge">ANIMATED SERIES</div>
+          <div class="timeline-year">1983</div>
+          <div class="timeline-title">He-Man Comes to TV</div>
+          <p class="timeline-body">Filmation's He-Man and the Masters of the Universe premieres — one of the first animated series ever created specifically to support a toy line. It runs for 130 episodes and becomes one of the most-watched cartoons of the decade.</p>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-card">
+          <div class="timeline-badge">SHE-RA</div>
+          <div class="timeline-year">1985</div>
+          <div class="timeline-title">Princess of Power</div>
+          <p class="timeline-body">She-Ra — He-Man's twin sister — gets her own toy line and animated series. The Princess of Power line runs until 1987, expanding the MOTU universe with iconic characters like Adora, Glimmer, Bow, and the villain Hordak.</p>
+        </div>
+      </div>
+
+      <div class="timeline-item right">
+        <div class="timeline-dot"></div>
+        <div class="timeline-card">
+          <div class="timeline-badge">FILM</div>
+          <div class="timeline-year">1987</div>
+          <div class="timeline-title">The Live-Action Movie</div>
+          <p class="timeline-body">Dolph Lundgren stars as He-Man and Frank Langella as Skeletor in the first live-action Masters of the Universe film. A beloved cult classic among collectors and fans worldwide.</p>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-card">
+          <div class="timeline-badge">CLASSIC LINE</div>
+          <div class="timeline-year">1988</div>
+          <div class="timeline-title">End of the Classic Era</div>
+          <p class="timeline-body">The original toy line concludes after seven waves. Over 70 action figures plus creatures, vehicles, and playsets — many with international variants across Europe, Latin America, and Asia — making the complete collection one of the most challenging in toy history.</p>
+        </div>
+      </div>
+
+      <div class="timeline-item right">
+        <div class="timeline-dot"></div>
+        <div class="timeline-card">
+          <div class="timeline-badge">NEW ADVENTURES</div>
+          <div class="timeline-year">1989</div>
+          <div class="timeline-title">He-Man in Space</div>
+          <p class="timeline-body">He-Man returns with a futuristic sci-fi makeover in The New Adventures of He-Man. The line runs until 1992 with a fresh animated series, taking the story from Eternia to outer space.</p>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-card">
+          <div class="timeline-badge">200X</div>
+          <div class="timeline-year">2002</div>
+          <div class="timeline-title">The Modern Reboot</div>
+          <p class="timeline-body">Mattel revives MOTU with a new animated series and redesigned toy line featuring detailed sculpts and modern articulation. The 200X line is highly regarded by collectors for its quality and faithful reimagining of the classic characters.</p>
+        </div>
+      </div>
+
+      <div class="timeline-item right">
+        <div class="timeline-dot"></div>
+        <div class="timeline-card">
+          <div class="timeline-badge">CLASSICS</div>
+          <div class="timeline-year">2008</div>
+          <div class="timeline-title">Masters of the Universe Classics</div>
+          <p class="timeline-body">Mattel launches the premium Classics line exclusively through MattyCollector.com. Monthly subscription drops, highly detailed figures, and an interconnected lore make this the definitive collector line — later continued by Super7.</p>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-card">
+          <div class="timeline-badge">ORIGINS</div>
+          <div class="timeline-year">2020</div>
+          <div class="timeline-title">Back to the Roots</div>
+          <p class="timeline-body">Masters of the Universe Origins launches — faithfully recreating the look of the 1982 classics with updated articulation. Origins reignites collector passion and introduces MOTU to a new generation worldwide.</p>
+        </div>
+      </div>
+
+      <div class="timeline-item right">
+        <div class="timeline-dot"></div>
+        <div class="timeline-card">
+          <div class="timeline-badge">MASTERVERSE</div>
+          <div class="timeline-year">2021</div>
+          <div class="timeline-title">Premium Collector Line</div>
+          <p class="timeline-body">Masterverse debuts as Mattel's premium 7-inch collector line, drawing from all eras of MOTU. With superior articulation and detailed sculpts, it becomes the go-to line for serious adult collectors.</p>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-card">
+          <div class="timeline-badge">FILM · 2026</div>
+          <div class="timeline-year">2026</div>
+          <div class="timeline-title">A New Era Begins</div>
+          <p class="timeline-body">A brand-new live-action Masters of the Universe film marks the biggest moment for the franchise in decades, bringing a wave of new collector interest and renewed passion for everything MOTU — vintage and modern alike.</p>
+        </div>
+      </div>
+
     </div>
   </section>
+
+  <section class="cta-section">
+    <div class="section-inner cta-inner">
+      <h2 class="cta-title">Ready to catalog your collection?</h2>
+      <p class="cta-body">Join the MOTU Collectors community and start tracking your figures across every era.</p>
+      <div class="cta-buttons">
+        <a href="login.html" class="btn-main">CREATE ACCOUNT</a>
+        <a href="checklist.html" class="btn-outline">EXPLORE THE CHECKLIST</a>
+      </div>
+    </div>
+  </section>
+
   <footer class="footer">
     <div class="footer-inner">
       <div class="footer-logo">MOTU COLLECTORS</div>
-      <p class="footer-disclaimer">This is a fan project. Masters of the Universe is a trademark of Mattel, Inc.</p>
+      <p class="footer-disclaimer">This is a fan project. Masters of the Universe is a trademark of Mattel, Inc. This site is not affiliated with or endorsed by Mattel. Historical information sourced from public records and Mattel Creations.</p>
       <p class="footer-copy">© 2026 MOTU Collectors</p>
     </div>
   </footer>
+
   <script src="app.js"></script>
 </body>
 </html>
