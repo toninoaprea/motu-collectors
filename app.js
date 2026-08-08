@@ -1,6 +1,14 @@
 // ── NAVBAR MOBILE TOGGLE ──
 function toggleMenu() {
-  document.getElementById('navLinks').classList.toggle('open');
+  const links = document.getElementById('navLinks');
+  const overlay = document.getElementById('navOverlay');
+  links.classList.toggle('open');
+  overlay.classList.toggle('active');
+}
+
+function closeMenu() {
+  document.getElementById('navLinks').classList.remove('open');
+  document.getElementById('navOverlay').classList.remove('active');
 }
 
 // ── MODAL GUEST (quando utente non registrato preme ENTER) ──
