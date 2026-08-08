@@ -96,7 +96,6 @@ body { font-family: var(--font-body); background: var(--white); color: var(--bla
 .hero-logo {
   width: 280px;
   max-width: 90%;
-  filter: brightness(0) invert(1);
 }
 .hero-sub {
   font-family: var(--font-display);
