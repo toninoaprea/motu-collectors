@@ -39,7 +39,7 @@
   <nav class="navbar">
     <div class="nav-inner">
       <div class="nav-logo">MOTU COLLECTORS</div>
-      <button class="nav-toggle" onclick="toggleMenu()">☰</button>
+      <button class="nav-toggle" id="navToggle" onclick="toggleMenu()">☰</button>
       <ul class="nav-links" id="navLinks">
         <li><a href="index.html">HOME</a></li>
         <li><a href="about.html" class="active">ABOUT MOTU</a></li>
@@ -47,7 +47,10 @@
         <li><a href="leaderboard.html">LEADERBOARD</a></li>
         <li><a href="contacts.html">CONTACTS</a></li>
         <li><a href="login.html" class="nav-login">LOGIN</a></li>
-      </ul>
+      <div class="nav-mobile-actions">
+        <a href="login.html" class="btn-register">REGISTER FREE</a>
+        <a href="login.html" class="btn-login-mobile">LOGIN</a>
+      </div>
     </div>
   </nav>
   <div class="nav-overlay" id="navOverlay" onclick="closeMenu()"></div>

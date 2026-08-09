@@ -77,7 +77,19 @@ body { font-family: var(--font-body); background: var(--white); color: var(--bla
   color: var(--white);
   font-size: 24px;
   cursor: pointer;
+  z-index: 1001;
+  position: relative;
 }
+
+/* ── OVERLAY ── */
+.nav-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  z-index: 998;
+}
+.nav-overlay.active { display: block; }
 
 /* ── HERO ── */
 .hero {
@@ -127,7 +139,6 @@ body { font-family: var(--font-body); background: var(--white); color: var(--bla
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 0;
   padding: 24px 0;
 }
 .stat-item {
@@ -155,17 +166,12 @@ body { font-family: var(--font-body); background: var(--white); color: var(--bla
 }
 
 /* ── SECTIONS ── */
-.home-section, .series-section, .cta-section {
-  padding: 72px 24px;
-}
+.home-section, .series-section, .cta-section { padding: 72px 24px; }
 .home-section { background: var(--white); }
 .series-section { background: var(--gray-1); }
 .cta-section { background: var(--red); }
 
-.section-inner {
-  max-width: 1000px;
-  margin: 0 auto;
-}
+.section-inner { max-width: 1000px; margin: 0 auto; }
 .section-eyebrow {
   font-size: 10px;
   letter-spacing: 4px;
@@ -228,10 +234,7 @@ body { font-family: var(--font-body); background: var(--white); color: var(--bla
   transition: border-color 0.15s, color 0.15s;
   cursor: default;
 }
-.series-chip:hover {
-  border-color: var(--red);
-  color: var(--red);
-}
+.series-chip:hover { border-color: var(--red); color: var(--red); }
 
 /* ── BUTTONS ── */
 .btn-main {
@@ -246,10 +249,7 @@ body { font-family: var(--font-body); background: var(--white); color: var(--bla
   border: 2px solid var(--red);
   transition: background 0.15s, color 0.15s;
 }
-.btn-main:hover {
-  background: var(--red-dark);
-  border-color: var(--red-dark);
-}
+.btn-main:hover { background: var(--red-dark); border-color: var(--red-dark); }
 .btn-outline {
   display: inline-block;
   background: transparent;
@@ -282,11 +282,7 @@ body { font-family: var(--font-body); background: var(--white); color: var(--bla
 .cta-buttons { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
 
 /* ── FOOTER ── */
-.footer {
-  background: var(--black);
-  padding: 40px 24px;
-  text-align: center;
-}
+.footer { background: var(--black); padding: 40px 24px; text-align: center; }
 .footer-logo {
   font-family: var(--font-display);
   font-size: 20px;
@@ -346,69 +342,91 @@ body { font-family: var(--font-body); background: var(--white); color: var(--bla
 }
 .modal-buttons .btn-outline-dark:hover { border-color: var(--black); }
 
+/* ── MOBILE MENU BUTTONS ── */
+.nav-mobile-actions {
+  display: none;
+  flex-direction: column;
+  gap: 10px;
+  padding: 20px 24px;
+  border-top: 1px solid rgba(255,255,255,0.2);
+  margin-top: 8px;
+}
+.nav-mobile-actions .btn-register {
+  display: block;
+  background: var(--white);
+  color: var(--red);
+  font-family: var(--font-display);
+  font-size: 16px;
+  letter-spacing: 2px;
+  padding: 14px 24px;
+  text-align: center;
+  text-decoration: none;
+  border-radius: 4px;
+  font-weight: 700;
+}
+.nav-mobile-actions .btn-login-mobile {
+  display: block;
+  background: transparent;
+  color: var(--white);
+  font-family: var(--font-display);
+  font-size: 16px;
+  letter-spacing: 2px;
+  padding: 13px 24px;
+  text-align: center;
+  text-decoration: none;
+  border-radius: 4px;
+  border: 2px solid rgba(255,255,255,0.5);
+}
+
 /* ── RESPONSIVE ── */
 @media (max-width: 768px) {
   .nav-toggle { display: block; }
-  
+
   .nav-links {
-    display: flex !important;
+    display: flex;
     position: fixed;
     top: 0;
-    left: -280px;
+    left: -300px;
     width: 280px;
     height: 100vh;
     background: var(--red-dark);
     flex-direction: column;
-    padding: 80px 0 40px;
+    padding: 70px 0 40px;
     gap: 0;
     z-index: 999;
     transition: left 0.3s ease;
-    box-shadow: 4px 0 20px rgba(0,0,0,0.3);
+    box-shadow: 4px 0 20px rgba(0,0,0,0.4);
+    overflow-y: auto;
   }
   .nav-links.open { left: 0; }
+
+  .nav-links li { width: 100%; }
   .nav-links a {
-    padding: 16px 32px;
-    font-size: 16px;
+    display: block;
+    padding: 16px 28px;
+    font-size: 15px;
     border-radius: 0;
     letter-spacing: 1px;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    color: rgba(255,255,255,0.9) !important;
+    background: transparent !important;
   }
-  .nav-links a:hover, .nav-links a.active {
-    background: rgba(0,0,0,0.2);
-  }
-  .nav-login {
-    margin: 16px 24px 0 !important;
-    padding: 14px 24px !important;
-    text-align: center;
-    border-radius: 4px !important;
-  }
+  .nav-links a:hover { background: rgba(0,0,0,0.15) !important; }
+  .nav-links a.active { background: rgba(0,0,0,0.2) !important; }
 
-  /* Overlay scuro dietro il menu */
-  .nav-overlay {
-    display: none;
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.5);
-    z-index: 998;
-  }
-  .nav-overlay.active { display: block; }
+  /* Nascondi LOGIN dal menu normale su mobile */
+  .nav-links .nav-login { display: none; }
+
+  /* Mostra i bottoni mobile in fondo */
+  .nav-mobile-actions { display: flex; }
 
   .nav-inner { position: relative; }
-  .stat-item { padding: 0 24px; }
-  .stat-n { font-size: 28px; }
+  .stat-item { padding: 0 20px; }
+  .stat-n { font-size: 26px; }
   .hero-logo { width: 200px; }
-  .section-title { font-size: 32px; }
-  .cta-title { font-size: 32px; }
-  .stats-bar { flex-wrap: wrap; gap: 20px; }
+  .section-title { font-size: 30px; }
+  .cta-title { font-size: 30px; }
+  .stats-bar { flex-wrap: wrap; gap: 16px; padding: 20px; }
   .stat-divider { display: none; }
-}
-  .nav-links.open { display: flex; }
-  .nav-links a { padding: 12px 24px; border-radius: 0; }
-  .nav-inner { position: relative; }
-  .stat-item { padding: 0 24px; }
-  .stat-n { font-size: 28px; }
-  .hero-logo { width: 200px; }
-  .section-title { font-size: 32px; }
-  .cta-title { font-size: 32px; }
-  .stats-bar { flex-wrap: wrap; gap: 20px; }
-  .stat-divider { display: none; }
+  .cta-buttons { flex-direction: column; align-items: center; }
 }

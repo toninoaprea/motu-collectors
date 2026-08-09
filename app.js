@@ -5,29 +5,28 @@ function toggleMenu() {
   const toggle = document.getElementById('navToggle');
   links.classList.toggle('open');
   overlay.classList.toggle('active');
-  toggle.textContent = links.classList.contains('open') ? '✕' : '☰';
+  if (toggle) toggle.textContent = links.classList.contains('open') ? '✕' : '☰';
 }
 
 function closeMenu() {
-  document.getElementById('navLinks').classList.remove('open');
-  document.getElementById('navOverlay').classList.remove('active');
-  document.getElementById('navToggle').textContent = '☰';
+  const links = document.getElementById('navLinks');
+  const overlay = document.getElementById('navOverlay');
+  const toggle = document.getElementById('navToggle');
+  if (links) links.classList.remove('open');
+  if (overlay) overlay.classList.remove('active');
+  if (toggle) toggle.textContent = '☰';
 }
 
-function closeMenu() {
-  document.getElementById('navLinks').classList.remove('open');
-  document.getElementById('navOverlay').classList.remove('active');
-}
-
-// ── MODAL GUEST (quando utente non registrato preme ENTER) ──
+// ── MODAL GUEST ──
 function openGuestModal() {
-  document.getElementById('guestModal').classList.add('active');
+  const modal = document.getElementById('guestModal');
+  if (modal) modal.classList.add('active');
 }
 function closeGuestModal() {
-  document.getElementById('guestModal').classList.remove('active');
+  const modal = document.getElementById('guestModal');
+  if (modal) modal.classList.remove('active');
 }
 
-// Chiudi modal cliccando fuori
 document.addEventListener('click', function(e) {
   const modal = document.getElementById('guestModal');
   if (modal && e.target === modal) closeGuestModal();
@@ -44,7 +43,6 @@ function animateCount(el, target, suffix = '') {
   }, 30);
 }
 
-// Avvia animazione quando la stats-bar è visibile
 const observer = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
