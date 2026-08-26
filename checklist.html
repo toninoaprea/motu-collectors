@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Checklist – MOTU Collectors</title>
   <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="checklist.css" />
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
 </head>
 <body>
@@ -32,7 +33,7 @@
   <div class="modal-overlay active" id="guestModal">
     <div class="modal">
       <h2>WELCOME, COLLECTOR</h2>
-      <p>Register for free to check off your MOTU figures, track your collection value and compete on the leaderboard.</p>
+      <p>Register for free to check off your MOTU figures, track your collection value and compete on the leaderboard. Browsing without an account still lets you use the checklist — it will be saved on this device only.</p>
       <div class="modal-buttons">
         <a href="login.html" class="btn-main">REGISTER FOR FREE</a>
         <a href="#" class="btn-outline-dark" onclick="closeGuestModal(); return false;">BROWSE WITHOUT REGISTERING</a>
@@ -48,48 +49,8 @@
     </div>
   </section>
 
-  <!-- CHECKLIST CONTENT (placeholder — verrà integrata da Snack) -->
-  <section class="home-section">
-    <div class="section-inner">
-      <div class="section-eyebrow">CATALOG</div>
-      <h2 class="section-title">The Complete Collection</h2>
-      <p class="section-body">Browse all series, figures, variants and accessories. Register to check off what you own.</p>
-
-      <!-- Serie cards placeholder -->
-      <div class="feature-grid" id="seriesList">
-        <div class="feature-card" style="cursor:pointer" onclick="alert('Coming soon — checklist in arrivo!')">
-          <div class="feature-icon">⚔️</div>
-          <h3>CLASSIC LINE</h3>
-          <p>1981–1988 · Figures, Creatures, Vehicles, Playsets</p>
-        </div>
-        <div class="feature-card" style="cursor:pointer" onclick="alert('Coming soon!')">
-          <div class="feature-icon">👸</div>
-          <h3>SHE-RA</h3>
-          <p>Princess of Power · 1985–1987</p>
-        </div>
-        <div class="feature-card" style="cursor:pointer" onclick="alert('Coming soon!')">
-          <div class="feature-icon">🚀</div>
-          <h3>NEW ADVENTURES</h3>
-          <p>He-Man in Space · 1989–1992</p>
-        </div>
-        <div class="feature-card" style="cursor:pointer" onclick="alert('Coming soon!')">
-          <div class="feature-icon">🏆</div>
-          <h3>CLASSICS</h3>
-          <p>Collector line · 2008–2016</p>
-        </div>
-        <div class="feature-card" style="cursor:pointer" onclick="alert('Coming soon!')">
-          <div class="feature-icon">🌟</div>
-          <h3>ORIGINS</h3>
-          <p>Modern classic · 2020–present</p>
-        </div>
-        <div class="feature-card" style="cursor:pointer" onclick="alert('Coming soon!')">
-          <div class="feature-icon">🎭</div>
-          <h3>MASTERVERSE</h3>
-          <p>Premium line · 2021–present</p>
-        </div>
-      </div>
-    </div>
-  </section>
+  <!-- CHECKLIST APP -->
+  <div id="motuApp"></div>
 
   <footer class="footer">
     <div class="footer-inner">
@@ -100,5 +61,7 @@
   </footer>
 
   <script src="app.js"></script>
+  <script src="motu-data.js"></script>
+  <script src="checklist-app.js"></script>
 </body>
 </html>

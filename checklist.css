@@ -1,0 +1,219 @@
+/* ============================================================
+   MOTU COLLECTORS — CHECKLIST APP STYLES
+   Estende style.css riusando le stesse variabili (--red, --black, ecc.)
+   ============================================================ */
+
+.motu-app { background: var(--white); }
+
+/* ── App header / breadcrumb bar ── */
+.motu-appbar {
+  background: var(--red);
+  padding: 18px 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border-bottom: 3px solid var(--red-dark);
+}
+.motu-back {
+  background: none;
+  border: none;
+  color: var(--white);
+  font-size: 28px;
+  line-height: 1;
+  cursor: pointer;
+  padding: 0 4px;
+  font-family: var(--font-display);
+}
+.motu-appbar-titles { text-align: center; flex: 1; }
+.motu-appbar-title {
+  font-family: var(--font-display);
+  font-size: 22px;
+  letter-spacing: 2px;
+  color: var(--white);
+}
+.motu-appbar-sub {
+  font-size: 10px;
+  letter-spacing: 2px;
+  color: rgba(255,255,255,0.75);
+  margin-top: 2px;
+}
+.motu-appbar-spacer { width: 28px; }
+
+/* ── Stats row ── */
+.motu-stats {
+  display: flex;
+  border-bottom: 1px solid var(--gray-2);
+}
+.motu-stat {
+  flex: 1;
+  text-align: center;
+  padding: 12px 4px;
+  border-left: 1px solid var(--gray-2);
+}
+.motu-stat:first-child { border-left: none; }
+.motu-stat-n {
+  font-family: var(--font-display);
+  font-size: 22px;
+  color: var(--black);
+  letter-spacing: 1px;
+}
+.motu-stat-n.owned { color: #1a5c2e; }
+.motu-stat-n.missing { color: var(--red); }
+.motu-stat-l {
+  font-size: 9px;
+  letter-spacing: 2px;
+  color: var(--gray-3);
+  margin-top: 2px;
+}
+
+/* ── Progress bar ── */
+.motu-progress-wrap {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 16px;
+  border-bottom: 1px solid var(--gray-2);
+}
+.motu-progress-track {
+  flex: 1;
+  height: 7px;
+  background: var(--gray-1);
+  border: 1px solid var(--gray-2);
+}
+.motu-progress-fill { height: 100%; background: #1a5c2e; transition: width 0.2s ease; }
+.motu-progress-label {
+  font-size: 10px;
+  letter-spacing: 1px;
+  color: var(--gray-3);
+  white-space: nowrap;
+}
+
+/* ── Search ── */
+.motu-search {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  border-bottom: 1px solid var(--gray-2);
+}
+.motu-search input {
+  flex: 1;
+  border: none;
+  outline: none;
+  font-size: 14px;
+  font-family: var(--font-body);
+  padding: 8px 0;
+  background: transparent;
+  color: var(--black);
+}
+.motu-search-icon { color: var(--gray-3); font-size: 16px; }
+.motu-search-clear {
+  background: none; border: none; color: var(--gray-3); font-size: 14px; cursor: pointer;
+}
+
+/* ── Series / subcategory rows (list navigation) ── */
+.motu-list-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--gray-2);
+  cursor: pointer;
+  background: var(--white);
+  transition: background 0.1s;
+  text-align: left;
+  width: 100%;
+}
+.motu-list-row:hover { background: var(--gray-1); }
+.motu-list-row-logo { width: 40px; height: 40px; object-fit: contain; flex-shrink: 0; }
+.motu-list-row-emoji { font-size: 26px; width: 40px; text-align: center; flex-shrink: 0; }
+.motu-list-row-info { flex: 1; min-width: 0; }
+.motu-list-row-name {
+  font-family: var(--font-display);
+  font-size: 17px;
+  letter-spacing: 1px;
+  color: var(--black);
+}
+.motu-list-row-meta { font-size: 11px; color: var(--gray-3); margin: 3px 0 6px; }
+.motu-list-row-track { height: 4px; background: var(--gray-1); border: 1px solid var(--gray-2); width: 100%; }
+.motu-list-row-fill { height: 100%; background: #1a5c2e; }
+.motu-list-row-pct { font-family: var(--font-display); font-size: 16px; color: var(--black); width: 46px; text-align: right; }
+.motu-chevron { font-size: 22px; color: var(--gray-2); }
+
+/* ── Character checklist rows ── */
+.motu-char-block { border-bottom: 1px solid var(--gray-2); }
+.motu-char-row { display: flex; align-items: center; gap: 12px; padding: 12px 16px; }
+.motu-stamp {
+  width: 30px; height: 30px; border: 2px solid var(--gray-3);
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; flex-shrink: 0; background: none; padding: 0; border-radius: 2px;
+  font-size: 15px; color: transparent;
+}
+.motu-stamp.owned { border-color: #1a5c2e; background: #d4f0dd; color: #1a5c2e; }
+.motu-char-info { flex: 1; min-width: 0; }
+.motu-char-name { font-family: var(--font-display); font-size: 16px; letter-spacing: 0.5px; color: var(--black); }
+.motu-char-name.owned { color: var(--gray-3); text-decoration: line-through; }
+.motu-char-wave { font-size: 11px; color: var(--gray-3); margin-top: 2px; letter-spacing: 0.5px; }
+.motu-expand-btn { background: none; border: none; color: var(--gray-3); font-size: 14px; cursor: pointer; padding: 10px; flex-shrink: 0; }
+.motu-variant-row {
+  display: flex; align-items: center; gap: 10px; padding: 8px 16px 8px 46px;
+  background: var(--gray-1); cursor: pointer; border-top: 1px solid var(--gray-2);
+}
+.motu-variant-stamp {
+  width: 20px; height: 20px; border: 1.5px solid var(--gray-3);
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0; border-radius: 2px; font-size: 11px;
+}
+.motu-variant-stamp.owned { border-color: #1a5c2e; background: #d4f0dd; color: #1a5c2e; }
+.motu-variant-name { font-size: 13px; color: var(--black); letter-spacing: 0.5px; }
+.motu-variant-name.owned { color: var(--gray-3); text-decoration: line-through; }
+
+/* ── Empty state ── */
+.motu-empty { text-align: center; padding: 60px 20px; color: var(--gray-3); }
+.motu-empty-title { font-size: 14px; margin-bottom: 6px; }
+.motu-empty-sub { font-size: 12px; }
+
+/* ── Value page ── */
+.motu-value-total {
+  background: var(--black);
+  padding: 26px 20px;
+  text-align: center;
+  border-bottom: 3px solid var(--red);
+}
+.motu-value-total-label { color: rgba(255,255,255,0.5); font-size: 9px; letter-spacing: 3px; }
+.motu-value-total-amount { font-family: var(--font-display); font-size: 42px; color: var(--red-light); margin: 6px 0; letter-spacing: 1px; }
+.motu-value-total-sub { color: rgba(255,255,255,0.4); font-size: 10px; }
+
+.motu-filters { display: flex; gap: 8px; overflow-x: auto; padding: 10px 16px; border-bottom: 1px solid var(--gray-2); }
+.motu-filter-chip {
+  background: var(--white); border: 1.5px solid var(--gray-2); padding: 7px 14px;
+  font-size: 9px; letter-spacing: 1.5px; font-weight: 600; color: var(--black);
+  white-space: nowrap; cursor: pointer; border-radius: 20px;
+}
+.motu-filter-chip.active { background: var(--black); color: var(--white); border-color: var(--black); }
+
+.motu-value-header {
+  display: flex; align-items: center; padding: 8px 12px; background: var(--gray-1);
+  border-bottom: 1px solid var(--gray-2); font-size: 8px; letter-spacing: 1.5px; color: var(--gray-3);
+}
+.motu-value-row { display: flex; align-items: center; padding: 10px 12px; border-bottom: 1px solid var(--gray-2); gap: 4px; }
+.motu-value-name { font-size: 13px; color: var(--black); font-weight: 600; }
+.motu-value-sub { font-size: 9px; color: var(--gray-3); }
+.motu-value-variant { font-size: 11px; color: var(--gray-3); }
+.motu-value-cell { width: 58px; display: flex; flex-direction: column; align-items: center; gap: 3px; cursor: pointer; }
+.motu-value-check { width: 17px; height: 17px; border: 1.5px solid var(--gray-2); border-radius: 2px; display: flex; align-items: center; justify-content: center; font-size: 10px; }
+.motu-value-check.on { border-color: #1a5c2e; background: #d4f0dd; color: #1a5c2e; }
+.motu-value-price { font-size: 9px; color: var(--gray-3); }
+.motu-value-price.on { color: #1a5c2e; }
+.motu-value-linetotal { width: 58px; text-align: right; font-size: 11px; font-weight: 600; color: var(--black); }
+
+.motu-value-cta {
+  display: block; margin: 20px auto; background: var(--black); color: var(--white);
+  border: 2px solid var(--red); font-family: var(--font-display); font-size: 14px;
+  letter-spacing: 3px; padding: 14px 30px; text-align: center; cursor: pointer;
+  text-decoration: none;
+}
+
+@media (max-width: 640px) {
+  .motu-value-name { max-width: 90px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .motu-value-variant { max-width: 60px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+}
