@@ -18,11 +18,14 @@
   background: none;
   border: none;
   color: var(--white);
-  font-size: 28px;
+  font-size: 40px;
   line-height: 1;
   cursor: pointer;
-  padding: 0 4px;
+  padding: 4px 10px;
   font-family: var(--font-display);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .motu-appbar-titles { text-align: center; flex: 1; }
 .motu-appbar-title {
@@ -37,7 +40,7 @@
   color: rgba(255,255,255,0.75);
   margin-top: 2px;
 }
-.motu-appbar-spacer { width: 28px; }
+.motu-appbar-spacer { width: 48px; }
 
 /* ── Stats row ── */
 .motu-stats {
