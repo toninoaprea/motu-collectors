@@ -6,7 +6,7 @@
 
 // Default Loose/MOC per serie (usato nella pagina Collection Value)
 const SERIE_DEFAULTS = {
-  'CLASSIC LINE': 'LOOSE',
+  'VINTAGE LINE': 'LOOSE',
   'SHE-RA': 'LOOSE',
   'NEW ADVENTURES': 'LOOSE',
   'COMMEMORATIVE': 'MOC',
@@ -21,7 +21,7 @@ const SERIE_DEFAULTS = {
 };
 
 const CATALOG = {
-  'CLASSIC LINE': {
+  'VINTAGE LINE': {
     'FIGURES': [
       { id: 'motu-cl-f-001', name: 'HE-MAN', year: '1981', wave: '1981 - WAVE 1', variants: [
         { id: 'motu-cl-f-001-a', name: '8 Back', priceLoose: 0, priceMOC: 0 },

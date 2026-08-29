@@ -13,7 +13,7 @@
 
   // Loghi disponibili per serie (file presenti in /img)
   const SERIE_LOGOS = {
-    'CLASSIC LINE': 'img/logo-classic.png',
+    'VINTAGE LINE': 'img/logo-classic.png',
     'SHE-RA': 'img/logo-shera.png',
     'NEW ADVENTURES': 'img/logo-newadventures.png',
     '200x': 'img/logo-200x.png',
@@ -25,7 +25,7 @@
     'CHRONICLES': 'img/logo-2026.png',
   };
   const SERIE_EMOJI = {
-    'CLASSIC LINE': '⚔️', 'SHE-RA': '👸', 'NEW ADVENTURES': '🚀',
+    'VINTAGE LINE': '⚔️', 'SHE-RA': '👸', 'NEW ADVENTURES': '🚀',
     'COMMEMORATIVE': '🏅', '200x': '🌟', 'CLASSICS': '🏆', 'SUPER 7': '💥',
     'ETERNIA MINIS': '🧩', 'MONDO': '🎭', 'ORIGINS': '✨', 'MASTERVERSE': '👑',
     'CHRONICLES': '🎬',
@@ -53,8 +53,8 @@
   let selectedSub = null;
   let homeQuery = '';
   let valueQuery = '';
-  let valueFilterSerie = 'TUTTE';
-  let valueFilterSub = 'TUTTE';
+  let valueFilterSerie = 'ALL';
+  let valueFilterSub = 'ALL';
 
   const root = document.getElementById('motuApp');
   if (!root) return;
@@ -85,13 +85,13 @@
   function statsBar(stats) {
     return `
       <div class="motu-stats">
-        <div class="motu-stat"><div class="motu-stat-n">${stats.total}</div><div class="motu-stat-l">TOTALE</div></div>
-        <div class="motu-stat"><div class="motu-stat-n owned">${stats.owned}</div><div class="motu-stat-l">POSSEDUTI</div></div>
-        <div class="motu-stat"><div class="motu-stat-n missing">${stats.missing}</div><div class="motu-stat-l">MANCANTI</div></div>
+        <div class="motu-stat"><div class="motu-stat-n">${stats.total}</div><div class="motu-stat-l">TOTAL</div></div>
+        <div class="motu-stat"><div class="motu-stat-n owned">${stats.owned}</div><div class="motu-stat-l">OWNED</div></div>
+        <div class="motu-stat"><div class="motu-stat-n missing">${stats.missing}</div><div class="motu-stat-l">MISSING</div></div>
       </div>
       <div class="motu-progress-wrap">
         <div class="motu-progress-track"><div class="motu-progress-fill" style="width:${stats.pct}%"></div></div>
-        <div class="motu-progress-label">${stats.pct}% completato</div>
+        <div class="motu-progress-label">${stats.pct}% complete</div>
       </div>
     `;
   }
@@ -161,7 +161,7 @@
     if (isSearching) {
       listHtml = results.length
         ? results.map(renderCharacterRow).join('')
-        : `<div class="motu-empty"><div class="motu-empty-title">Nessun risultato per "${esc(homeQuery)}"</div></div>`;
+        : `<div class="motu-empty"><div class="motu-empty-title">No results for "${esc(homeQuery)}"</div></div>`;
     } else {
       listHtml = series.map(serie => {
         const st = getStats(ownedIds, serie, null);
@@ -174,7 +174,7 @@
                     : `<div class="motu-list-row-emoji">${emoji}</div>`}
             <div class="motu-list-row-info">
               <div class="motu-list-row-name">${esc(serie)}</div>
-              <div class="motu-list-row-meta">${subCount} categorie · ${st.owned}/${st.total} posseduti</div>
+              <div class="motu-list-row-meta">${subCount} categories · ${st.owned}/${st.total} owned</div>
               <div class="motu-list-row-track"><div class="motu-list-row-fill" style="width:${st.pct}%"></div></div>
             </div>
             <div class="motu-list-row-pct">${st.pct}%</div>
@@ -188,7 +188,7 @@
       <div class="motu-app">
         ${appbar('MOTU COLLECTOR', 'THE CHECKLIST APP', false)}
         ${statsBar(stats)}
-        ${searchBar('Cerca in tutto il catalogo...', homeQuery, 'home-search', 'home-search-clear')}
+        ${searchBar('Search the entire catalog...', homeQuery, 'home-search', 'home-search-clear')}
         <div>${listHtml}</div>
         <a class="motu-value-cta" href="#" data-action="open-value">💰 COLLECTION VALUE</a>
       </div>
@@ -205,7 +205,7 @@
         <button class="motu-list-row" data-action="open-sub" data-sub="${esc(sub)}">
           <div class="motu-list-row-info">
             <div class="motu-list-row-name">${esc(sub)}</div>
-            <div class="motu-list-row-meta">${st.owned}/${st.total} posseduti</div>
+            <div class="motu-list-row-meta">${st.owned}/${st.total} owned</div>
             <div class="motu-list-row-track"><div class="motu-list-row-fill" style="width:${st.pct}%"></div></div>
           </div>
           <div class="motu-list-row-pct">${st.pct}%</div>
@@ -229,7 +229,7 @@
     const stats = getStats(ownedIds, selectedSerie, selectedSub);
     const listHtml = items.length
       ? items.map(renderCharacterRow).join('')
-      : `<div class="motu-empty"><div class="motu-empty-title">Nessun elemento.</div></div>`;
+      : `<div class="motu-empty"><div class="motu-empty-title">No items.</div></div>`;
 
     root.innerHTML = `
       <div class="motu-app">
@@ -243,12 +243,12 @@
   // ── SCHERMATA: COLLECTION VALUE ──
   function renderValueScreen() {
     const allRows = getValueRows(ownedIds, valueIds);
-    const serieOptions = ['TUTTE'].concat(Object.keys(CATALOG));
-    const subOptions = valueFilterSerie === 'TUTTE' ? [] : ['TUTTE'].concat(Object.keys(CATALOG[valueFilterSerie] || {}));
+    const serieOptions = ['ALL'].concat(Object.keys(CATALOG));
+    const subOptions = valueFilterSerie === 'ALL' ? [] : ['ALL'].concat(Object.keys(CATALOG[valueFilterSerie] || {}));
 
     const filtered = allRows.filter(row => {
-      const matchSerie = valueFilterSerie === 'TUTTE' || row.serie === valueFilterSerie;
-      const matchSub = valueFilterSub === 'TUTTE' || row.sub === valueFilterSub;
+      const matchSerie = valueFilterSerie === 'ALL' || row.serie === valueFilterSerie;
+      const matchSub = valueFilterSub === 'ALL' || row.sub === valueFilterSub;
       const q = valueQuery.toLowerCase();
       const matchQuery = !q || row.name.toLowerCase().includes(q) || row.variant.toLowerCase().includes(q);
       return matchSerie && matchSub && matchQuery;
@@ -257,7 +257,7 @@
 
     const chipsSerie = serieOptions.map(opt => `
       <button class="motu-filter-chip ${valueFilterSerie === opt ? 'active' : ''}" data-action="value-filter-serie" data-value="${esc(opt)}">
-        ${opt === 'TUTTE' ? 'TUTTE LE SERIE' : esc(opt)}
+        ${opt === 'ALL' ? 'ALL SERIES' : esc(opt)}
       </button>
     `).join('');
     const chipsSub = subOptions.length ? `<div class="motu-filters">${subOptions.map(opt => `
@@ -281,21 +281,21 @@
         </div>
         <div class="motu-value-linetotal">${row.total > 0 ? '€' + row.total : '-'}</div>
       </div>
-    `).join('') : `<div class="motu-empty"><div class="motu-empty-title">Nessun elemento posseduto.</div><div class="motu-empty-sub">Spunta i personaggi nella checklist per vederli qui.</div></div>`;
+    `).join('') : `<div class="motu-empty"><div class="motu-empty-title">No items owned yet.</div><div class="motu-empty-sub">Check off characters in the checklist to see them here.</div></div>`;
 
     root.innerHTML = `
       <div class="motu-app">
         ${appbar('VALUE', 'COLLECTION VALUE', true)}
         <div class="motu-value-total">
-          <div class="motu-value-total-label">VALORE TOTALE COLLEZIONE</div>
-          <div class="motu-value-total-amount">€ ${grandTotal.toLocaleString('it-IT')}</div>
-          <div class="motu-value-total-sub">${filtered.length} elementi in lista</div>
+          <div class="motu-value-total-label">TOTAL COLLECTION VALUE</div>
+          <div class="motu-value-total-amount">€ ${grandTotal.toLocaleString('en-US')}</div>
+          <div class="motu-value-total-sub">${filtered.length} items listed</div>
         </div>
-        ${searchBar('Cerca nella pricelist...', valueQuery, 'value-search', 'value-search-clear')}
+        ${searchBar('Search the pricelist...', valueQuery, 'value-search', 'value-search-clear')}
         <div class="motu-filters">${chipsSerie}</div>
         ${chipsSub}
         <div class="motu-value-header">
-          <div style="flex:2;">PERSONAGGIO</div><div style="flex:1.3;">VARIANTE</div>
+          <div style="flex:2;">CHARACTER</div><div style="flex:1.3;">VARIANT</div>
           <div style="width:58px;text-align:center;">LOOSE</div><div style="width:58px;text-align:center;">MOC</div>
           <div style="width:58px;text-align:right;">TOT</div>
         </div>
@@ -356,7 +356,7 @@
         break;
       case 'value-filter-serie':
         valueFilterSerie = el.getAttribute('data-value');
-        valueFilterSub = 'TUTTE';
+        valueFilterSub = 'ALL';
         render();
         break;
       case 'value-filter-sub':
