@@ -28,7 +28,7 @@
     'VINTAGE LINE': '⚔️', 'SHE-RA': '👸', 'NEW ADVENTURES': '🚀',
     'COMMEMORATIVE': '🏅', '200x': '🌟', 'CLASSICS': '🏆', 'SUPER 7': '💥',
     'ETERNIA MINIS': '🧩', 'MONDO': '🎭', 'ORIGINS': '✨', 'MASTERVERSE': '👑',
-    'CHRONICLES': '🎬',
+    'CHRONICLES': '🎬', 'TEST': '🧪',
   };
 
   // ── STATO PERSISTENTE (localStorage) ──
@@ -114,10 +114,14 @@
     const expanded = !!expandedIds[item.id];
     const hasVariants = Array.isArray(item.variants) && item.variants.length > 0;
     const metaLine = [item.wave, item.serie ? (item.serie + ' · ' + item.sub) : null].filter(Boolean).join(' · ');
+    const thumb = item.image
+      ? `<img class="motu-char-thumb" src="${esc(item.image)}" alt="${esc(item.name)}" onerror="this.outerHTML='<div class=&quot;motu-char-thumb motu-char-thumb-placeholder&quot;>🖼️</div>'">`
+      : '';
     let html = `
       <div class="motu-char-block">
         <div class="motu-char-row">
           <button class="motu-stamp ${owned ? 'owned' : ''}" data-action="toggle-owned" data-id="${esc(item.id)}">${owned ? '✓' : ''}</button>
+          ${thumb}
           <div class="motu-char-info">
             <div class="motu-char-name ${owned ? 'owned' : ''}">${esc(item.name)}</div>
             <div class="motu-char-wave">${esc(metaLine)}</div>
