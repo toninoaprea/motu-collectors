@@ -74,6 +74,28 @@
     render();
   }
 
+  // ── LIGHTBOX FOTO ──
+  // Al momento mostra solo l'immagine ingrandita. In futuro si può sostituire
+  // "openPhotoLightbox" con una navigazione verso una vera pagina/galleria foto
+  // per quel personaggio, senza toccare il resto dell'app.
+  let lightboxEl = null;
+  function openPhotoLightbox(imageSrc, name) {
+    closePhotoLightbox();
+    lightboxEl = document.createElement('div');
+    lightboxEl.className = 'motu-lightbox';
+    lightboxEl.innerHTML = `
+      <div class="motu-lightbox-inner">
+        <button class="motu-lightbox-close" aria-label="Chiudi">✕</button>
+        <img class="motu-lightbox-img" src="${esc(imageSrc)}" alt="${esc(name)}">
+        <div class="motu-lightbox-caption">${esc(name)}</div>
+      </div>
+    `;
+    document.body.appendChild(lightboxEl);
+  }
+  function closePhotoLightbox() {
+    if (lightboxEl) { lightboxEl.remove(); lightboxEl = null; }
+  }
+
   function esc(str) {
     return String(str == null ? '' : str).replace(/[&<>"']/g, c => ({
       '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;',
@@ -115,7 +137,10 @@
     const hasVariants = Array.isArray(item.variants) && item.variants.length > 0;
     const metaLine = [item.wave, item.serie ? (item.serie + ' · ' + item.sub) : null].filter(Boolean).join(' · ');
     const thumb = item.image
-      ? `<img class="motu-char-thumb" src="${esc(item.image)}" alt="${esc(item.name)}" onerror="this.outerHTML='<div class=&quot;motu-char-thumb motu-char-thumb-placeholder&quot;>🖼️</div>'">`
+      ? `<button class="motu-char-thumb-btn" data-action="open-photo" data-image="${esc(item.image)}" data-name="${esc(item.name)}">
+           <img class="motu-char-thumb" src="${esc(item.image)}" alt="${esc(item.name)}" onerror="this.parentElement.outerHTML='<div class=&quot;motu-char-thumb motu-char-thumb-placeholder&quot;>🖼️</div>'">
+           <span class="motu-char-thumb-zoom">🔍</span>
+         </button>`
       : '';
     let html = `
       <div class="motu-char-block">
@@ -349,6 +374,9 @@
       case 'toggle-expand':
         toggleExpand(el.getAttribute('data-id'));
         break;
+      case 'open-photo':
+        openPhotoLightbox(el.getAttribute('data-image'), el.getAttribute('data-name'));
+        break;
       case 'toggle-value':
         toggleValue(el.getAttribute('data-key'));
         break;
@@ -386,6 +414,18 @@
       const input = root.querySelector('[data-action="value-search"]');
       if (input) { input.focus(); input.setSelectionRange(input.value.length, input.value.length); }
     }
+  });
+
+  // Il lightbox vive fuori da #motuApp, quindi serve un listener a livello di documento.
+  // Chiude solo cliccando lo sfondo o la X — mai cliccando la foto stessa.
+  document.addEventListener('click', function (e) {
+    if (!lightboxEl) return;
+    if (e.target === lightboxEl || e.target.closest('.motu-lightbox-close')) {
+      closePhotoLightbox();
+    }
+  });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') closePhotoLightbox();
   });
 
   // ── AVVIO ──
