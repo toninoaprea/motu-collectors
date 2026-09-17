@@ -1113,7 +1113,14 @@ const CATALOG = {
   'TEST': {
     'FIGURES': [
       { id: 'test-001', name: 'HE-MAN (TEST)', year: '2024', wave: 'TEST', image: 'img/characters/test-001.jpg', priceLoose: 0, priceMOC: 0, variants: [] },
-      { id: 'test-002', name: 'SKELETOR (TEST)', year: '2024', wave: 'TEST', image: 'img/characters/test-002.png', priceLoose: 0, priceMOC: 0, variants: [] },
+      { id: 'test-002', name: 'SKELETOR (TEST)', year: '2024', wave: 'TEST', images: [
+        'img/characters/test-002-1.webp',
+        'img/characters/test-002-2.webp',
+        'img/characters/test-002-3.webp',
+        'img/characters/test-002-4.webp',
+        'img/characters/test-002-5.webp',
+        'img/characters/test-002-6.webp',
+      ], priceLoose: 0, priceMOC: 0, variants: [] },
       { id: 'test-003', name: 'BEAST MAN (TEST)', year: '2024', wave: 'TEST', image: 'img/characters/test-003.jpg', priceLoose: 0, priceMOC: 0, variants: [] },
       { id: 'test-004', name: 'TEELA (TEST)', year: '2024', wave: 'TEST', image: 'img/characters/test-004.jpg', priceLoose: 0, priceMOC: 0, variants: [] },
       { id: 'test-005', name: 'MAN-AT-ARMS (TEST)', year: '2024', wave: 'TEST', image: 'img/characters/test-005.jpg', priceLoose: 0, priceMOC: 0, variants: [] },

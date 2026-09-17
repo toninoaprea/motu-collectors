@@ -74,32 +74,85 @@
     render();
   }
 
-  // ── LIGHTBOX FOTO ──
-  // Al momento mostra solo l'immagine ingrandita. In futuro si può sostituire
-  // "openPhotoLightbox" con una navigazione verso una vera pagina/galleria foto
-  // per quel personaggio, senza toccare il resto dell'app.
+  // ── LIGHTBOX GALLERIA FOTO ──
+  // Mostra tutte le foto di un personaggio con frecce avanti/indietro e
+  // miniature di navigazione. In futuro si può sostituire con una vera
+  // pagina/galleria dedicata, senza toccare il resto dell'app.
   let lightboxEl = null;
-  function openPhotoLightbox(imageSrc, name) {
-    closePhotoLightbox();
-    lightboxEl = document.createElement('div');
-    lightboxEl.className = 'motu-lightbox';
-    lightboxEl.innerHTML = `
-      <div class="motu-lightbox-inner">
-        <button class="motu-lightbox-close" aria-label="Chiudi">✕</button>
-        <img class="motu-lightbox-img" src="${esc(imageSrc)}" alt="${esc(name)}">
-        <div class="motu-lightbox-caption">${esc(name)}</div>
-      </div>
-    `;
-    document.body.appendChild(lightboxEl);
+  let lightboxImages = [];
+  let lightboxIndex = 0;
+  let lightboxName = '';
+
+  function openPhotoLightbox(imagesJson, name) {
+    let images = [];
+    try { images = JSON.parse(imagesJson) || []; } catch (e) { images = []; }
+    if (!images.length) return;
+    lightboxImages = images;
+    lightboxIndex = 0;
+    lightboxName = name;
+    if (!lightboxEl) {
+      lightboxEl = document.createElement('div');
+      lightboxEl.className = 'motu-lightbox';
+      document.body.appendChild(lightboxEl);
+    }
+    renderLightbox();
   }
+
   function closePhotoLightbox() {
     if (lightboxEl) { lightboxEl.remove(); lightboxEl = null; }
+    lightboxImages = []; lightboxIndex = 0; lightboxName = '';
+  }
+
+  function lightboxGo(delta) {
+    if (!lightboxImages.length) return;
+    lightboxIndex = (lightboxIndex + delta + lightboxImages.length) % lightboxImages.length;
+    renderLightbox();
+  }
+
+  function lightboxGoTo(i) {
+    if (i < 0 || i >= lightboxImages.length) return;
+    lightboxIndex = i;
+    renderLightbox();
+  }
+
+  function renderLightbox() {
+    if (!lightboxEl) return;
+    const hasMultiple = lightboxImages.length > 1;
+    const thumbsHtml = hasMultiple
+      ? `<div class="motu-lightbox-thumbs">${lightboxImages.map((src, i) => `
+          <button class="motu-lightbox-thumb ${i === lightboxIndex ? 'active' : ''}" data-action="photo-thumb" data-index="${i}">
+            <img src="${esc(src)}" alt="">
+          </button>
+        `).join('')}</div>`
+      : '';
+    lightboxEl.innerHTML = `
+      <div class="motu-lightbox-inner">
+        <button class="motu-lightbox-close" data-action="close-photo" aria-label="Chiudi">✕</button>
+        <div class="motu-lightbox-stage">
+          ${hasMultiple ? `<button class="motu-lightbox-nav motu-lightbox-prev" data-action="photo-prev" aria-label="Precedente">‹</button>` : ''}
+          <img class="motu-lightbox-img" src="${esc(lightboxImages[lightboxIndex])}" alt="${esc(lightboxName)}">
+          ${hasMultiple ? `<button class="motu-lightbox-nav motu-lightbox-next" data-action="photo-next" aria-label="Successiva">›</button>` : ''}
+        </div>
+        <div class="motu-lightbox-caption">
+          ${esc(lightboxName)}${hasMultiple ? ` <span class="motu-lightbox-count">${lightboxIndex + 1} / ${lightboxImages.length}</span>` : ''}
+        </div>
+        ${thumbsHtml}
+      </div>
+    `;
   }
 
   function esc(str) {
     return String(str == null ? '' : str).replace(/[&<>"']/g, c => ({
       '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;',
     }[c]));
+  }
+
+  // Ritorna sempre un array di immagini per un item, sia che usi il campo
+  // singolo "image" (retrocompatibile) sia il nuovo campo "images" (galleria).
+  function getItemImages(item) {
+    if (Array.isArray(item.images) && item.images.length) return item.images;
+    if (item.image) return [item.image];
+    return [];
   }
 
   // ── COMPONENTI HTML ──
@@ -136,9 +189,11 @@
     const expanded = !!expandedIds[item.id];
     const hasVariants = Array.isArray(item.variants) && item.variants.length > 0;
     const metaLine = [item.wave, item.serie ? (item.serie + ' · ' + item.sub) : null].filter(Boolean).join(' · ');
-    const thumb = item.image
-      ? `<button class="motu-char-thumb-btn" data-action="open-photo" data-image="${esc(item.image)}" data-name="${esc(item.name)}">
-           <img class="motu-char-thumb" src="${esc(item.image)}" alt="${esc(item.name)}" onerror="this.parentElement.outerHTML='<div class=&quot;motu-char-thumb motu-char-thumb-placeholder&quot;>🖼️</div>'">
+    const images = getItemImages(item);
+    const thumbSrc = images[0];
+    const thumb = thumbSrc
+      ? `<button class="motu-char-thumb-btn" data-action="open-photo" data-images="${esc(JSON.stringify(images))}" data-name="${esc(item.name)}">
+           <img class="motu-char-thumb" src="${esc(thumbSrc)}" alt="${esc(item.name)}" onerror="this.parentElement.outerHTML='<div class=&quot;motu-char-thumb motu-char-thumb-placeholder&quot;>🖼️</div>'">
            <span class="motu-char-thumb-zoom">🔍</span>
          </button>`
       : '';
@@ -375,7 +430,7 @@
         toggleExpand(el.getAttribute('data-id'));
         break;
       case 'open-photo':
-        openPhotoLightbox(el.getAttribute('data-image'), el.getAttribute('data-name'));
+        openPhotoLightbox(el.getAttribute('data-images'), el.getAttribute('data-name'));
         break;
       case 'toggle-value':
         toggleValue(el.getAttribute('data-key'));
@@ -420,12 +475,21 @@
   // Chiude solo cliccando lo sfondo o la X — mai cliccando la foto stessa.
   document.addEventListener('click', function (e) {
     if (!lightboxEl) return;
-    if (e.target === lightboxEl || e.target.closest('.motu-lightbox-close')) {
-      closePhotoLightbox();
+    const navEl = e.target.closest('[data-action]');
+    if (navEl) {
+      const action = navEl.getAttribute('data-action');
+      if (action === 'photo-prev') { lightboxGo(-1); return; }
+      if (action === 'photo-next') { lightboxGo(1); return; }
+      if (action === 'photo-thumb') { lightboxGoTo(parseInt(navEl.getAttribute('data-index'), 10)); return; }
+      if (action === 'close-photo') { closePhotoLightbox(); return; }
     }
+    if (e.target === lightboxEl) closePhotoLightbox();
   });
   document.addEventListener('keydown', function (e) {
+    if (!lightboxEl) return;
     if (e.key === 'Escape') closePhotoLightbox();
+    else if (e.key === 'ArrowLeft') lightboxGo(-1);
+    else if (e.key === 'ArrowRight') lightboxGo(1);
   });
 
   // ── AVVIO ──
