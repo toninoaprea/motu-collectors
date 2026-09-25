@@ -12,7 +12,14 @@
   const MUSEUM_SERIES = ['VINTAGE LINE'];
 
   const PLACEHOLDER_IMG = 'img/characters/base.png';
-  const FIGURES_PER_SHELF = 8; // quante figure per mensola (desktop)
+  // Personaggi per mensola, responsive: 4 su mobile, 8 su tablet portrait,
+  // 12 su tablet landscape/desktop.
+  function getFiguresPerShelf() {
+    const w = window.innerWidth;
+    if (w < 640) return 4;
+    if (w < 1024) return 8;
+    return 12;
+  }
 
   const filtersEl = document.getElementById('museumFilters');
   const shelvesEl = document.getElementById('museumShelves');
@@ -62,12 +69,13 @@
 
   function renderShelves() {
     const entries = collectItems();
+    const perShelf = getFiguresPerShelf();
     let html = `<div class="museum-filter-count">${entries.length} PEZZI ESPOSTI</div>`;
-    for (let i = 0; i < entries.length; i += FIGURES_PER_SHELF) {
-      const rowEntries = entries.slice(i, i + FIGURES_PER_SHELF);
+    for (let i = 0; i < entries.length; i += perShelf) {
+      const rowEntries = entries.slice(i, i + perShelf);
       html += `
         <div class="museum-shelf">
-          <div class="museum-shelf-figures">
+          <div class="museum-shelf-figures cols-${perShelf}">
             ${rowEntries.map((e, idx) => {
               const images = getItemImages(e.item);
               return `
@@ -178,6 +186,21 @@
     if (e.key === 'Escape') closeCard();
     else if (e.key === 'ArrowLeft') cardGo(-1);
     else if (e.key === 'ArrowRight') cardGo(1);
+  });
+
+  // Ricompone gli scaffali se cambia la larghezza (rotazione telefono/tablet,
+  // ridimensionamento finestra), ma senza ricalcolare ad ogni pixel.
+  let resizeTimer = null;
+  let lastPerShelf = getFiguresPerShelf();
+  window.addEventListener('resize', function () {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(function () {
+      const current = getFiguresPerShelf();
+      if (current !== lastPerShelf) {
+        lastPerShelf = current;
+        renderShelves();
+      }
+    }, 150);
   });
 
   // ── AVVIO ──
