@@ -80,13 +80,18 @@
               const images = getItemImages(e.item);
               return `
                 <button class="museum-figure-btn" data-action="open-card" data-index="${i + idx}">
-                  <img class="museum-figure-img" src="${esc(images[0])}" alt="${esc(e.item.name)}" onerror="this.src='${PLACEHOLDER_IMG}'">
-                  <div class="museum-figure-name">${esc(e.item.name)}</div>
+                  <span class="museum-figure-img-wrap">
+                    <img class="museum-figure-img" src="${esc(images[0])}" alt="${esc(e.item.name)}" onerror="this.src='${PLACEHOLDER_IMG}'">
+                  </span>
+                  <span class="museum-figure-shadow"></span>
                 </button>
               `;
             }).join('')}
           </div>
           <div class="museum-shelf-plank"></div>
+          <div class="museum-shelf-names cols-${perShelf}">
+            ${rowEntries.map(e => `<div class="museum-name-cell">${esc(e.item.name)}</div>`).join('')}
+          </div>
         </div>
       `;
     }
