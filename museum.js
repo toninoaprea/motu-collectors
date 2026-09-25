@@ -9,7 +9,7 @@
   // Serie attualmente "in mostra" nel museo. Per aggiungere una nuova serie
   // in futuro basta aggiungerla a questo array: comparirà nel filtro e nello
   // scaffale senza altre modifiche al codice.
-  const MUSEUM_SERIES = ['VINTAGE LINE'];
+  const MUSEUM_SERIES = Object.keys(CATALOG);
 
   const PLACEHOLDER_IMG = 'img/characters/base.png';
   // Personaggi per mensola, responsive: 4 su mobile, 8 su tablet portrait,
