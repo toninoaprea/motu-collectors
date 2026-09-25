@@ -136,19 +136,28 @@
 
   function renderCard(entry) {
     const hasMultiple = cardImages.length > 1;
-    const metaLine = [entry.item.year !== '-' ? entry.item.year : null, entry.item.wave, entry.serie + ' \u00b7 ' + entry.sub].filter(Boolean).join(' \u00b7 ');
+    const metaLine = [
+      entry.item.year && entry.item.year !== '-' ? entry.item.year : null,
+      entry.item.wave && entry.item.wave !== '-' ? entry.item.wave : null,
+      entry.serie,
+      entry.sub,
+    ].filter(Boolean).join(' \u00b7 ');
     cardEl.innerHTML = `
       <div class="museum-card">
         <button class="museum-card-close" data-action="close-card" aria-label="Chiudi">\u2715</button>
-        <div class="museum-card-stage">
-          ${hasMultiple ? `<button class="museum-card-nav prev" data-action="card-prev" aria-label="Precedente">\u2039</button>` : ''}
-          <img class="museum-card-img" src="${esc(cardImages[cardIndex])}" alt="${esc(entry.item.name)}" onerror="this.src='${PLACEHOLDER_IMG}'">
-          ${hasMultiple ? `<button class="museum-card-nav next" data-action="card-next" aria-label="Successiva">\u203a</button>` : ''}
-        </div>
-        <div class="museum-card-body">
-          <div class="museum-card-name">${esc(entry.item.name)}</div>
-          <div class="museum-card-meta">${esc(metaLine)}</div>
-          <div class="museum-card-desc">Descrizione in arrivo.</div>
+        <div class="museum-card-layout">
+          <div class="museum-card-info">
+            <div class="museum-card-name">${esc(entry.item.name)}</div>
+            <div class="museum-card-meta">${esc(metaLine)}</div>
+            <div class="museum-card-desc">Descrizione in arrivo.</div>
+          </div>
+          <div class="museum-card-gallery">
+            <div class="museum-card-stage">
+              ${hasMultiple ? `<button class="museum-card-nav prev" data-action="card-prev" aria-label="Precedente">\u2039</button>` : ''}
+              <img class="museum-card-img" src="${esc(cardImages[cardIndex])}" alt="${esc(entry.item.name)}" onerror="this.src='${PLACEHOLDER_IMG}'">
+              ${hasMultiple ? `<button class="museum-card-nav next" data-action="card-next" aria-label="Successiva">\u203a</button>` : ''}
+            </div>
+          </div>
         </div>
       </div>
     `;
