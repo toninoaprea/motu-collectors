@@ -28,7 +28,7 @@
     'VINTAGE LINE': '⚔️', 'SHE-RA': '👸', 'NEW ADVENTURES': '🚀',
     'COMMEMORATIVE': '🏅', '200x': '🌟', 'CLASSICS': '🏆', 'SUPER 7': '💥',
     'ETERNIA MINIS': '🧩', 'MONDO': '🎭', 'ORIGINS': '✨', 'MASTERVERSE': '👑',
-    'CHRONICLES': '🎬', 'TEST': '🧪',
+    'CHRONICLES': '🎬',
   };
 
   // ── STATO PERSISTENTE (localStorage) ──
