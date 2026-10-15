@@ -1,0 +1,110 @@
+/* ============================================================
+   MOBILE NAV FIX (iPhone / iOS Safari) — caricare DOPO style.css
+   e dopo museum.css / checklist.css
+   ============================================================ */
+body.nav-locked { overflow: hidden; position: fixed; width: 100%; left: 0; right: 0; }
+
+@media (max-width: 768px) {
+  html, body { overflow-x: hidden; }
+
+  .navbar {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    padding-top: env(safe-area-inset-top);
+  }
+
+  .nav-toggle {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    min-width: 44px;
+    min-height: 44px;
+    font-size: 28px;
+    line-height: 1;
+    background: none;
+    border: 0;
+    color: #fff;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+    position: relative;
+    z-index: 1002;
+  }
+
+  /* Drawer laterale */
+  .nav-links {
+    position: fixed !important;
+    top: 0 !important;
+    right: 0 !important;
+    left: auto !important;
+    bottom: auto !important;
+    width: min(82vw, 320px) !important;
+    height: 100vh !important;
+    height: 100dvh !important;
+    margin: 0 !important;
+    padding: calc(72px + env(safe-area-inset-top)) 0 0 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 0 !important;
+    list-style: none;
+    background: var(--red-dark, #8f0f0f) !important;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
+    transform: translate3d(100%, 0, 0) !important;
+    -webkit-transform: translate3d(100%, 0, 0) !important;
+    visibility: hidden;
+    transition: transform .28s ease, visibility 0s linear .28s;
+    z-index: 1001;
+    box-shadow: -8px 0 24px rgba(0,0,0,.35);
+  }
+  .nav-links.open {
+    transform: translate3d(0, 0, 0) !important;
+    -webkit-transform: translate3d(0, 0, 0) !important;
+    visibility: visible;
+    transition: transform .28s ease, visibility 0s;
+  }
+  .nav-links li { list-style: none; width: 100%; }
+  .nav-links li a {
+    display: block;
+    padding: 16px 24px;
+    border-bottom: 1px solid rgba(255,255,255,.12);
+    font-size: 16px;
+  }
+  .nav-links li:has(> .nav-login) { display: none; }
+
+  .nav-mobile-actions {
+    display: flex !important;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: auto;
+    padding: 20px 24px calc(24px + env(safe-area-inset-bottom));
+    border-top: 1px solid rgba(255,255,255,.2);
+  }
+
+  /* Overlay scuro dietro il drawer */
+  .nav-overlay {
+    position: fixed !important;
+    inset: 0;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,.55);
+    z-index: 999;
+    display: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .nav-overlay.active { display: block !important; }
+
+  /* Museum: barra filtri non sticky su mobile, chip scorrevoli in orizzontale */
+  .museum-filters {
+    position: static !important;
+    z-index: 1 !important;
+    flex-wrap: nowrap !important;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    justify-content: flex-start !important;
+    padding-left: 16px; padding-right: 16px;
+  }
+  .museum-filter-chip { flex: 0 0 auto; white-space: nowrap; }
+}
