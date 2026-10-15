@@ -493,5 +493,13 @@
   });
 
   // ── AVVIO ──
+  // Link diretto dalla home: checklist.html?serie=VINTAGE%20LINE
+  try {
+    const p = new URLSearchParams(window.location.search).get('serie');
+    if (p && window.MOTU_CATALOG && window.MOTU_CATALOG[p]) {
+      selectedSerie = p;
+      screen = 'subcategories';
+    }
+  } catch (e) { /* ignora */ }
   render();
 })();

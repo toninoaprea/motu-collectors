@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>MOTU Collectors – Checklist & Virtual Museum</title>
   <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="mobile-fix.css" />
+  <style>a.series-chip{text-decoration:none;color:inherit;cursor:pointer}a.series-chip:hover{transform:translateY(-3px)}</style>
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
 </head>
 <body>
@@ -19,6 +21,7 @@
         <li><a href="about.html">ABOUT MOTU</a></li>
         <li><a href="museum.html">MUSEUM</a></li>
         <li><a href="checklist.html">CHECKLIST</a></li>
+        <li><a href="value.html">COLLECTOR VALUE</a></li>
         <li><a href="leaderboard.html">LEADERBOARD</a></li>
         <li><a href="contacts.html">CONTACTS</a></li>
         <li><a href="login.html" class="nav-login">LOGIN</a></li>
@@ -51,7 +54,7 @@
     </div>
     <div class="stat-divider"></div>
     <div class="stat-item">
-      <span class="stat-n" id="stat-series">11</span>
+      <span class="stat-n" id="stat-series">12</span>
       <span class="stat-l">SERIES</span>
     </div>
   </section>
@@ -91,21 +94,23 @@
   <section class="series-section">
     <div class="section-inner">
       <div class="section-eyebrow">THE CATALOG</div>
-      <h2 class="section-title">11 Series. Thousands of Figures.</h2>
+      <h2 class="section-title">12 Series. Thousands of Figures.</h2>
       <div class="series-grid">
-  <div class="series-chip"><img src="img/logo-classic.png" alt="Classic Line" class="serie-logo">CLASSIC LINE</div>
-  <div class="series-chip"><img src="img/logo-shera.png" alt="She-Ra" class="serie-logo">SHE-RA</div>
-  <div class="series-chip"><img src="img/logo-newadventures.png" alt="New Adventures" class="serie-logo">NEW ADVENTURES</div>
-  <div class="series-chip"><img src="img/logo-200x.png" alt="200X" class="serie-logo">200X</div>
-  <div class="series-chip"><img src="img/logo-classics.png" alt="Classics" class="serie-logo">CLASSICS</div>
-  <div class="series-chip"><img src="img/logo-super7.png" alt="Super7" class="serie-logo">SUPER 7</div>
-  <div class="series-chip"><img src="img/logo-eterniaminis.png" alt="Eternia Minis" class="serie-logo">ETERNIA MINIS</div>
-  <div class="series-chip"><img src="img/logo-origins.png" alt="Origins" class="serie-logo">ORIGINS</div>
-  <div class="series-chip"><img src="img/logo-masterverse.png" alt="Masterverse" class="serie-logo">MASTERVERSE</div>
-  <div class="series-chip"><img src="img/logo-mondo.png" alt="Mondo" class="serie-logo">MONDO</div>
-  <div class="series-chip"><img src="img/logo-2026.png" alt="2026 Film" class="serie-logo">2026 FILM</div>
+  <a class="series-chip" href="checklist.html?serie=VINTAGE%20LINE"><img src="img/logo-classic.png" alt="Vintage Line" class="serie-logo">VINTAGE LINE</a>
+  <a class="series-chip" href="checklist.html?serie=SHE-RA"><img src="img/logo-shera.png" alt="She-Ra" class="serie-logo">SHE-RA</a>
+  <a class="series-chip" href="checklist.html?serie=NEW%20ADVENTURES"><img src="img/logo-newadventures.png" alt="New Adventures" class="serie-logo">NEW ADVENTURES</a>
+  <a class="series-chip" href="checklist.html?serie=COMMEMORATIVE"><span class="serie-logo" style="display:inline-flex;align-items:center;justify-content:center;font-size:28px;">🏅</span>COMMEMORATIVE</a>
+  <a class="series-chip" href="checklist.html?serie=200x"><img src="img/logo-200x.png" alt="200X" class="serie-logo">200X</a>
+  <a class="series-chip" href="checklist.html?serie=CLASSICS"><img src="img/logo-classics.png" alt="Classics" class="serie-logo">CLASSICS</a>
+  <a class="series-chip" href="checklist.html?serie=SUPER%207"><img src="img/logo-super7.png" alt="Super7" class="serie-logo">SUPER 7</a>
+  <a class="series-chip" href="checklist.html?serie=ETERNIA%20MINIS"><img src="img/logo-eterniaminis.png" alt="Eternia Minis" class="serie-logo">ETERNIA MINIS</a>
+  <a class="series-chip" href="checklist.html?serie=ORIGINS"><img src="img/logo-origins.png" alt="Origins" class="serie-logo">ORIGINS</a>
+  <a class="series-chip" href="checklist.html?serie=MASTERVERSE"><img src="img/logo-masterverse.png" alt="Masterverse" class="serie-logo">MASTERVERSE</a>
+  <a class="series-chip" href="checklist.html?serie=MONDO"><img src="img/logo-mondo.png" alt="Mondo" class="serie-logo">MONDO</a>
+  <a class="series-chip" href="checklist.html?serie=CHRONICLES"><img src="img/logo-2026.png" alt="Chronicles" class="serie-logo">CHRONICLES</a>
 </div>
       <a href="checklist.html" class="btn-main">EXPLORE THE CHECKLIST</a>
+      <a href="museum.html" class="btn-outline-dark" style="margin-left:10px;">VISIT THE MUSEUM</a>
     </div>
   </section>
 
@@ -131,5 +136,6 @@
   </footer>
 
   <script src="app.js"></script>
+  <script src="mobile-nav.js"></script>
 </body>
 </html>
