@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Collector Value – MOTU Collectors</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="value.css" />
+  <link rel="stylesheet" href="mobile-fix.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="nav-inner">
+      <div class="nav-logo">MOTU COLLECTORS</div>
+      <button class="nav-toggle" id="navToggle" onclick="toggleMenu()">☰</button>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html">HOME</a></li>
+        <li><a href="about.html">ABOUT MOTU</a></li>
+        <li><a href="museum.html">MUSEUM</a></li>
+        <li><a href="checklist.html">CHECKLIST</a></li>
+        <li><a href="value.html" class="active">COLLECTOR VALUE</a></li>
+        <li><a href="leaderboard.html">LEADERBOARD</a></li>
+        <li><a href="contacts.html">CONTACTS</a></li>
+        <li><a href="login.html" class="nav-login">LOGIN</a></li>
+      <div class="nav-mobile-actions">
+        <a href="login.html" class="btn-register">REGISTER FREE</a>
+        <a href="login.html" class="btn-login-mobile">LOGIN</a>
+      </div>
+    </div>
+  </nav>
+  <div class="nav-overlay" id="navOverlay" onclick="closeMenu()"></div>
+
+  <section class="hero" style="padding: 40px 24px 48px;">
+    <div class="hero-inner">
+      <p class="hero-sub" style="font-size: 14px;">PRICE GUIDE</p>
+      <h1 style="font-family: var(--font-display); font-size: 48px; letter-spacing: 4px; color: white;">COLLECTOR VALUE</h1>
+    </div>
+  </section>
+
+  <div class="value-page">
+    <div class="value-toolbar">
+      <input type="search" id="valueSearch" class="value-search" placeholder="Search character, country…" autocomplete="off" />
+      <select id="valueSerie" class="value-select" aria-label="Filter by series"></select>
+    </div>
+    <div class="value-count" id="valueCount"></div>
+    <div class="value-table-wrap">
+      <table class="value-table">
+        <thead>
+          <tr>
+            <th class="col-img">CHARACTER</th>
+            <th>SERIES</th>
+            <th>NAME</th>
+            <th class="col-year">YEAR</th>
+            <th class="col-price">PRICE MOC</th>
+            <th class="col-price">PRICE LOOSE</th>
+          </tr>
+        </thead>
+        <tbody id="valueBody"></tbody>
+      </table>
+    </div>
+    <button class="value-more" id="valueMore" hidden>SHOW MORE</button>
+  </div>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-logo">MOTU COLLECTORS</div>
+      <p class="footer-disclaimer">This is a fan project. Masters of the Universe is a trademark of Mattel, Inc.</p>
+      <p class="footer-copy">© 2026 MOTU Collectors</p>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+  <script src="mobile-nav.js"></script>
+  <script src="motu-data.js"></script>
+  <script src="value.js"></script>
+</body>
+</html>
