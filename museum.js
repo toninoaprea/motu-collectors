@@ -60,7 +60,13 @@
   }
 
   function renderFilters() {
-    filtersEl.innerHTML = MUSEUM_SERIES.map(serie => `
+    const allOn = MUSEUM_SERIES.every(s => activeSeries[s]);
+    const noneOn = MUSEUM_SERIES.every(s => !activeSeries[s]);
+    const bulk = `
+      <button class="museum-filter-chip museum-filter-bulk ${allOn ? 'current' : ''}" data-action="select-all">ALL</button>
+      <button class="museum-filter-chip museum-filter-bulk ${noneOn ? 'current' : ''}" data-action="select-none">NONE</button>
+    `;
+    filtersEl.innerHTML = bulk + MUSEUM_SERIES.map(serie => `
       <button class="museum-filter-chip ${activeSeries[serie] ? 'active' : ''}" data-action="toggle-serie" data-serie="${esc(serie)}">
         ${esc(serie)}
       </button>
@@ -170,6 +176,13 @@
 
   // ── EVENTI ──
   filtersEl.addEventListener('click', function (e) {
+    const bulkEl = e.target.closest('[data-action="select-all"], [data-action="select-none"]');
+    if (bulkEl) {
+      const on = bulkEl.getAttribute('data-action') === 'select-all';
+      MUSEUM_SERIES.forEach(s => { activeSeries[s] = on; });
+      render();
+      return;
+    }
     const el = e.target.closest('[data-action="toggle-serie"]');
     if (!el) return;
     const serie = el.getAttribute('data-serie');

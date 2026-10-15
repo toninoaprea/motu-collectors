@@ -132,3 +132,8 @@
   .museum-card-info { padding: 20px 20px 24px; }
   .museum-card-stage { min-height: 220px; }
 }
+
+/* Pulsanti ALL / NONE */
+.museum-filter-bulk { background: var(--black); color: var(--white); border-color: var(--black); }
+.museum-filter-bulk:hover { border-color: var(--red); background: var(--red-dark); }
+.museum-filter-bulk.current { background: var(--red); border-color: var(--red); }
