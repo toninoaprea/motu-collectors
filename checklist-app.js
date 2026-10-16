@@ -224,7 +224,7 @@
     const hasVariants = Array.isArray(item.variants) && item.variants.length > 0;
     const metaLine = [item.wave, item.serie ? (item.serie + ' · ' + item.sub) : null].filter(Boolean).join(' · ');
     const images = getItemImages(item);
-    const thumbSrc = images[0];
+    const thumbSrc = item.thumb || images[0];
     const thumb = thumbSrc
       ? `<button class="motu-char-thumb-btn" data-action="open-photo" data-images="${esc(JSON.stringify(images))}" data-name="${esc(item.name)}">
            <img class="motu-char-thumb" src="${esc(thumbSrc)}" alt="${esc(item.name)}" onerror="this.parentElement.outerHTML='<div class=&quot;motu-char-thumb motu-char-thumb-placeholder&quot;>🖼️</div>'">

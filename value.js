@@ -4,6 +4,12 @@
 // ============================================================
 (function () {
   var CATALOG = window.MOTU_CATALOG;
+  // ── IMPOSTAZIONI (modifica qui) ──
+  // Tutti i prezzi nel catalogo sono in USD. Il cambio in euro e la data
+  // di aggiornamento dei valori si cambiano solo qui.
+  var CONFIG = { usdToEur: 0.92, valuesUpdated: 'October 2026' };
+  var CUR_KEY = 'motu_currency';
+
   var PLACEHOLDER = 'img/characters/base.png';
   var PAGE = 200;
 
@@ -12,6 +18,8 @@
   var searchEl = document.getElementById('valueSearch');
   var serieEl = document.getElementById('valueSerie');
   var moreEl = document.getElementById('valueMore');
+  var curEl = document.getElementById('valueCurrency');
+  var noteEl = document.getElementById('valueNote');
   if (!bodyEl || !CATALOG) return;
 
   function esc(s) {
@@ -20,11 +28,17 @@
     });
   }
 
+  var currency = 'USD';
+  try { var saved = localStorage.getItem(CUR_KEY); if (saved === 'EUR' || saved === 'USD') currency = saved; } catch (e) { /* ignora */ }
+
   // Un prezzo 0/assente viene mostrato come "-"
   function price(v) {
     var n = Number(v);
     if (!n || n <= 0) return '<td class="price empty">-</td>';
-    return '<td class="price">' + n.toLocaleString('it-IT') + '</td>';
+    var out = currency === 'EUR'
+      ? '\u20ac' + (n * CONFIG.usdToEur).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
+      : '$' + n.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    return '<td class="price">' + out + '</td>';
   }
 
   // Costruisce tutte le righe: una per personaggio, e per i vintage
@@ -35,18 +49,18 @@
     var subs = CATALOG[serie] || {};
     Object.keys(subs).forEach(function (sub) {
       subs[sub].forEach(function (item) {
-        var img = (item.images && item.images[0]) || item.image || PLACEHOLDER;
+        var img = item.thumb || (item.images && item.images[0]) || item.image || PLACEHOLDER;
         var y = parseInt(item.year, 10);
         var base = { serie: serie, year: item.year, yearNum: isNaN(y) ? 9999 : y, img: img };
         if (item.variants && item.variants.length) {
           item.variants.forEach(function (v) {
             rows.push(Object.assign({}, base, {
-              name: item.name, variant: v.name, moc: v.priceMOC, loose: v.priceLoose, order: order++
+              name: item.name, variant: v.name, retail: item.priceRetail, moc: v.priceMOC, loose: v.priceLoose, order: order++
             }));
           });
         } else {
           rows.push(Object.assign({}, base, {
-            name: item.name, variant: '', moc: item.priceMOC, loose: item.priceLoose, order: order++
+            name: item.name, variant: '', retail: item.priceRetail, moc: item.priceMOC, loose: item.priceLoose, order: order++
           }));
         }
       });
@@ -69,14 +83,14 @@
       '<td class="value-serie">' + esc(r.serie) + '</td>' +
       '<td class="value-name">' + label + '</td>' +
       '<td>' + esc(r.year && r.year !== '-' ? r.year : '-') + '</td>' +
-      price(r.moc) + price(r.loose) +
+      price(r.retail) + price(r.moc) + price(r.loose) +
       '</tr>';
   }
 
   function renderMore(reset) {
     if (reset) { bodyEl.innerHTML = ''; shown = 0; }
     if (!filtered.length) {
-      bodyEl.innerHTML = '<tr><td colspan="6" class="value-empty">No results.</td></tr>';
+      bodyEl.innerHTML = '<tr><td colspan="7" class="value-empty">No results.</td></tr>';
       moreEl.hidden = true;
       return;
     }
@@ -103,6 +117,23 @@
   searchEl.addEventListener('input', function () { clearTimeout(t); t = setTimeout(applyFilters, 150); });
   serieEl.addEventListener('change', applyFilters);
   moreEl.addEventListener('click', function () { renderMore(false); });
+
+  function updateNote() {
+    if (!noteEl) return;
+    noteEl.textContent = 'Prices stored in USD' +
+      (currency === 'EUR' ? ' and converted at 1 USD = ' + CONFIG.usdToEur + ' EUR' : '') +
+      '. Market values updated: ' + CONFIG.valuesUpdated + '.';
+  }
+  if (curEl) {
+    curEl.value = currency;
+    curEl.addEventListener('change', function () {
+      currency = curEl.value === 'EUR' ? 'EUR' : 'USD';
+      try { localStorage.setItem(CUR_KEY, currency); } catch (e) { /* ignora */ }
+      updateNote();
+      renderMore(true);
+    });
+  }
+  updateNote();
 
   applyFilters();
 })();
