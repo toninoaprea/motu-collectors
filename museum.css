@@ -137,3 +137,7 @@
 .museum-filter-bulk { background: var(--black); color: var(--white); border-color: var(--black); }
 .museum-filter-bulk:hover { border-color: var(--red); background: var(--red-dark); }
 .museum-filter-bulk.current { background: var(--red); border-color: var(--red); }
+
+.museum-card-retail { font-size: 13px; font-weight: 600; color: var(--red, #c4161c); margin: -8px 0 12px; }
+.museum-card-desc { font-style: normal; }
+.museum-card-note { font-size: 13px; color: var(--gray-3); line-height: 1.5; margin-top: 12px; padding-top: 10px; border-top: 1px solid var(--gray-2, #ddd); }
