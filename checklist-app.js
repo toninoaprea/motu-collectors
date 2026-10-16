@@ -42,6 +42,7 @@
   }
   function saveJSON(key, obj) {
     try { localStorage.setItem(key, JSON.stringify(obj)); } catch (e) { /* storage non disponibile */ }
+    try { window.dispatchEvent(new Event('motu-data-changed')); } catch (e) {}
   }
 
   let ownedIds = loadJSON(STORAGE_OWNED);
@@ -62,6 +63,14 @@
 
   const root = document.getElementById('motuApp');
   if (!root) return;
+
+  // Dati arrivati dal cloud (login): ricarica lo stato e ridisegna
+  window.addEventListener('motu-remote-loaded', function () {
+    ownedIds = loadJSON(STORAGE_OWNED);
+    valueIds = loadJSON(STORAGE_VALUE);
+    qtyIds = loadJSON(STORAGE_QTY);
+    render();
+  });
 
   function toggleOwned(id) {
     ownedIds[id] = !ownedIds[id];

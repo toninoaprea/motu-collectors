@@ -1,0 +1,42 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function signedIn() { return request.auth != null; }
+    function isAdmin() {
+      return signedIn()
+        && request.auth.token.email == 'toninoaprea@tin.it'
+        && request.auth.token.email_verified == true;
+    }
+    function validProfile() {
+      let d = request.resource.data;
+      return d.nickname is string && d.nickname.size() >= 3 && d.nickname.size() <= 20
+        && (!('unique' in d) || (d.unique is int && d.unique >= 0 && d.unique <= 100000))
+        && (!('doubles' in d) || (d.doubles is int && d.doubles >= 0 && d.doubles <= 100000))
+        && (!('total' in d) || (d.total is int && d.total >= 0 && d.total <= 100000))
+        && (!('owned' in d) || (d.owned is int && d.owned >= 0 && d.owned <= 100000))
+        && (!('catalogTotal' in d) || (d.catalogTotal is int && d.catalogTotal >= 0 && d.catalogTotal <= 100000));
+    }
+
+    // Profilo pubblico (nickname + statistiche) per la classifica
+    match /users/{uid} {
+      allow read: if true;
+      allow create, update: if (signedIn() && request.auth.uid == uid && validProfile()) || isAdmin();
+      allow delete: if (signedIn() && request.auth.uid == uid) || isAdmin();
+
+      // Collezione completa: privata
+      match /private/{docId} {
+        allow read, write: if (signedIn() && request.auth.uid == uid) || isAdmin();
+      }
+    }
+
+    // Nickname univoci
+    match /nicknames/{nick} {
+      allow read: if true;
+      allow create, update: if (signedIn() && request.resource.data.uid == request.auth.uid
+                                && (resource == null || resource.data.uid == request.auth.uid))
+                               || isAdmin();
+      allow delete: if (signedIn() && resource.data.uid == request.auth.uid) || isAdmin();
+    }
+  }
+}

@@ -43,8 +43,13 @@
     <div class="value-toolbar">
       <input type="search" id="valueSearch" class="value-search" placeholder="Search character, country…" autocomplete="off" />
       <select id="valueSerie" class="value-select" aria-label="Filter by series"></select>
+      <select id="valueCurrency" class="value-select value-currency" aria-label="Currency">
+        <option value="USD">USD ($)</option>
+        <option value="EUR">EUR (€)</option>
+      </select>
     </div>
     <div class="value-count" id="valueCount"></div>
+    <p class="value-note" id="valueNote"></p>
     <div class="value-table-wrap">
       <table class="value-table">
         <thead>
@@ -53,8 +58,9 @@
             <th>SERIES</th>
             <th>NAME</th>
             <th class="col-year">YEAR</th>
-            <th class="col-price">PRICE MOC</th>
-            <th class="col-price">PRICE LOOSE</th>
+            <th class="col-price">RETAIL</th>
+            <th class="col-price">VALUE MOC</th>
+            <th class="col-price">VALUE LOOSE</th>
           </tr>
         </thead>
         <tbody id="valueBody"></tbody>
@@ -75,5 +81,6 @@
   <script src="mobile-nav.js"></script>
   <script src="motu-data.js"></script>
   <script src="value.js"></script>
+  <script type="module" src="firebase-sync.js"></script>
 </body>
 </html>
