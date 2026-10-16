@@ -87,7 +87,7 @@
               return `
                 <button class="museum-figure-btn" data-action="open-card" data-index="${i + idx}">
                   <span class="museum-figure-img-wrap">
-                    <img class="museum-figure-img" src="${esc(images[0])}" alt="${esc(e.item.name)}" onerror="this.src='${PLACEHOLDER_IMG}'">
+                    <img class="museum-figure-img" src="${esc(e.item.preview || images[0])}" alt="${esc(e.item.name)}" onerror="this.src='${PLACEHOLDER_IMG}'">
                   </span>
                   <span class="museum-figure-shadow"></span>
                 </button>
