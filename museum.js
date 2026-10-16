@@ -12,6 +12,23 @@
   const MUSEUM_SERIES = Object.keys(CATALOG);
 
   const PLACEHOLDER_IMG = 'img/characters/base.png';
+
+  // ── COLLEZIONE (stessi dati della checklist, in localStorage) ──
+  function loadMap(key) { try { return JSON.parse(localStorage.getItem(key)) || {}; } catch (e) { return {}; } }
+  function saveMap(key, obj) {
+    try { localStorage.setItem(key, JSON.stringify(obj)); } catch (e) {}
+    try { window.dispatchEvent(new Event('motu-data-changed')); } catch (e) {}
+  }
+  function isOwned(id) { return !!loadMap('motu_owned_ids')[id]; }
+  function setOwned(id, on) {
+    const owned = loadMap('motu_owned_ids');
+    if (on) owned[id] = true; else {
+      delete owned[id];
+      const q = loadMap('motu_qty_ids');
+      if (q[id]) { delete q[id]; saveMap('motu_qty_ids', q); }
+    }
+    saveMap('motu_owned_ids', owned);
+  }
   // Personaggi per mensola, responsive: 4 su mobile, 8 su tablet portrait,
   // 12 su tablet landscape/desktop.
   function getFiguresPerShelf() {
@@ -85,10 +102,11 @@
             ${rowEntries.map((e, idx) => {
               const images = getItemImages(e.item);
               return `
-                <button class="museum-figure-btn" data-action="open-card" data-index="${i + idx}">
+                <button class="museum-figure-btn${isOwned(e.item.id) ? ' is-owned' : ''}" data-action="open-card" data-index="${i + idx}" data-id="${esc(e.item.id)}">
                   <span class="museum-figure-img-wrap">
                     <img class="museum-figure-img" src="${esc(e.item.preview || images[0])}" alt="${esc(e.item.name)}" onerror="this.src='${PLACEHOLDER_IMG}'">
                   </span>
+                  <span class="museum-owned-badge" aria-hidden="true">\u2665</span>
                   <span class="museum-figure-shadow"></span>
                 </button>
               `;
@@ -145,6 +163,37 @@
     if (img) img.src = cardImages[cardIndex];
   }
 
+  // Il fondo dello spazio foto prende il colore dello sfondo della foto
+  // (campiona gli angoli): bianco, nero o altro, senza stacchi.
+  function matchStageBg(img) {
+    const stage = img.closest('.museum-card-stage');
+    if (!stage) return;
+    try {
+      const c = document.createElement('canvas');
+      const w = img.naturalWidth, h = img.naturalHeight;
+      c.width = w; c.height = h;
+      const ctx = c.getContext('2d', { willReadFrequently: true });
+      ctx.drawImage(img, 0, 0);
+      // solo i 4 angoli (a 2px dal bordo): li' c'e' lo sfondo della foto
+      const pts = [[2, 2], [w - 3, 2], [2, h - 3], [w - 3, h - 3]];
+      let r = 0, g = 0, b = 0, n = 0;
+      pts.forEach(function (p) {
+        const d = ctx.getImageData(p[0], p[1], 1, 1).data;
+        if (d[3] < 128) return;           // trasparente: ignora
+        r += d[0]; g += d[1]; b += d[2]; n++;
+      });
+      stage.style.background = n ? 'rgb(' + Math.round(r / n) + ',' + Math.round(g / n) + ',' + Math.round(b / n) + ')' : '#fff';
+    } catch (err) {
+      stage.style.background = '#fff';    // canvas non disponibile
+    }
+  }
+  function hookStageBg() {
+    const img = cardEl && cardEl.querySelector('.museum-card-img');
+    if (!img) return;
+    img.addEventListener('load', function () { matchStageBg(img); });
+    if (img.complete && img.naturalWidth) matchStageBg(img);
+  }
+
   function renderCard(entry) {
     const hasMultiple = cardImages.length > 1;
     const metaLine = [
@@ -162,6 +211,10 @@
         <div class="museum-card-layout">
           <div class="museum-card-info">
             <div class="museum-card-name">${esc(entry.item.name)}</div>
+            <button class="museum-heart${isOwned(entry.item.id) ? ' on' : ''}" data-action="toggle-owned" data-id="${esc(entry.item.id)}" aria-pressed="${isOwned(entry.item.id)}">
+              <span class="museum-heart-ico">${isOwned(entry.item.id) ? '\u2665' : '\u2661'}</span>
+              <span class="museum-heart-txt">${isOwned(entry.item.id) ? 'In my collection' : 'Add to my collection'}</span>
+            </button>
             <div class="museum-card-meta">${esc(metaLine)}</div>
             ${retailLine ? `<div class="museum-card-retail">${esc(retailLine)}</div>` : ''}
             <div class="museum-card-desc">${bio ? esc(bio) : 'Description coming soon.'}</div>
@@ -177,6 +230,7 @@
         </div>
       </div>
     `;
+    hookStageBg();
   }
 
   // ── EVENTI ──
@@ -209,6 +263,18 @@
       if (action === 'card-prev') { cardGo(-1); return; }
       if (action === 'card-next') { cardGo(1); return; }
       if (action === 'close-card') { closeCard(); return; }
+      if (action === 'toggle-owned') {
+        const id = navEl.getAttribute('data-id');
+        const on = !isOwned(id);
+        setOwned(id, on);
+        navEl.classList.toggle('on', on);
+        navEl.setAttribute('aria-pressed', on ? 'true' : 'false');
+        navEl.querySelector('.museum-heart-ico').textContent = on ? '\u2665' : '\u2661';
+        navEl.querySelector('.museum-heart-txt').textContent = on ? 'In my collection' : 'Add to my collection';
+        const btn = shelvesEl.querySelector('[data-id="' + id.replace(/"/g, '') + '"]');
+        if (btn) btn.classList.toggle('is-owned', on);
+        return;
+      }
     }
     if (e.target === cardEl) closeCard();
   });
