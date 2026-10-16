@@ -34,6 +34,7 @@
   // ── STATO PERSISTENTE (localStorage) ──
   const STORAGE_OWNED = 'motu_owned_ids';
   const STORAGE_VALUE = 'motu_value_ids';
+  const STORAGE_QTY = 'motu_qty_ids';
 
   function loadJSON(key) {
     try { return JSON.parse(localStorage.getItem(key)) || {}; }
@@ -45,6 +46,9 @@
 
   let ownedIds = loadJSON(STORAGE_OWNED);
   let valueIds = loadJSON(STORAGE_VALUE);
+  let qtyIds = loadJSON(STORAGE_QTY); // quantita' (solo se > 1)
+  const MAX_QTY = 99;
+  function getQty(id) { return Math.max(1, Math.min(MAX_QTY, parseInt(qtyIds[id], 10) || 1)); }
   const expandedIds = {}; // solo in-memory
 
   // ── STATO DI NAVIGAZIONE ──
@@ -61,8 +65,24 @@
 
   function toggleOwned(id) {
     ownedIds[id] = !ownedIds[id];
+    if (!ownedIds[id]) { delete qtyIds[id]; saveJSON(STORAGE_QTY, qtyIds); }
     saveJSON(STORAGE_OWNED, ownedIds);
     render();
+  }
+  function changeQty(id, delta) {
+    if (!ownedIds[id]) return;
+    const n = Math.max(1, Math.min(MAX_QTY, getQty(id) + delta));
+    if (n === 1) delete qtyIds[id]; else qtyIds[id] = n;
+    saveJSON(STORAGE_QTY, qtyIds);
+    render();
+  }
+  function qtyControl(id) {
+    const q = getQty(id);
+    return `<div class="motu-qty" aria-label="Quantity">
+      <button class="motu-qty-btn" data-action="qty-dec" data-id="${esc(id)}" ${q <= 1 ? 'disabled' : ''} aria-label="Decrease">\u2212</button>
+      <span class="motu-qty-n">${q}</span>
+      <button class="motu-qty-btn" data-action="qty-inc" data-id="${esc(id)}" ${q >= MAX_QTY ? 'disabled' : ''} aria-label="Increase">+</button>
+    </div>`;
   }
   function toggleExpand(id) {
     expandedIds[id] = !expandedIds[id];
@@ -160,13 +180,18 @@
   function statsBar(stats) {
     return `
       <div class="motu-stats">
-        <div class="motu-stat"><div class="motu-stat-n">${stats.total}</div><div class="motu-stat-l">TOTAL</div></div>
+        <div class="motu-stat"><div class="motu-stat-n">${stats.total}</div><div class="motu-stat-l">IN CATALOG</div></div>
         <div class="motu-stat"><div class="motu-stat-n owned">${stats.owned}</div><div class="motu-stat-l">OWNED</div></div>
         <div class="motu-stat"><div class="motu-stat-n missing">${stats.missing}</div><div class="motu-stat-l">MISSING</div></div>
       </div>
       <div class="motu-progress-wrap">
         <div class="motu-progress-track"><div class="motu-progress-fill" style="width:${stats.pct}%"></div></div>
         <div class="motu-progress-label">${stats.pct}% complete</div>
+      </div>
+      <div class="motu-stats motu-stats-pieces">
+        <div class="motu-stat"><div class="motu-stat-n">${stats.unique}</div><div class="motu-stat-l">UNIQUE</div></div>
+        <div class="motu-stat"><div class="motu-stat-n">${stats.doubles}</div><div class="motu-stat-l">DOUBLES</div></div>
+        <div class="motu-stat"><div class="motu-stat-n">${stats.pieces}</div><div class="motu-stat-l">TOTAL PIECES</div></div>
       </div>
     `;
   }
@@ -197,6 +222,7 @@
            <span class="motu-char-thumb-zoom">🔍</span>
          </button>`
       : '';
+    const anyVariantOwned = hasVariants && item.variants.some(v => ownedIds[v.id]);
     let html = `
       <div class="motu-char-block">
         <div class="motu-char-row">
@@ -206,6 +232,7 @@
             <div class="motu-char-name ${owned ? 'owned' : ''}">${esc(item.name)}</div>
             <div class="motu-char-wave">${esc(metaLine)}</div>
           </div>
+          ${owned && !anyVariantOwned ? qtyControl(item.id) : ''}
           ${hasVariants ? `<button class="motu-expand-btn" data-action="toggle-expand" data-id="${esc(item.id)}">${expanded ? '▲' : '▼'}</button>` : ''}
         </div>
     `;
@@ -216,6 +243,7 @@
           <div class="motu-variant-row" data-action="toggle-owned" data-id="${esc(v.id)}">
             <div class="motu-variant-stamp ${vOwned ? 'owned' : ''}">${vOwned ? '✓' : ''}</div>
             <div class="motu-variant-name ${vOwned ? 'owned' : ''}">${esc(v.name)}</div>
+            ${vOwned ? qtyControl(v.id) : ''}
           </div>
         `;
       });
@@ -236,7 +264,7 @@
 
   // ── SCHERMATA: HOME ──
   function renderHome() {
-    const stats = getStats(ownedIds, null, null);
+    const stats = getStats(ownedIds, null, null, qtyIds);
     const series = Object.keys(CATALOG);
     const isSearching = homeQuery.trim().length > 0;
     const results = isSearching ? searchAll(homeQuery) : [];
@@ -282,7 +310,7 @@
   // ── SCHERMATA: SOTTOCATEGORIE ──
   function renderSubcategories() {
     const subs = Object.keys(CATALOG[selectedSerie] || {});
-    const stats = getStats(ownedIds, selectedSerie, null);
+    const stats = getStats(ownedIds, selectedSerie, null, qtyIds);
     const listHtml = subs.map(sub => {
       const st = getStats(ownedIds, selectedSerie, sub);
       return `
@@ -310,7 +338,7 @@
   // ── SCHERMATA: LISTA PERSONAGGI ──
   function renderItemsScreen() {
     const items = getItems(selectedSerie, selectedSub);
-    const stats = getStats(ownedIds, selectedSerie, selectedSub);
+    const stats = getStats(ownedIds, selectedSerie, selectedSub, qtyIds);
     const listHtml = items.length
       ? items.map(renderCharacterRow).join('')
       : `<div class="motu-empty"><div class="motu-empty-title">No items.</div></div>`;
@@ -326,7 +354,7 @@
 
   // ── SCHERMATA: COLLECTION VALUE ──
   function renderValueScreen() {
-    const allRows = getValueRows(ownedIds, valueIds);
+    const allRows = getValueRows(ownedIds, valueIds, qtyIds);
     const serieOptions = ['ALL'].concat(Object.keys(CATALOG));
     const subOptions = valueFilterSerie === 'ALL' ? [] : ['ALL'].concat(Object.keys(CATALOG[valueFilterSerie] || {}));
 
@@ -425,6 +453,12 @@
         break;
       case 'toggle-owned':
         toggleOwned(el.getAttribute('data-id'));
+        break;
+      case 'qty-inc':
+        changeQty(el.getAttribute('data-id'), 1);
+        break;
+      case 'qty-dec':
+        changeQty(el.getAttribute('data-id'), -1);
         break;
       case 'toggle-expand':
         toggleExpand(el.getAttribute('data-id'));
