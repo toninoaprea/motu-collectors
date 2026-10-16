@@ -900,7 +900,7 @@ const CATALOG = {
   },
   'ORIGINS': {
     'FIGURES': [
-      { id: 'ori-cl-f-001', name: 'HE-MAN', year: '2020', wave: '-', priceLoose: 0, priceMOC: 0, priceRetail: 14.99, variants: [], images: ['img/characters/ori-cl-f-001-1.webp'], thumb: 'img/characters/ori-cl-f-001-thumb.webp' },
+      { id: 'ori-cl-f-001', name: 'HE-MAN', year: '2020', wave: '-', priceLoose: 0, priceMOC: 0, priceRetail: 14.99, variants: [], images: ['img/characters/ori-cl-f-001-1.png'], thumb: 'img/characters/ori-cl-f-001-thumb.webp' },
       { id: 'ori-cl-f-002', name: 'SKELETOR', year: '2020', wave: '-', priceLoose: 0, priceMOC: 0, priceRetail: 14.99, variants: [] },
       { id: 'ori-cl-f-003', name: 'BEAST MAN', year: '2020', wave: '2020 - WAVE 1', priceLoose: 0, priceMOC: 0, priceRetail: 14.99, variants: [] },
       { id: 'ori-cl-f-004', name: 'EVIL-LYN', year: '2020', wave: '2020 - WAVE 1', priceLoose: 0, priceMOC: 0, priceRetail: 14.99, variants: [] },
