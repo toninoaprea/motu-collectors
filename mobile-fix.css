@@ -4,7 +4,7 @@
    ============================================================ */
 body.nav-locked { overflow: hidden; position: fixed; width: 100%; left: 0; right: 0; }
 
-@media (max-width: 1180px) {
+@media (max-width: 768px) {
   html, body { overflow-x: hidden; }
 
   .navbar {
@@ -110,15 +110,21 @@ body.nav-locked { overflow: hidden; position: fixed; width: 100%; left: 0; right
 }
 
 
-/* ── Desktop largo: menu su una sola riga, senza a capo ── */
-@media (min-width: 1181px) {
-  .nav-inner { gap: 12px; }
-  .nav-logo { white-space: nowrap; font-size: 22px; letter-spacing: 3px; flex: 0 0 auto; }
-  .nav-links { flex-wrap: nowrap; gap: 2px; }
-  .nav-links li a { white-space: nowrap; font-size: 13px; letter-spacing: 1.2px; padding: 8px 10px; }
-  .nav-links li a.nav-login {
-    display: inline-block; max-width: 200px; overflow: hidden; text-overflow: ellipsis;
-    white-space: nowrap; line-height: 1.2; margin-left: 6px;
-  }
+/* ── Desktop e tablet largo: menu centrato ── */
+@media (min-width: 769px) {
+  .navbar { height: auto !important; }
+  .nav-inner { height: auto !important; min-height: 56px; flex-wrap: wrap; justify-content: center; align-items: center; gap: 4px 16px; padding-top: 8px; padding-bottom: 8px; }
+  .nav-logo { flex: 0 0 100%; text-align: center; white-space: nowrap; }
+  .nav-toggle { display: none !important; }
+  .nav-links { flex: 0 0 100%; display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 2px 4px; margin: 0; padding: 0; list-style: none; position: static; transform: none; visibility: visible; width: auto; }
+  .nav-links li a { white-space: nowrap; font-size: 13px; letter-spacing: 1px; padding: 8px 9px; }
+  .nav-links li a.nav-login { display: inline-block; max-width: 200px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; line-height: 1.2; margin-left: 4px; }
   .nav-mobile-actions { display: none !important; }
+}
+
+/* Schermo molto largo: tutto su una riga, logo a sinistra */
+@media (min-width: 1440px) {
+  .nav-inner { flex-wrap: nowrap; justify-content: space-between; }
+  .nav-logo { flex: 0 0 auto; text-align: left; }
+  .nav-links { flex: 0 1 auto; flex-wrap: nowrap; }
 }
