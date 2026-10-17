@@ -4,7 +4,7 @@
    ============================================================ */
 body.nav-locked { overflow: hidden; position: fixed; width: 100%; left: 0; right: 0; }
 
-@media (max-width: 768px) {
+@media (max-width: 1180px) {
   html, body { overflow-x: hidden; }
 
   .navbar {
@@ -107,4 +107,18 @@ body.nav-locked { overflow: hidden; position: fixed; width: 100%; left: 0; right
     padding-left: 16px; padding-right: 16px;
   }
   .museum-filter-chip { flex: 0 0 auto; white-space: nowrap; }
+}
+
+
+/* ── Desktop largo: menu su una sola riga, senza a capo ── */
+@media (min-width: 1181px) {
+  .nav-inner { gap: 12px; }
+  .nav-logo { white-space: nowrap; font-size: 22px; letter-spacing: 3px; flex: 0 0 auto; }
+  .nav-links { flex-wrap: nowrap; gap: 2px; }
+  .nav-links li a { white-space: nowrap; font-size: 13px; letter-spacing: 1.2px; padding: 8px 10px; }
+  .nav-links li a.nav-login {
+    display: inline-block; max-width: 200px; overflow: hidden; text-overflow: ellipsis;
+    white-space: nowrap; line-height: 1.2; margin-left: 6px;
+  }
+  .nav-mobile-actions { display: none !important; }
 }
