@@ -160,3 +160,5 @@
 /* Spazio foto nella scheda: stesso colore dello sfondo della foto, niente stacco */
 .museum-card-stage { background: #fff; transition: background .15s; }
 .museum-card-img { border-radius: 0; }
+
+.museum-section-title{font-family:var(--font-display,'Bebas Neue',sans-serif);letter-spacing:4px;text-align:center;color:#fff;font-size:30px;margin:48px 16px 8px;padding-top:24px;border-top:1px solid rgba(255,255,255,.15)}

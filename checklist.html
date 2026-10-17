@@ -33,7 +33,7 @@
   <div class="nav-overlay" id="navOverlay" onclick="closeMenu()"></div>
 
   <!-- MODAL GUEST -->
-  <div class="modal-overlay active" id="guestModal">
+  <div class="modal-overlay" id="guestModal" style="display:none">
     <div class="modal">
       <h2>WELCOME, COLLECTOR</h2>
       <p>Register for free to check off your MOTU figures, track your collection value and compete on the leaderboard. Browsing without an account still lets you use the checklist — it will be saved on this device only.</p>
@@ -65,8 +65,30 @@
 
   <script src="app.js"></script>
   <script src="mobile-nav.js"></script>
+  <script src="photos.js"></script>
   <script src="motu-data.js"></script>
   <script src="checklist-app.js"></script>
+  <script>
+  // Mostra il popup ospite solo se, a login verificato, non c'è nessun utente
+  (function () {
+    var m = document.getElementById('guestModal'), done = false;
+    function decide(user) {
+      if (done) return; done = true;
+      if (!user) { m.style.display = ''; m.classList.add('active'); }
+    }
+    function hook() {
+      if (!window.MotuCloud) return;
+      window.MotuCloud.onChange(function (st) {
+        if (st.user) { done = true; m.classList.remove('active'); m.style.display = 'none'; }
+        else if (st.ready) decide(null);
+      });
+    }
+    hook(); window.addEventListener('motu-cloud-ready', hook);
+    setTimeout(function () { if (!window.MotuCloud || !window.MotuCloud.user) decide(null); }, 4000);
+    var o = window.closeGuestModal;
+    window.closeGuestModal = function () { m.classList.remove('active'); m.style.display = 'none'; if (o) try { o(); } catch (e) {} };
+  })();
+  </script>
   <script type="module" src="firebase-sync.js"></script>
 </body>
 </html>
