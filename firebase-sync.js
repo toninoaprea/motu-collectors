@@ -214,6 +214,11 @@ function updateNav() {
     if (loginLink) { loginLink.textContent = "LOGIN"; loginLink.href = "login.html"; }
     return;
   }
+  if (isAdmin() && loginLink && !document.getElementById("navAdminLi")) {
+    const li = document.createElement("li"); li.id = "navAdminLi";
+    li.innerHTML = '<a href="admin.html">ADMIN</a>';
+    if (loginLink.parentElement && loginLink.parentElement.parentElement) loginLink.parentElement.parentElement.insertBefore(li, loginLink.parentElement);
+  }
   const label = profile ? profile.nickname : "MY ACCOUNT";
   if (loginLink) { loginLink.textContent = "👤 " + label.toUpperCase(); loginLink.href = "login.html"; }
   if (mob) {

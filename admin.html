@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin – MOTU Collectors</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="admin.css" />
+  <link rel="stylesheet" href="mobile-fix.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="nav-inner">
+      <div class="nav-logo">MOTU COLLECTORS</div>
+      <button class="nav-toggle" id="navToggle" onclick="toggleMenu()">☰</button>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html">HOME</a></li>
+        <li><a href="about.html">ABOUT MOTU</a></li>
+        <li><a href="museum.html">MUSEUM</a></li>
+        <li><a href="checklist.html">CHECKLIST</a></li>
+        <li><a href="value.html">COLLECTOR VALUE</a></li>
+        <li><a href="leaderboard.html">LEADERBOARD</a></li>
+        <li><a href="contacts.html">CONTACTS</a></li>
+        <li><a href="login.html" class="nav-login">LOGIN</a></li>
+      <div class="nav-mobile-actions">
+        <a href="login.html" class="btn-register">REGISTER FREE</a>
+        <a href="login.html" class="btn-login-mobile">LOGIN</a>
+      </div>
+    </div>
+  </nav>
+  <div class="nav-overlay" id="navOverlay" onclick="closeMenu()"></div>
+
+  <section class="hero" style="padding: 40px 24px 48px;">
+    <div class="hero-inner">
+      <p class="hero-sub" style="font-size: 14px;">PHOTO MANAGER</p>
+      <h1 style="font-family: var(--font-display); font-size: 48px; letter-spacing: 4px; color: white;">ADMIN</h1>
+    </div>
+  </section>
+
+  <div class="adm-page">
+    <div class="adm-box" id="admGate">Checking access…</div>
+
+    <div id="admApp" hidden>
+      <div class="adm-box">
+        <h2 class="adm-h">1 · GITHUB CONNECTION</h2>
+        <p class="adm-hint">Photos are published straight to your GitHub repository. Paste a fine-grained token (only <b>toninoaprea/motu-collectors</b>, permission <b>Contents: Read and write</b>). It stays only in this browser.</p>
+        <div class="adm-row">
+          <input type="password" id="admToken" placeholder="github_pat_…" autocomplete="off" />
+          <button class="adm-btn" id="admSaveToken">SAVE</button>
+          <button class="adm-btn adm-ghost" id="admForget">FORGET</button>
+        </div>
+        <p class="adm-msg" id="admTokenMsg"></p>
+      </div>
+
+      <div class="adm-box">
+        <h2 class="adm-h">2 · CHOOSE THE CHARACTER</h2>
+        <div class="adm-row">
+          <input type="search" id="admSearch" class="adm-search" placeholder="Search by name… (e.g. he-man)" autocomplete="off" />
+          <select id="admSerie" class="adm-select" aria-label="Series"></select>
+        </div>
+        <div id="admResults" class="adm-results"></div>
+        <div id="admPicked" class="adm-picked" hidden></div>
+      </div>
+
+      <div class="adm-box" id="admUpload" hidden>
+        <h2 class="adm-h">3 · PHOTOS</h2>
+        <p class="adm-hint">Empty slots keep the current photo. Max 5. Click a slot or drop a file on it.</p>
+        <div class="adm-slots" id="admSlots"></div>
+
+        <h2 class="adm-h">4 · MUSEUM SHELF FIGURE</h2>
+        <p class="adm-hint">PNG of the front photo <b>without background</b> (e.g. from remove.bg). Optional: if you skip it, the current one stays.</p>
+        <div class="adm-slots"><div class="adm-slot" id="admShelfSlot"></div></div>
+
+        <h2 class="adm-h">5 · CHECKLIST HEAD</h2>
+        <p class="adm-hint">Click on the face (on the front photo) to place the square; use the slider for the size.</p>
+        <div class="adm-crop">
+          <canvas id="admCrop"></canvas>
+          <div class="adm-crop-side">
+            <canvas id="admCropPrev" width="120" height="120"></canvas>
+            <label>Size <input type="range" id="admCropSize" min="8" max="60" value="27" /></label>
+          </div>
+        </div>
+
+        <button class="adm-btn adm-big" id="admPublish">PUBLISH TO THE SITE</button>
+        <div class="adm-progress" id="admProgress" hidden><div id="admBar"></div></div>
+        <p class="adm-msg" id="admMsg" role="status"></p>
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-logo">MOTU COLLECTORS</div>
+      <p class="footer-disclaimer">All the information on this website and all content associated with "He-Man and the Masters of the Universe," including, but not limited to, logos, names, pictures of toys and characters are registered trademarks and/or copyrights of Mattel, and/or their respective trademark and copyright holders.</p>
+      <p class="footer-copy">© 2026 Motu Collectors</p>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+  <script src="mobile-nav.js"></script>
+  <script src="photos.js"></script>
+  <script src="motu-data.js"></script>
+  <script type="module" src="firebase-sync.js"></script>
+  <script src="admin.js"></script>
+</body>
+</html>

@@ -1,0 +1,36 @@
+.adm-page { max-width: 760px; margin: 0 auto; padding: 24px 16px 56px; font-family: var(--font-body); background: #fff; }
+.adm-box { border: 1px solid #e6e6e6; border-radius: 12px; padding: 18px; margin-bottom: 16px; background: #fff; }
+.adm-box[hidden], #admApp[hidden], .adm-picked[hidden], .adm-progress[hidden] { display: none !important; }
+.adm-h { font-family: var(--font-display); letter-spacing: 2px; font-weight: 400; font-size: 20px; margin: 18px 0 8px; color: var(--red-dark, #8f0f0f); }
+.adm-box > .adm-h:first-child { margin-top: 0; }
+.adm-hint { font-size: 13px; color: #666; line-height: 1.5; margin: 0 0 10px; }
+.adm-row { display: flex; gap: 8px; flex-wrap: wrap; }
+.adm-row input, .adm-search { flex: 1 1 200px; min-width: 0; box-sizing: border-box; padding: 11px 12px; border: 1px solid #ccc; border-radius: 8px; font-size: 15px; font-family: inherit; }
+.adm-search { width: 100%; }
+.adm-btn { padding: 11px 18px; border: 0; border-radius: 999px; background: var(--red, #c4161c); color: #fff; font-family: var(--font-display); letter-spacing: 2px; font-size: 16px; cursor: pointer; }
+.adm-btn:disabled { opacity: .5; cursor: default; }
+.adm-ghost { background: #fff; color: #444; border: 1.5px solid #bbb; }
+.adm-big { display: block; width: 100%; margin-top: 18px; padding: 14px; font-size: 20px; }
+.adm-msg { min-height: 18px; margin: 8px 0 0; font-size: 13px; color: #555; }
+.adm-msg.err { color: var(--red, #c4161c); } .adm-msg.ok { color: #1a7f37; }
+.adm-results { margin-top: 8px; max-height: 260px; overflow-y: auto; }
+.adm-res { display: flex; gap: 10px; width: 100%; text-align: left; padding: 9px 10px; border: 0; border-bottom: 1px solid #eee; background: none; cursor: pointer; font-size: 14px; }
+.adm-res:hover { background: #fff3f3; }
+.adm-res small { color: #888; margin-left: auto; white-space: nowrap; }
+.adm-picked { margin-top: 12px; padding: 10px 12px; background: #fafafa; border-radius: 8px; font-size: 14px; }
+.adm-picked b { font-family: var(--font-display); letter-spacing: 1px; font-size: 20px; font-weight: 400; }
+.adm-slots { display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 10px; }
+.adm-slot { position: relative; aspect-ratio: 3/4; border: 2px dashed #ccc; border-radius: 10px; display: flex; align-items: center; justify-content: center; text-align: center; cursor: pointer; overflow: hidden; background: #fafafa; font-size: 12px; color: #777; padding: 4px; box-sizing: border-box; }
+.adm-slot.drag { border-color: var(--red, #c4161c); background: #fff3f3; }
+.adm-slot img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; background: #fff; }
+.adm-slot span { position: absolute; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,.6); color: #fff; font-size: 11px; padding: 3px; z-index: 1; }
+.adm-slot.checker img { background: repeating-conic-gradient(#ddd 0 25%, #fff 0 50%) 0 0 / 16px 16px; }
+.adm-slot.new { border-style: solid; border-color: #1a7f37; }
+.adm-crop { display: flex; gap: 14px; flex-wrap: wrap; align-items: flex-start; }
+#admCrop { max-width: 100%; border: 1px solid #ddd; cursor: crosshair; touch-action: none; background: #f4f4f4; }
+.adm-crop-side { display: flex; flex-direction: column; gap: 10px; font-size: 13px; }
+#admCropPrev { border: 1px solid #ddd; border-radius: 8px; background: #fff; }
+.adm-progress { height: 8px; background: #eee; border-radius: 4px; margin-top: 12px; overflow: hidden; }
+.adm-progress div { height: 100%; width: 0; background: var(--red, #c4161c); transition: width .2s; }
+
+.adm-select { flex: 0 1 180px; padding: 11px 10px; border: 1px solid #ccc; border-radius: 8px; font-size: 15px; font-family: inherit; background: #fff; }
