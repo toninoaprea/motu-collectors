@@ -901,12 +901,12 @@ const CATALOG = {
   'ORIGINS': {
     'FIGURES': [
       { id: 'ori-cl-f-001', name: 'HE-MAN', year: '2020', wave: '-', priceLoose: 0, priceMOC: 0, priceRetail: 14.99, variants: [], desc: 'Origins release: retro-styled 5.5-inch figure with modern articulation. Includes Power Sword, shield and axe.', images: ['img/characters/ori-cl-f-001-1.webp', 'img/characters/ori-cl-f-001-2.webp', 'img/characters/ori-cl-f-001-3.webp'], preview: 'img/characters/ori-cl-f-001-shelf.png', thumb: 'img/characters/ori-cl-f-001-thumb.webp' },
-      { id: 'ori-cl-f-002', name: 'SKELETOR', year: '2020', wave: '-', priceLoose: 0, priceMOC: 0, priceRetail: 14.99, variants: [] },
-      { id: 'ori-cl-f-003', name: 'BEAST MAN', year: '2020', wave: '2020 - WAVE 1', priceLoose: 0, priceMOC: 0, priceRetail: 14.99, variants: [] },
-      { id: 'ori-cl-f-004', name: 'EVIL-LYN', year: '2020', wave: '2020 - WAVE 1', priceLoose: 0, priceMOC: 0, priceRetail: 14.99, variants: [] },
-      { id: 'ori-cl-f-005', name: 'MAN-AT-ARMS', year: '2020', wave: '2020 - WAVE 1', priceLoose: 0, priceMOC: 0, priceRetail: 14.99, variants: [] },
-      { id: 'ori-cl-f-006', name: 'TEELA', year: '2020', wave: '2020 - WAVE 1', priceLoose: 0, priceMOC: 0, priceRetail: 14.99, variants: [] },
-      { id: 'ori-cl-f-007', name: 'MAN-E-FACES', year: '2020', wave: '2020 - WAVE 2', priceLoose: 0, priceMOC: 0, priceRetail: 14.99, variants: [] },
+      { id: 'ori-cl-f-002', name: 'SKELETOR', year: '2020', wave: '-', priceLoose: 0, priceMOC: 0, priceRetail: 14.99, variants: [], desc: 'Origins release: retro-styled 5.5-inch figure with modern articulation. Includes Havoc Staff and sword.' },
+      { id: 'ori-cl-f-003', name: 'BEAST MAN', year: '2020', wave: '2020 - WAVE 1', priceLoose: 0, priceMOC: 0, priceRetail: 14.99, variants: [], desc: 'Origins release: retro-styled 5.5-inch figure with modern articulation. Includes whip.' },
+      { id: 'ori-cl-f-004', name: 'EVIL-LYN', year: '2020', wave: '2020 - WAVE 1', priceLoose: 0, priceMOC: 0, priceRetail: 14.99, variants: [], desc: 'Origins release: retro-styled 5.5-inch figure with modern articulation. Includes wand.' },
+      { id: 'ori-cl-f-005', name: 'MAN-AT-ARMS', year: '2020', wave: '2020 - WAVE 1', priceLoose: 0, priceMOC: 0, priceRetail: 14.99, variants: [], desc: 'Origins release: retro-styled 5.5-inch figure with modern articulation. Includes mace.' },
+      { id: 'ori-cl-f-006', name: 'TEELA', year: '2020', wave: '2020 - WAVE 1', priceLoose: 0, priceMOC: 0, priceRetail: 14.99, variants: [], desc: 'Origins release: retro-styled 5.5-inch figure with modern articulation. Includes staff and shield.' },
+      { id: 'ori-cl-f-007', name: 'MAN-E-FACES', year: '2020', wave: '2020 - WAVE 2', priceLoose: 0, priceMOC: 0, priceRetail: 14.99, variants: [], desc: 'Origins release: retro-styled 5.5-inch figure with modern articulation. Includes blaster.' },
       { id: 'ori-cl-f-008', name: 'ORKO', year: '2020', wave: '2020 - WAVE 2', priceLoose: 0, priceMOC: 0, priceRetail: 14.99, variants: [] },
       { id: 'ori-cl-f-009', name: 'SCARE GLOW', year: '2020', wave: '2020 - WAVE 2', priceLoose: 0, priceMOC: 0, priceRetail: 14.99, variants: [] },
       { id: 'ori-cl-f-010', name: 'TRAP JAW', year: '2020', wave: '2020 - WAVE 2', priceLoose: 0, priceMOC: 0, priceRetail: 14.99, variants: [] },
