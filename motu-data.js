@@ -1539,6 +1539,19 @@ function getStatsMotu(ownedIds, serie, sub, qtyIds) {
   return { total, owned, missing: total - owned, pct: total ? Math.round(owned / total * 100) : 0, unique, doubles: pieces - unique, pieces };
 }
 
+// Foto: se esiste photos.js (generato da prepara_foto.py) assegna foto, scaffale e testina ai personaggi
+(function () {
+  const P = window.MOTU_PHOTOS;
+  if (!P) return;
+  Object.values(CATALOG).forEach(subs => Object.values(subs).forEach(items => items.forEach(it => {
+    const p = P[it.id];
+    if (!p) return;
+    if (p.images && p.images.length) it.images = p.images;
+    if (p.preview) it.preview = p.preview;
+    if (p.thumb) it.thumb = p.thumb;
+  })));
+})();
+
 // Espone tutto come variabili globali per l'uso in checklist.html
 window.MOTU_SERIE_DEFAULTS = SERIE_DEFAULTS;
 window.MOTU_CATALOG = CATALOG;
