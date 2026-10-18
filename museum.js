@@ -244,11 +244,19 @@
     if (img.complete && img.naturalWidth) matchStageBg(img);
   }
 
+  // The wave often repeats the year ("2020 - WAVE 1"): show only the part after the year.
+  function waveLabel(item) {
+    let w = item.wave && item.wave !== '-' ? String(item.wave).trim() : '';
+    const y = item.year && item.year !== '-' ? String(item.year).trim() : '';
+    if (y && w.indexOf(y) === 0) w = w.slice(y.length).replace(/^\s*[-\u2013\u00b7]?\s*/, '');
+    return w || null;
+  }
+
   function renderCard(entry) {
     const hasMultiple = cardImages.length > 1;
     const metaLine = [
       entry.item.year && entry.item.year !== '-' ? entry.item.year : null,
-      entry.item.wave && entry.item.wave !== '-' ? entry.item.wave : null,
+      waveLabel(entry.item),
       entry.serie,
       entry.sub,
     ].filter(Boolean).join(' \u00b7 ');
