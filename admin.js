@@ -10,6 +10,7 @@
   var BASE = [['1', 'Blister'], ['cb', 'Card back'], ['2', 'Front'], ['3', 'Back']];
   var BASE_KEYS = BASE.map(function (b) { return b[0]; });
   var addedExtras = [];
+  var cropTouched = false, squaring = false, headSource = null;
   // Foto obbligatorie: blister, retro blister, fronte, retro, scaffale (png), testina (miniatura)
   var REQUIRED = [['1', 'Blister'], ['cb', 'Card back'], ['2', 'Front'], ['3', 'Back'], ['shelf', 'Shelf'], ['thumb', 'Head']];
   var $ = function (id) { return document.getElementById(id); };
@@ -61,6 +62,7 @@
     buildShelf();
     updateTotal();
     $('admAddExtra').addEventListener('click', addExtra);
+    $('admHeadSrc').addEventListener('click', function (e) { var b = e.target.closest('.adm-hs'); if (b) chooseHead(b.getAttribute('data-k')); });
     if (token()) checkToken(token());
   }
 
@@ -181,7 +183,7 @@
   }
 
   function pick(r) {
-    cropTouched = false;
+    cropTouched = false; headSource = null;
     picked = { id: r.id, name: r.name, serie: r.serie, sub: r.sub, item: r };
     slotFiles = {}; addedExtras = []; shelfFile = null; frontImg = null;
     var p = $('admPicked'); p.hidden = false;
@@ -213,7 +215,7 @@
   }
   function buildShelf() {
     var sh = $('admShelfSlot');
-    makeSlot(sh, 'Shelf', 'image/png,image/webp', function (f) { shelfFile = f; renderSlots(); autoHead(); });
+    makeSlot(sh, 'Shelf', 'image/png,image/webp', function (f) { shelfFile = f; if (!headSource) loadHead(); renderSlots(); });
   }
   function addExtra() {
     if (!picked) return;
@@ -250,23 +252,48 @@
     var sh = $('admShelfSlot');
     sh.classList.add('checker');
     fill(sh, slotHtml('Shelf', shelfFile ? URL.createObjectURL(shelfFile) : ex.preview, !!shelfFile), !!shelfFile);
+    renderHeadSrc();
   }
 
   // ── ritaglio testa ──
   function loadImg(src) {
     return new Promise(function (res, rej) { var im = new Image(); im.onload = function () { res(im); }; im.onerror = rej; im.src = src; });
   }
-  function loadFrontFromFile(f) { loadImg(URL.createObjectURL(f)).then(setFront).catch(function () {}); }
-  function loadFrontFromExisting() {
-    var map = bySlot(existing().images), u = map['2'];
-    if (u) loadImg(u).then(setFront).catch(function () { setFront(null); }); else setFront(null);
+  // Sorgente della testina: 'shelf' (png senza sfondo, predefinita se c'è) oppure una qualsiasi foto (-1, cb, 2, 3, extra)
+  function headKey() { return headSource || ((shelfFile || existing().preview) ? 'shelf' : '2'); }
+  function headUrl(key) {
+    var ex = existing(), map = bySlot(ex.images);
+    if (key === 'shelf') return shelfFile ? URL.createObjectURL(shelfFile) : (ex.preview || '');
+    return slotFiles[key] ? URL.createObjectURL(slotFiles[key]) : (map[key] || '');
   }
+  function loadHead() {
+    var u = headUrl(headKey());
+    if (u) return loadImg(u).then(setFront).catch(function () { setFront(null); });
+    setFront(null); return Promise.resolve();
+  }
+  function loadFrontFromFile() { headSource = '2'; loadHead(); renderHeadSrc(); }
+  function loadFrontFromExisting() { loadHead(); }
   function setFront(im) { frontImg = im; crop = { cx: 0.5, cy: 0.17, size: 0.27 }; $('admCropSize').value = 27; autoHead(); }
+  function chooseHead(key) { headSource = key; cropTouched = true; loadHead(); renderHeadSrc(); }
+  function renderHeadSrc() {
+    var box = $('admHeadSrc'); if (!box || !picked) return;
+    var ex = existing(), map = bySlot(ex.images), cur = headKey(), html = '';
+    var keys = allKeys(map).filter(function (k) { return slotFiles[k] || map[k]; });
+    if (shelfFile || ex.preview) keys.push('shelf');
+    keys.forEach(function (k) {
+      var u = headUrl(k);
+      html += '<button type="button" class="adm-hs' + (k === cur ? ' on' : '') + (k === 'shelf' ? ' checker' : '') + '" data-k="' + esc(k) + '"><img src="' + esc(u) + '" alt=""><span>' + esc(k === 'shelf' ? 'Shelf PNG' : labelFor(k, map)) + '</span></button>';
+    });
+    box.innerHTML = html;
+  }
 
   async function autoHead() {
-    if (frontImg && shelfFile) {
+    if (frontImg) {
       try {
-        var sh = await loadImg(URL.createObjectURL(shelfFile));
+        var sh = null;
+        if (headKey() === 'shelf') sh = frontImg;
+        else { var su = shelfFile ? URL.createObjectURL(shelfFile) : existing().preview; if (su) sh = await loadImg(su); }
+        if (!sh) throw new Error('no alpha source');
         var W = 220, H = Math.round(W * frontImg.naturalHeight / frontImg.naturalWidth);
         var c = document.createElement('canvas'); c.width = W; c.height = H;
         var ctx = c.getContext('2d', { willReadFrequently: true }); ctx.drawImage(sh, 0, 0, W, H);
@@ -298,7 +325,7 @@
   }
   function drawCrop() {
     var cv = $('admCrop'), pv = $('admCropPrev');
-    if (!frontImg) { cv.width = 300; cv.height = 120; var c0 = cv.getContext('2d'); c0.clearRect(0, 0, 300, 120); c0.fillStyle = '#888'; c0.font = '14px sans-serif'; c0.fillText('Add a front photo (slot 2)', 40, 64); pv.getContext('2d').clearRect(0, 0, 120, 120); return; }
+    if (!frontImg) { cv.width = 300; cv.height = 120; var c0 = cv.getContext('2d'); c0.clearRect(0, 0, 300, 120); c0.fillStyle = '#888'; c0.font = '14px sans-serif'; c0.fillText('Add a photo first', 40, 64); pv.getContext('2d').clearRect(0, 0, 120, 120); return; }
     var maxW = Math.min(380, cv.parentElement.clientWidth || 380);
     var sc = maxW / frontImg.naturalWidth;
     cv.width = Math.round(frontImg.naturalWidth * sc); cv.height = Math.round(frontImg.naturalHeight * sc);
@@ -314,7 +341,7 @@
   // ── elaborazione immagini ──
   function toBlob(canvas, type, q) { return new Promise(function (res) { canvas.toBlob(res, type, q); }); }
   function fileToImg(f) { return loadImg(URL.createObjectURL(f)); }
-  // Foto quadrata: l'immagine intera (nessun ritaglio) centrata su un quadrato, con lo sfondo preso dagli angoli
+  // Foto quadrata: l'immagine intera (nessun ritaglio) centrata su un quadrato, con margini bianchi
   async function photoBlob(f) {
     var im = await fileToImg(f), W = im.naturalWidth, H = im.naturalHeight;
     var side = Math.min(MAX_SIDE, Math.max(W, H)), sc = side / Math.max(W, H);
@@ -323,9 +350,7 @@
     var ctx = c.getContext('2d', { willReadFrequently: true });
     var t = document.createElement('canvas'); t.width = w; t.height = h;
     var tx = t.getContext('2d', { willReadFrequently: true }); tx.drawImage(im, 0, 0, w, h);
-    var pts = [[0, 0], [w - 1, 0], [0, h - 1], [w - 1, h - 1]], r = 0, g = 0, b = 0;
-    pts.forEach(function (p) { var d = tx.getImageData(p[0], p[1], 1, 1).data; r += d[0]; g += d[1]; b += d[2]; });
-    ctx.fillStyle = 'rgb(' + Math.round(r / 4) + ',' + Math.round(g / 4) + ',' + Math.round(b / 4) + ')';
+    ctx.fillStyle = '#ffffff';   // margini bianchi, uguali per tutte le foto
     ctx.fillRect(0, 0, side, side);
     ctx.drawImage(t, Math.round((side - w) / 2), Math.round((side - h) / 2));
     return toBlob(c, 'image/webp', WEBP_Q);
@@ -382,7 +407,7 @@
     if (busy || !picked) return;
     var msg = $('admMsg');
     if (!token()) return setMsg(msg, 'Add the GitHub token first (step 1).', 'err');
-    var anyNew = Object.keys(slotFiles).length || shelfFile;
+    var anyNew = Object.keys(slotFiles).length || shelfFile || cropTouched;
     var frontNow = slotFiles['2'] || bySlot(existing().images)['2'];
     if (!anyNew) return setMsg(msg, 'Choose at least one new photo.', 'err');
     busy = true; $('admPublish').disabled = true; $('admProgress').hidden = false;
@@ -400,7 +425,7 @@
         else if (map[k]) entry.images.push(map[k]);
       }
       if (shelfFile) { var sp = 'img/characters/' + id + '-shelf.png'; files.push({ path: sp, b64: await b64(await shelfBlob(shelfFile)) }); entry.preview = sp + '?v=' + v; }
-      if (frontImg && frontNow && ((slotFiles['2'] && !squaring) || cropTouched || !ex.thumb)) { var tp = 'img/characters/' + id + '-thumb.webp'; files.push({ path: tp, b64: await b64(await thumbBlob()) }); entry.thumb = tp + '?v=' + v; }
+      if (frontImg && (cropTouched || (slotFiles['2'] && !squaring) || !ex.thumb)) { var tp = 'img/characters/' + id + '-thumb.webp'; files.push({ path: tp, b64: await b64(await thumbBlob()) }); entry.thumb = tp + '?v=' + v; }
       tick('Reading photos.js…');
 
       var map2 = {};
