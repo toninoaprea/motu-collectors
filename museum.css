@@ -168,3 +168,8 @@
 .museum-cond-q { font-size: 12px; opacity: .8; }
 .museum-cond-btn { padding: 5px 14px; border-radius: 999px; border: 1px solid currentColor; background: transparent; color: inherit; font-family: var(--font-display, 'Bebas Neue', sans-serif); letter-spacing: 1.5px; font-size: 14px; cursor: pointer; opacity: .75; }
 .museum-cond-btn.on { background: var(--red, #c4161c); border-color: var(--red, #c4161c); color: #fff; opacity: 1; }
+
+/* Filtro posseduti / mancanti */
+.museum-filter-own { display: inline-flex; gap: 8px; flex-wrap: wrap; justify-content: center; padding-right: 10px; margin-right: 2px; border-right: 2px solid var(--gray-2); }
+.museum-own-chip.current { background: var(--red); color: var(--white); border-color: var(--red); }
+@media (max-width: 640px) { .museum-filter-own { width: 100%; border-right: 0; padding-right: 0; padding-bottom: 6px; } }

@@ -69,7 +69,11 @@
     const saved = JSON.parse(localStorage.getItem(FILTER_KEY) || 'null');
     if (saved && typeof saved === 'object') MUSEUM_SERIES.forEach(s => { if (s in saved) activeSeries[s] = !!saved[s]; });
   } catch (e) {}
-  function saveFilters() { try { localStorage.setItem(FILTER_KEY, JSON.stringify(activeSeries)); } catch (e) {} }
+  function saveFilters() { try { localStorage.setItem(FILTER_KEY, JSON.stringify(activeSeries)); localStorage.setItem(OWN_KEY, ownFilter); } catch (e) {} }
+  // Mostra: tutti i pezzi / solo posseduti / solo mancanti
+  const OWN_KEY = 'motu_museum_own';
+  let ownFilter = 'all';
+  try { const v = localStorage.getItem(OWN_KEY); if (v === 'owned' || v === 'missing') ownFilter = v; } catch (e) {}
 
   function esc(str) {
     return String(str == null ? '' : str).replace(/[&<>"']/g, c => ({
@@ -104,10 +108,11 @@
         const title = serie === g ? g : serie + ' \u2014 ' + (GROUP_TITLE[g] || g);
         // Origins: i "Fan Favorite" (ristampe) hanno uno scaffale a parte subito sotto le Figures
         const isFan = it => serie === 'ORIGINS' && sub === 'FIGURES' && /\(FAN FAVORITE\)/i.test(it.name);
-        items.filter(it => !isFan(it)).forEach(item => {
+        const show = it => ownFilter === 'all' || (ownFilter === 'owned') === isOwned(it.id);
+        items.filter(it => !isFan(it) && show(it)).forEach(item => {
           entries.push({ item, serie, sub, group: serie + '|' + g, groupTitle: title });
         });
-        items.filter(isFan).forEach(item => {
+        items.filter(it => isFan(it) && show(it)).forEach(item => {
           entries.push({ item, serie, sub, group: serie + '|FAN FAVORITES', groupTitle: 'ORIGINS \u2014 FAN FAVORITES (RE-RELEASES)' });
         });
       });
@@ -122,7 +127,13 @@
       <button class="museum-filter-chip museum-filter-bulk ${allOn ? 'current' : ''}" data-action="select-all">ALL</button>
       <button class="museum-filter-chip museum-filter-bulk ${noneOn ? 'current' : ''}" data-action="select-none">NONE</button>
     `;
-    filtersEl.innerHTML = bulk + MUSEUM_SERIES.map(serie => `
+    const own = `
+      <span class="museum-filter-own" role="group" aria-label="Show">
+        <button class="museum-filter-chip museum-own-chip ${ownFilter === 'all' ? 'current' : ''}" data-action="set-own" data-v="all">ALL PIECES</button>
+        <button class="museum-filter-chip museum-own-chip ${ownFilter === 'owned' ? 'current' : ''}" data-action="set-own" data-v="owned">\u2665 OWNED</button>
+        <button class="museum-filter-chip museum-own-chip ${ownFilter === 'missing' ? 'current' : ''}" data-action="set-own" data-v="missing">\u2661 NOT OWNED</button>
+      </span>`;
+    filtersEl.innerHTML = own + bulk + MUSEUM_SERIES.map(serie => `
       <button class="museum-filter-chip ${activeSeries[serie] ? 'active' : ''}" data-action="toggle-serie" data-serie="${esc(serie)}">
         ${esc(serie)}
       </button>
@@ -169,7 +180,8 @@
       `;
     }
     if (!entries.length) {
-      html += `<div class="museum-filter-count" style="padding-bottom:40px;">Nessuna serie selezionata.</div>`;
+      const anySerie = MUSEUM_SERIES.some(s => activeSeries[s]);
+      html += `<div class="museum-filter-count" style="padding-bottom:40px;">${anySerie ? 'Nessun pezzo per questo filtro.' : 'Nessuna serie selezionata.'}</div>`;
     }
     shelvesEl.innerHTML = html;
     // Salva l'elenco corrente per poterlo referenziare al click (indice stabile)
@@ -204,6 +216,7 @@
   function closeCard() {
     if (cardEl) { cardEl.remove(); cardEl = null; }
     cardImages = []; cardIndex = 0;
+    if (ownFilter !== 'all') renderShelves();   // il cuore puo' aver cambiato l'elenco
   }
 
   function cardGo(delta) {
@@ -294,6 +307,8 @@
 
   // ── EVENTI ──
   filtersEl.addEventListener('click', function (e) {
+    const ownEl = e.target.closest('[data-action="set-own"]');
+    if (ownEl) { ownFilter = ownEl.getAttribute('data-v'); render(); return; }
     const bulkEl = e.target.closest('[data-action="select-all"], [data-action="select-none"]');
     if (bulkEl) {
       const on = bulkEl.getAttribute('data-action') === 'select-all';
