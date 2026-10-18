@@ -45,6 +45,13 @@
   // { serie: true/false } — tutte attive di default
   const activeSeries = {};
   MUSEUM_SERIES.forEach(s => { activeSeries[s] = true; });
+  // Filtri ricordati su questo dispositivo
+  const FILTER_KEY = 'motu_museum_filters';
+  try {
+    const saved = JSON.parse(localStorage.getItem(FILTER_KEY) || 'null');
+    if (saved && typeof saved === 'object') MUSEUM_SERIES.forEach(s => { if (s in saved) activeSeries[s] = !!saved[s]; });
+  } catch (e) {}
+  function saveFilters() { try { localStorage.setItem(FILTER_KEY, JSON.stringify(activeSeries)); } catch (e) {} }
 
   function esc(str) {
     return String(str == null ? '' : str).replace(/[&<>"']/g, c => ({
@@ -60,33 +67,29 @@
 
   // Raccoglie tutti gli item delle serie attive, in ordine di uscita
   // (anno di release). A parita di anno mantiene l'ordine di catalogo.
-  const CROSSOVER_GROUPS = [
-    { title: 'STRANGER THINGS', subs: ['STRANGER THINGS CROSSOVER'] },
-    { title: 'TURTLES OF GRAYSKULL', subs: ['TURTLES OF GRAYSKULL'] },
-    { title: 'THUNDERCATS', subs: ['THUNDERCATS CROSSOVER'] },
-    { title: 'TRANSFORMERS', subs: ['TRANSFORMERS COLLABORATION'] },
-    { title: 'MASTERS OF THE WWE UNIVERSE', subs: ['MASTERS OF THE WWE UNIVERSE', 'MASTERS OF THE WWE UNIVERSE RINGS'] }
-  ];
+  // Nomi dei gruppi (scaffali) per le sottocategorie che vanno uniti o rinominati
+  const GROUP_MERGE = { 'MASTERS OF THE WWE UNIVERSE RINGS': 'MASTERS OF THE WWE UNIVERSE' };
+  const GROUP_TITLE = {
+    'STRANGER THINGS CROSSOVER': 'STRANGER THINGS',
+    'THUNDERCATS CROSSOVER': 'THUNDERCATS',
+    'TRANSFORMERS COLLABORATION': 'TRANSFORMERS'
+  };
 
+  // Stesso ordine della checklist: serie, sottocategoria, pezzo. Ogni sottocategoria ha i suoi scaffali.
   function collectItems() {
     const entries = [];
     MUSEUM_SERIES.forEach(serie => {
       if (!activeSeries[serie]) return;
       const subs = CATALOG[serie] || {};
       Object.entries(subs).forEach(([sub, items]) => {
+        const g = GROUP_MERGE[sub] || sub;
+        const title = serie === g ? g : serie + ' \u2014 ' + (GROUP_TITLE[g] || g);
         items.forEach(item => {
-          const yearNum = parseInt(item.year, 10);
-          entries.push({ item, serie, sub, year: isNaN(yearNum) ? 9999 : yearNum });
+          entries.push({ item, serie, sub, group: serie + '|' + g, groupTitle: title });
         });
       });
     });
-    entries.sort((a, b) => a.year - b.year);
-    // Crossover Origins: scaffali separati sotto quelli principali
-    const gi = e => e.serie === 'ORIGINS' ? CROSSOVER_GROUPS.findIndex(g => g.subs.includes(e.sub)) : -1;
-    entries.forEach(e => { e.group = gi(e); });
-    const main = entries.filter(e => e.group < 0);
-    const cross = entries.filter(e => e.group >= 0).sort((a, b) => a.group - b.group || a.year - b.year);
-    return main.concat(cross);
+    return entries;
   }
 
   function renderFilters() {
@@ -112,7 +115,7 @@
       const g = entries[s].group;
       let e = s;
       while (e < entries.length && entries[e].group === g) e++;
-      for (let i = s; i < e; i += perShelf) rows.push({ i, end: Math.min(i + perShelf, e), title: i === s && g >= 0 ? CROSSOVER_GROUPS[g].title : null });
+      for (let i = s; i < e; i += perShelf) rows.push({ i, end: Math.min(i + perShelf, e), title: i === s ? entries[s].groupTitle : null });
       s = e;
     }
     for (const row of rows) {
@@ -151,6 +154,7 @@
   }
 
   function render() {
+    saveFilters();
     renderFilters();
     renderShelves();
   }
