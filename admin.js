@@ -329,12 +329,13 @@
     var maxW = Math.min(380, cv.parentElement.clientWidth || 380);
     var sc = maxW / frontImg.naturalWidth;
     cv.width = Math.round(frontImg.naturalWidth * sc); cv.height = Math.round(frontImg.naturalHeight * sc);
-    var ctx = cv.getContext('2d'); ctx.drawImage(frontImg, 0, 0, cv.width, cv.height);
+    var ctx = cv.getContext('2d'); ctx.fillStyle = '#fff'; ctx.fillRect(0, 0, cv.width, cv.height); ctx.drawImage(frontImg, 0, 0, cv.width, cv.height);
     var r = cropRect(cv.width, cv.height);
     ctx.fillStyle = 'rgba(0,0,0,.35)'; ctx.fillRect(0, 0, cv.width, cv.height);
+    ctx.fillStyle = '#fff'; ctx.fillRect(r.left, r.top, r.s, r.s);
     ctx.drawImage(frontImg, r.left / sc, r.top / sc, r.s / sc, r.s / sc, r.left, r.top, r.s, r.s);
     ctx.strokeStyle = '#c4161c'; ctx.lineWidth = 2; ctx.strokeRect(r.left, r.top, r.s, r.s);
-    var pc = pv.getContext('2d'); pc.clearRect(0, 0, 120, 120);
+    var pc = pv.getContext('2d'); pc.fillStyle = '#fff'; pc.fillRect(0, 0, 120, 120);
     pc.drawImage(frontImg, r.left / sc, r.top / sc, r.s / sc, r.s / sc, 0, 0, 120, 120);
   }
 
@@ -370,7 +371,8 @@
   async function thumbBlob() {
     var W = frontImg.naturalWidth, H = frontImg.naturalHeight, r = cropRect(W, H);
     var c = document.createElement('canvas'); c.width = c.height = THUMB_PX;
-    c.getContext('2d').drawImage(frontImg, r.left, r.top, r.s, r.s, 0, 0, THUMB_PX, THUMB_PX);
+    var tc = c.getContext('2d'); tc.fillStyle = '#ffffff'; tc.fillRect(0, 0, THUMB_PX, THUMB_PX);   // sfondo bianco (il png è trasparente)
+    tc.drawImage(frontImg, r.left, r.top, r.s, r.s, 0, 0, THUMB_PX, THUMB_PX);
     return toBlob(c, 'image/webp', 0.82);
   }
   function b64(blob) {
