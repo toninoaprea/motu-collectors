@@ -87,6 +87,13 @@
   }
 
   // ── ricerca personaggio ──
+  function badge(r) {
+    var p = photosMap[r.id] || {};
+    var imgs = p.images || r.images || (r.image ? [r.image] : []);
+    var miss = missingFor(bySlot(imgs), !!(p.preview || r.preview), !!(p.thumb || r.thumb));
+    var n = REQUIRED.length - miss.length;
+    return ' <em class="adm-badge ' + (miss.length ? 'todo' : 'done') + '">' + n + '/' + REQUIRED.length + '</em>';
+  }
   function search() {
     var q = $('admSearch').value.trim().toLowerCase();
     var serie = $('admSerie').value;
@@ -106,7 +113,7 @@
     });
     var total = res.length; res = res.slice(0, 80);
     box.innerHTML = (res.length ? res.map(function (r, i) {
-      return '<button class="adm-res" data-i="' + i + '"><b>' + esc(r.name) + '</b><small>' + esc(r.serie + ' · ' + r.sub + ' · ' + r.id) + '</small></button>';
+      return '<button class="adm-res" data-i="' + i + '"><b>' + esc(r.name) + '</b>' + badge(r) + '<small>' + esc(r.serie + ' · ' + r.sub + ' · ' + r.id) + '</small></button>';
     }).join('') : '<p class="adm-hint">No results.</p>') + (total > 80 ? '<p class="adm-hint">' + total + ' results: narrow with the series filter.</p>' : '');
     box._res = res;
   }
@@ -134,6 +141,16 @@
     return ks.sort(function (a, b) { return extraRank(a) - extraRank(b); });
   }
   function allKeys(map) { return BASE_KEYS.concat(extraKeys(map)); }
+  // Foto obbligatorie: blister, retro blister, fronte, retro, scaffale (png), testina (miniatura)
+  var REQUIRED = [['1', 'Blister'], ['cb', 'Card back'], ['2', 'Front'], ['3', 'Back'], ['shelf', 'Shelf'], ['thumb', 'Head']];
+  function missingFor(map, hasShelf, hasThumb) {
+    var out = [];
+    REQUIRED.forEach(function (q) {
+      var ok = q[0] === 'shelf' ? hasShelf : q[0] === 'thumb' ? (hasThumb || !!map['2']) : !!map[q[0]];
+      if (!ok) out.push(q[1]);
+    });
+    return out;
+  }
   function labelFor(k, map) {
     for (var i = 0; i < BASE.length; i++) if (BASE[i][0] === k) return BASE[i][1];
     return 'Extra ' + (extraKeys(map).indexOf(k) + 1);
@@ -197,6 +214,15 @@
       var f = slotFiles[k], el = $('admSlot_' + k);
       if (el) fill(el, slotHtml(labelFor(k, map), f ? URL.createObjectURL(f) : (map[k] || ''), !!f), !!f);
     });
+    var have = {};
+    Object.keys(map).forEach(function (k) { have[k] = map[k]; });
+    Object.keys(slotFiles).forEach(function (k) { have[k] = 1; });
+    var miss = missingFor(have, !!(shelfFile || ex.preview), !!(ex.thumb));
+    var cnt = $('admCount');
+    if (cnt) {
+      cnt.className = 'adm-count ' + (miss.length ? 'todo' : 'done');
+      cnt.textContent = miss.length ? (REQUIRED.length - miss.length) + '/' + REQUIRED.length + ' required photos · missing: ' + miss.join(', ') : REQUIRED.length + '/' + REQUIRED.length + ' · all required photos present ✓';
+    }
     var sh = $('admShelfSlot');
     sh.classList.add('checker');
     fill(sh, slotHtml('Shelf', shelfFile ? URL.createObjectURL(shelfFile) : ex.preview, !!shelfFile), !!shelfFile);

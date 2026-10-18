@@ -34,3 +34,10 @@
 .adm-progress div { height: 100%; width: 0; background: var(--red, #c4161c); transition: width .2s; }
 
 .adm-select { flex: 0 1 180px; padding: 11px 10px; border: 1px solid #ccc; border-radius: 8px; font-size: 15px; font-family: inherit; background: #fff; }
+
+.adm-count { font-weight: 600; font-size: 14px; margin: 6px 0 12px; padding: 8px 12px; border-radius: 8px; }
+.adm-count.todo { background: #fff4e5; color: #8a4b00; }
+.adm-count.done { background: #e8f5ec; color: #1a7f37; }
+.adm-badge { font-style: normal; font-size: 11px; font-weight: 700; padding: 2px 7px; border-radius: 999px; margin-left: 6px; }
+.adm-badge.todo { background: #fff4e5; color: #8a4b00; }
+.adm-badge.done { background: #e8f5ec; color: #1a7f37; }
