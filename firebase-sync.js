@@ -63,7 +63,9 @@ function computeStats(data) {
   const s = window.motuGetStats(data.owned, null, null, data.qty);
   // collectionValue: valore in USD (interi) dei pezzi segnati, con la condizione scelta (loose/MOC)
   const cv = typeof window.motuGetCollectionValue === "function" ? Math.round(window.motuGetCollectionValue(data.owned, data.value, data.qty)) : 0;
-  return { owned: s.owned, unique: s.unique, doubles: s.doubles, total: s.pieces, catalogTotal: s.total, collectionValue: cv };
+  const cs = typeof window.motuGetConditionStats === "function" ? window.motuGetConditionStats(data.owned, data.value, data.qty) : { looseCount: 0, mocCount: 0, looseValue: 0, mocValue: 0 };
+  return { owned: s.owned, unique: s.unique, doubles: s.doubles, total: s.pieces, catalogTotal: s.total, collectionValue: cv,
+    looseCount: cs.looseCount, mocCount: cs.mocCount, looseValue: cs.looseValue, mocValue: cs.mocValue };
 }
 
 // ── sync collezione ──
@@ -116,7 +118,8 @@ async function pullAndMerge() {
   else if (profile) {   // prezzi aggiornati nel catalogo: riallinea il valore pubblicato
     try {
       const st = computeStats({ owned: cleanMap(merged.owned), value: cleanMap(merged.value), qty: cleanMap(merged.qty, true) });
-      if (st && st.collectionValue !== profile.collectionValue) { await setDoc(profRef(uid), { ...st, updatedAt: serverTimestamp() }, { merge: true }); profile.collectionValue = st.collectionValue; }
+      const keys = ["collectionValue", "looseCount", "mocCount", "looseValue", "mocValue"];
+      if (st && keys.some(k => st[k] !== profile[k])) { await setDoc(profRef(uid), { ...st, updatedAt: serverTimestamp() }, { merge: true }); keys.forEach(k => { profile[k] = st[k]; }); }
     } catch (e) { console.error("Value refresh failed", e); }
   }
   if (changedLocal) window.dispatchEvent(new Event("motu-remote-loaded"));
@@ -143,7 +146,7 @@ async function claimNickname(nick) {
     if (oldKey && oldKey !== newKey) tx.delete(doc(db, "nicknames", oldKey));
   });
   const st = computeStats(localData()) || {};
-  const base = profile ? {} : { createdAt: serverTimestamp(), unique: 0, doubles: 0, total: 0, owned: 0, catalogTotal: 0 };
+  const base = profile ? {} : { createdAt: serverTimestamp(), unique: 0, doubles: 0, total: 0, owned: 0, catalogTotal: 0, looseCount: 0, mocCount: 0, looseValue: 0, mocValue: 0 };
   await setDoc(profRef(uid), { ...base, ...st, nickname: nick, updatedAt: serverTimestamp() }, { merge: true });
   await loadProfile();
   emit();

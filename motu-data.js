@@ -1504,7 +1504,7 @@ function getValueRowsMotu(ownedIds, valueIds, qtyIds) {
           const total = ((looseOn ? priceLoose : 0) + (mocOn ? priceMOC : 0)) * qty(u.id);
           rows.push({
             key: u.id, name: item.name, year: item.year || '-', wave: item.wave || '-',
-            variant: u.variant, priceLoose, priceMOC, looseKey, mocKey, looseOn, mocOn, total, serie, sub,
+            variant: u.variant, priceLoose, priceMOC, looseKey, mocKey, looseOn, mocOn, total, serie, sub, qty: qty(u.id),
           });
         });
       });
@@ -1515,6 +1515,17 @@ function getValueRowsMotu(ownedIds, valueIds, qtyIds) {
 // Valore totale (USD) dei pezzi segnati
 function getCollectionValueMotu(ownedIds, valueIds, qtyIds) {
   return getValueRowsMotu(ownedIds, valueIds, qtyIds).reduce((sum, r) => sum + r.total, 0);
+}
+
+// Ripartizione per condizione: quanti pezzi (copie incluse) sono LOOSE e quanti MOC, e quanto valgono.
+function getConditionStatsMotu(ownedIds, valueIds, qtyIds) {
+  const out = { looseCount: 0, mocCount: 0, looseValue: 0, mocValue: 0 };
+  getValueRowsMotu(ownedIds, valueIds, qtyIds).forEach(r => {
+    if (r.mocOn) { out.mocCount += r.qty; out.mocValue += r.priceMOC * r.qty; }
+    else { out.looseCount += r.qty; out.looseValue += r.priceLoose * r.qty; }
+  });
+  out.looseValue = Math.round(out.looseValue); out.mocValue = Math.round(out.mocValue);
+  return out;
 }
 
 function getItemsMotu(serie, sub) {
@@ -1579,3 +1590,4 @@ window.motuGetValueRows = getValueRowsMotu;
 window.motuGetItems = getItemsMotu;
 window.motuGetStats = getStatsMotu;
 window.motuGetCollectionValue = getCollectionValueMotu;
+window.motuGetConditionStats = getConditionStatsMotu;

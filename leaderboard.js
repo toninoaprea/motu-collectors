@@ -13,21 +13,27 @@
     var cfg = window.MOTU_CONFIG || { usdToEur: 0.92 }, n = Number(usd) || 0, eur = cur() === 'EUR';
     return (eur ? '\u20ac' : '$') + Math.round(eur ? n * cfg.usdToEur : n).toLocaleString('en-US');
   }
-  function fmt(key, v) { return key === 'collectionValue' ? money(v) : (v || 0); }
+  var VALKEY = { looseCount: 'looseValue', mocCount: 'mocValue' };
+  function fmt(key, v, r) {
+    if (key === 'collectionValue') return money(v);
+    if (VALKEY[key] && r) return (v || 0) + ' <small>(' + money(r[VALKEY[key]]) + ')</small>';
+    return v || 0;
+  }
+  function cond(r, ck, vk, on) { return '<td class="n cond' + (on ? ' on' : '') + '">' + (r[ck] || 0) + '<small>' + money(r[vk]) + '</small></td>'; }
   function pct(r) { var t = window.motuGetStats ? window.motuGetStats({}, null, null, {}).total : 0; return t ? Math.round((r.owned || 0) / t * 100) : 0; }
 
   function podium(title, key) {
     var top = sorted(key).filter(function (r) { return (r[key] || 0) > 0; }).slice(0, 3);
     var list = top.length ? top.map(function (r, i) {
-      return '<li><span class="pd-medal">' + MEDAL[i] + '</span><span class="pd-name">' + esc(r.nickname) + '</span><span class="pd-n">' + fmt(key, r[key]) + '</span></li>';
+      return '<li><span class="pd-medal">' + MEDAL[i] + '</span><span class="pd-name">' + esc(r.nickname) + '</span><span class="pd-n">' + fmt(key, r[key], r) + '</span></li>';
     }).join('') : '<li class="pd-empty">No one yet</li>';
     return '<div class="lb-podium"><h3>' + title + '</h3><ol>' + list + '</ol></div>';
   }
 
   function render() {
-    $('lbPodiums').innerHTML = podium('MOST UNIQUE PIECES', 'unique') + podium('MOST DOUBLES', 'doubles') + podium('MOST TOTAL PIECES', 'total') + podium('MOST VALUABLE COLLECTION', 'collectionValue');
+    $('lbPodiums').innerHTML = podium('MOST UNIQUE PIECES', 'unique') + podium('MOST DOUBLES', 'doubles') + podium('MOST TOTAL PIECES', 'total') + podium('MOST VALUABLE COLLECTION', 'collectionValue') + podium('MOST LOOSE PIECES', 'looseCount') + podium('MOST MOC PIECES', 'mocCount');
     var list = sorted(sortBy);
-    var cols = admin ? 8 : 7;
+    var cols = admin ? 10 : 9;
     document.querySelector('th.adm').hidden = !admin;
     $('lbBody').innerHTML = list.length ? list.map(function (r, i) {
       return '<tr><td class="rk">' + (i + 1) + '</td><td class="nm">' + esc(r.nickname) + '</td>' +
@@ -35,6 +41,8 @@
         '<td class="n' + (sortBy === 'doubles' ? ' on' : '') + '">' + (r.doubles || 0) + '</td>' +
         '<td class="n' + (sortBy === 'total' ? ' on' : '') + '">' + (r.total || 0) + '</td>' +
         '<td class="n' + (sortBy === 'collectionValue' ? ' on' : '') + '">' + money(r.collectionValue) + '</td>' +
+        cond(r, 'looseCount', 'looseValue', sortBy === 'looseCount') +
+        cond(r, 'mocCount', 'mocValue', sortBy === 'mocCount') +
         '<td class="n">' + pct(r) + '%</td>' +
         (admin ? '<td class="adm"><button data-act="rename" data-uid="' + esc(r.uid) + '">RENAME</button> <button data-act="del" data-uid="' + esc(r.uid) + '">DELETE</button></td>' : '') +
         '</tr>';
