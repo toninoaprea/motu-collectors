@@ -75,8 +75,55 @@
   function toggleOwned(id) {
     ownedIds[id] = !ownedIds[id];
     if (!ownedIds[id]) { delete qtyIds[id]; saveJSON(STORAGE_QTY, qtyIds); }
+    else if (!valueIds['v-loose-' + id] && !valueIds['v-moc-' + id]) { valueIds['v-loose-' + id] = true; saveJSON(STORAGE_VALUE, valueIds); }   // predefinito: loose
     saveJSON(STORAGE_OWNED, ownedIds);
     render();
+    if (ownedIds[id]) askCondition(id);
+  }
+
+  // ── Valuta: i prezzi nel catalogo sono in USD ──
+  function money(usd) {
+    const cfg = window.MOTU_CONFIG || { usdToEur: 0.92 };
+    let cur = 'USD';
+    try { if (localStorage.getItem('motu_currency') === 'EUR') cur = 'EUR'; } catch (e) {}
+    const n = Number(usd) || 0;
+    const v = cur === 'EUR' ? n * cfg.usdToEur : n;
+    return (cur === 'EUR' ? '\u20ac' : '$') + v.toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 2 });
+  }
+  function itemNameById(id) {
+    let nm = '';
+    Object.values(CATALOG).forEach(subs => Object.values(subs).forEach(items => items.forEach(it => {
+      if (it.id === id) nm = it.name;
+      (it.variants || []).forEach(v => { if (v.id === id) nm = it.name + ' \u2013 ' + v.name; });
+    })));
+    return nm;
+  }
+  // Scelta rapida: come tieni il pezzo (alimenta la scheda Value)
+  function setCondition(id, kind) {
+    valueIds['v-loose-' + id] = kind === 'loose';
+    valueIds['v-moc-' + id] = kind === 'moc';
+    saveJSON(STORAGE_VALUE, valueIds);
+  }
+  function askCondition(id) {
+    const old = document.getElementById('motuCondAsk'); if (old) old.remove();
+    const el = document.createElement('div');
+    el.id = 'motuCondAsk';
+    el.className = 'motu-cond-ask';
+    el.innerHTML = `<div class="motu-cond-box" role="dialog" aria-label="How do you keep it?">
+      <div class="motu-cond-title">${esc(itemNameById(id))}</div>
+      <div class="motu-cond-q">How do you keep it?</div>
+      <div class="motu-cond-btns">
+        <button data-k="loose" class="motu-cond-btn">LOOSE</button>
+        <button data-k="moc" class="motu-cond-btn">MOC<small>carded / sealed</small></button>
+      </div>
+      <div class="motu-cond-hint">It sets the value of the piece. You can change it later in the Value tab.</div>
+    </div>`;
+    el.addEventListener('click', function (e) {
+      const b = e.target.closest('[data-k]');
+      if (b) { setCondition(id, b.getAttribute('data-k')); render(); }
+      if (b || e.target === el) el.remove();
+    });
+    document.body.appendChild(el);
   }
   function changeQty(id, delta) {
     if (!ownedIds[id]) return;
@@ -98,8 +145,9 @@
     render();
   }
   function toggleValue(key) {
-    valueIds[key] = !valueIds[key];
-    saveJSON(STORAGE_VALUE, valueIds);
+    // LOOSE e MOC sono alternative: scegliendone una si toglie l'altra
+    const m = /^v-(loose|moc)-(.+)$/.exec(key);
+    if (m) setCondition(m[2], m[1]);
     render();
   }
 
@@ -394,13 +442,13 @@
         <div class="motu-value-variant" style="flex:1.3;">${esc(row.variant)}</div>
         <div class="motu-value-cell" data-action="toggle-value" data-key="${esc(row.looseKey)}">
           <div class="motu-value-check ${row.looseOn ? 'on' : ''}">${row.looseOn ? '✓' : ''}</div>
-          <div class="motu-value-price ${row.looseOn ? 'on' : ''}">${row.priceLoose > 0 ? '€' + row.priceLoose : '-'}</div>
+          <div class="motu-value-price ${row.looseOn ? 'on' : ''}">${row.priceLoose > 0 ? money(row.priceLoose) : '-'}</div>
         </div>
         <div class="motu-value-cell" data-action="toggle-value" data-key="${esc(row.mocKey)}">
           <div class="motu-value-check ${row.mocOn ? 'on' : ''}">${row.mocOn ? '✓' : ''}</div>
-          <div class="motu-value-price ${row.mocOn ? 'on' : ''}">${row.priceMOC > 0 ? '€' + row.priceMOC : '-'}</div>
+          <div class="motu-value-price ${row.mocOn ? 'on' : ''}">${row.priceMOC > 0 ? money(row.priceMOC) : '-'}</div>
         </div>
-        <div class="motu-value-linetotal">${row.total > 0 ? '€' + row.total : '-'}</div>
+        <div class="motu-value-linetotal">${row.total > 0 ? money(row.total) : '-'}</div>
       </div>
     `).join('') : `<div class="motu-empty"><div class="motu-empty-title">No items owned yet.</div><div class="motu-empty-sub">Check off characters in the checklist to see them here.</div></div>`;
 
@@ -409,8 +457,9 @@
         ${appbar('VALUE', 'COLLECTION VALUE', true)}
         <div class="motu-value-total">
           <div class="motu-value-total-label">TOTAL COLLECTION VALUE</div>
-          <div class="motu-value-total-amount">€ ${grandTotal.toLocaleString('en-US')}</div>
+          <div class="motu-value-total-amount">${money(grandTotal)}</div>
           <div class="motu-value-total-sub">${filtered.length} items listed</div>
+          <div class="motu-value-total-sub">Averages for items in good condition. The real value of each piece depends on its condition. Where no market price is available yet, the retail price is used.</div>
         </div>
         ${searchBar('Search the pricelist...', valueQuery, 'value-search', 'value-search-clear')}
         <div class="motu-filters">${chipsSerie}</div>

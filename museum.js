@@ -28,6 +28,24 @@
       if (q[id]) { delete q[id]; saveMap('motu_qty_ids', q); }
     }
     saveMap('motu_owned_ids', owned);
+    if (on) {   // come lo tieni: predefinito loose (si cambia dalla scheda)
+      const v = loadMap('motu_value_ids');
+      if (!v['v-loose-' + id] && !v['v-moc-' + id]) { v['v-loose-' + id] = true; saveMap('motu_value_ids', v); }
+    }
+  }
+  function getCond(id) { return loadMap('motu_value_ids')['v-moc-' + id] ? 'moc' : 'loose'; }
+  function setCond(id, kind) {
+    const v = loadMap('motu_value_ids');
+    v['v-loose-' + id] = kind === 'loose'; v['v-moc-' + id] = kind === 'moc';
+    saveMap('motu_value_ids', v);
+  }
+  function condHtml(id) {
+    const c = getCond(id);
+    return `<div class="museum-cond" data-id="${esc(id)}"${isOwned(id) ? '' : ' hidden'}>
+      <span class="museum-cond-q">How do you keep it?</span>
+      <button class="museum-cond-btn${c === 'loose' ? ' on' : ''}" data-action="set-cond" data-id="${esc(id)}" data-k="loose">LOOSE</button>
+      <button class="museum-cond-btn${c === 'moc' ? ' on' : ''}" data-action="set-cond" data-id="${esc(id)}" data-k="moc">MOC</button>
+    </div>`;
   }
   // Personaggi per mensola, responsive: 4 su mobile, 8 su tablet portrait,
   // 12 su tablet landscape/desktop.
@@ -247,6 +265,7 @@
               <span class="museum-heart-ico">${isOwned(entry.item.id) ? '\u2665' : '\u2661'}</span>
               <span class="museum-heart-txt">${isOwned(entry.item.id) ? 'In my collection' : 'Add to my collection'}</span>
             </button>
+            ${condHtml(entry.item.id)}
             <div class="museum-card-meta">${esc(metaLine)}</div>
             ${retailLine ? `<div class="museum-card-retail">${esc(retailLine)}</div>` : ''}
             <div class="museum-card-desc">${bio ? esc(bio) : 'Description coming soon.'}</div>
@@ -295,6 +314,12 @@
       if (action === 'card-prev') { cardGo(-1); return; }
       if (action === 'card-next') { cardGo(1); return; }
       if (action === 'close-card') { closeCard(); return; }
+      if (action === 'set-cond') {
+        const id = navEl.getAttribute('data-id'), k = navEl.getAttribute('data-k');
+        setCond(id, k);
+        navEl.parentElement.querySelectorAll('.museum-cond-btn').forEach(b => b.classList.toggle('on', b === navEl));
+        return;
+      }
       if (action === 'toggle-owned') {
         const id = navEl.getAttribute('data-id');
         const on = !isOwned(id);
@@ -303,6 +328,8 @@
         navEl.setAttribute('aria-pressed', on ? 'true' : 'false');
         navEl.querySelector('.museum-heart-ico').textContent = on ? '\u2665' : '\u2661';
         navEl.querySelector('.museum-heart-txt').textContent = on ? 'In my collection' : 'Add to my collection';
+        const cb = cardEl.querySelector('.museum-cond');
+        if (cb) { cb.hidden = !on; cb.querySelectorAll('.museum-cond-btn').forEach(b => b.classList.toggle('on', b.getAttribute('data-k') === getCond(id))); }
         const btn = shelvesEl.querySelector('[data-id="' + id.replace(/"/g, '') + '"]');
         if (btn) btn.classList.toggle('is-owned', on);
         return;

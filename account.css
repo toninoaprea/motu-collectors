@@ -33,7 +33,7 @@
 .acc-row { display: grid; gap: 8px; margin-top: 18px; }
 
 /* leaderboard */
-.lb-podiums { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 22px; }
+.lb-podiums { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 12px; margin-bottom: 22px; }
 .lb-podium { border: 1px solid #e6e6e6; border-radius: 12px; padding: 14px; background: linear-gradient(180deg, #fff, #fff6f6); }
 .lb-podium h3 { font-family: var(--font-display); letter-spacing: 2px; font-weight: 400; font-size: 17px; color: var(--red-dark, #8f0f0f); margin: 0 0 8px; text-align: center; }
 .lb-podium ol { list-style: none; margin: 0; padding: 0; }
@@ -59,3 +59,5 @@
 .lb-table td.adm button { font-size: 11px; padding: 4px 8px; border: 1px solid #bbb; border-radius: 6px; background: #fff; cursor: pointer; }
 .lb-table th.adm[hidden] { display: none; }
 @media (max-width: 720px) { .lb-podiums { grid-template-columns: 1fr; } }
+
+.lb-cur { margin-left: auto; padding: 6px 10px; border-radius: 999px; border: 1px solid #ccc; font-size: 13px; background: #fff; }

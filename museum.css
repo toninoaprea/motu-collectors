@@ -162,3 +162,9 @@
 .museum-card-img { border-radius: 0; }
 
 .museum-section-title{font-family:var(--font-display,'Bebas Neue',sans-serif);letter-spacing:4px;text-align:center;color:#fff;font-size:30px;margin:48px 16px 8px;padding-top:24px;border-top:1px solid rgba(255,255,255,.15)}
+
+.museum-cond { display: flex; align-items: center; gap: 8px; margin: 8px 0 4px; flex-wrap: wrap; }
+.museum-cond[hidden] { display: none; }
+.museum-cond-q { font-size: 12px; opacity: .8; }
+.museum-cond-btn { padding: 5px 14px; border-radius: 999px; border: 1px solid currentColor; background: transparent; color: inherit; font-family: var(--font-display, 'Bebas Neue', sans-serif); letter-spacing: 1.5px; font-size: 14px; cursor: pointer; opacity: .75; }
+.museum-cond-btn.on { background: var(--red, #c4161c); border-color: var(--red, #c4161c); color: #fff; opacity: 1; }

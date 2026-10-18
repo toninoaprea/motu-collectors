@@ -1473,45 +1473,48 @@ function searchAllMotu(query) {
 }
 
 // Genera la lista per la pagina Collection Value
+// ── VALORE COLLEZIONE ──
+// Tutti i prezzi nel catalogo sono in USD (valori medi per pezzi in buone condizioni).
+// Se per un pezzo manca il prezzo loose/MOC si usa il prezzo retail come stima.
+// Per ogni pezzo posseduto l'utente sceglie come lo tiene: LOOSE oppure MOC (flag v-loose-<id> / v-moc-<id>);
+// senza scelta si conta LOOSE. Le copie doppie contano tutte nella stessa condizione.
+window.MOTU_CONFIG = window.MOTU_CONFIG || { usdToEur: 0.92, valuesUpdated: 'October 2026' };
 function getValueRowsMotu(ownedIds, valueIds, qtyIds) {
   qtyIds = qtyIds || {};
+  valueIds = valueIds || {};
   const qty = id => Math.max(1, Math.min(99, parseInt(qtyIds[id], 10) || 1));
+  const px = (v, item, kind) => {
+    const p = kind === 'moc' ? v.priceMOC : v.priceLoose;
+    return p > 0 ? p : (item.priceRetail > 0 ? item.priceRetail : 0);
+  };
   const rows = [];
   Object.entries(CATALOG).forEach(([serie, subs]) => {
     Object.entries(subs).forEach(([sub, items]) => {
       items.forEach(item => {
-        if (!ownedIds[item.id]) return;
-        const hasVariants = Array.isArray(item.variants) && item.variants.length > 0;
-        if (hasVariants) {
-          item.variants.forEach(v => {
-            const looseKey = `v-loose-${v.id}`;
-            const mocKey = `v-moc-${v.id}`;
-            const looseOn = !!valueIds[looseKey];
-            const mocOn = !!valueIds[mocKey];
-            const mult = ownedIds[v.id] ? qty(v.id) : qty(item.id);
-            const total = ((looseOn ? (v.priceLoose || 0) : 0) + (mocOn ? (v.priceMOC || 0) : 0)) * mult;
-            rows.push({
-              key: v.id, name: item.name, year: item.year || '-', wave: item.wave || '-',
-              variant: v.name, priceLoose: v.priceLoose || 0, priceMOC: v.priceMOC || 0,
-              looseKey, mocKey, looseOn, mocOn, total, serie, sub,
-            });
-          });
-        } else {
-          const looseKey = `v-loose-${item.id}`;
-          const mocKey = `v-moc-${item.id}`;
-          const looseOn = !!valueIds[looseKey];
+        const vs = Array.isArray(item.variants) ? item.variants : [];
+        const ownedVariants = vs.filter(v => ownedIds[v.id]);
+        let units = [];
+        if (ownedVariants.length) units = ownedVariants.map(v => ({ obj: v, id: v.id, variant: v.name }));
+        else if (ownedIds[item.id]) units = [{ obj: item, id: item.id, variant: '-' }];
+        units.forEach(u => {
+          const looseKey = `v-loose-${u.id}`, mocKey = `v-moc-${u.id}`;
           const mocOn = !!valueIds[mocKey];
-          const total = ((looseOn ? (item.priceLoose || 0) : 0) + (mocOn ? (item.priceMOC || 0) : 0)) * qty(item.id);
+          const looseOn = !!valueIds[looseKey] || !mocOn;   // senza scelta: loose
+          const priceLoose = px(u.obj, item, 'loose'), priceMOC = px(u.obj, item, 'moc');
+          const total = ((looseOn ? priceLoose : 0) + (mocOn ? priceMOC : 0)) * qty(u.id);
           rows.push({
-            key: item.id, name: item.name, year: item.year || '-', wave: item.wave || '-',
-            variant: '-', priceLoose: item.priceLoose || 0, priceMOC: item.priceMOC || 0,
-            looseKey, mocKey, looseOn, mocOn, total, serie, sub,
+            key: u.id, name: item.name, year: item.year || '-', wave: item.wave || '-',
+            variant: u.variant, priceLoose, priceMOC, looseKey, mocKey, looseOn, mocOn, total, serie, sub,
           });
-        }
+        });
       });
     });
   });
   return rows;
+}
+// Valore totale (USD) dei pezzi segnati
+function getCollectionValueMotu(ownedIds, valueIds, qtyIds) {
+  return getValueRowsMotu(ownedIds, valueIds, qtyIds).reduce((sum, r) => sum + r.total, 0);
 }
 
 function getItemsMotu(serie, sub) {
@@ -1559,3 +1562,4 @@ window.motuSearchAll = searchAllMotu;
 window.motuGetValueRows = getValueRowsMotu;
 window.motuGetItems = getItemsMotu;
 window.motuGetStats = getStatsMotu;
+window.motuGetCollectionValue = getCollectionValueMotu;

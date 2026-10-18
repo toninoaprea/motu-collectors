@@ -61,7 +61,9 @@ function emit() { listeners.forEach(fn => { try { fn({ user: currentUser, profil
 function computeStats(data) {
   if (typeof window.motuGetStats !== "function") return null;
   const s = window.motuGetStats(data.owned, null, null, data.qty);
-  return { owned: s.owned, unique: s.unique, doubles: s.doubles, total: s.pieces, catalogTotal: s.total };
+  // collectionValue: valore in USD (interi) dei pezzi segnati, con la condizione scelta (loose/MOC)
+  const cv = typeof window.motuGetCollectionValue === "function" ? Math.round(window.motuGetCollectionValue(data.owned, data.value, data.qty)) : 0;
+  return { owned: s.owned, unique: s.unique, doubles: s.doubles, total: s.pieces, catalogTotal: s.total, collectionValue: cv };
 }
 
 // ── sync collezione ──
@@ -111,6 +113,12 @@ async function pullAndMerge() {
   lsSet(KEYS.owned, cleanMap(merged.owned)); lsSet(KEYS.value, cleanMap(merged.value)); lsSet(KEYS.qty, cleanMap(merged.qty, true));
   lsFlag(K_SYNCED, uid);
   if (first || dirty) await pushNow();
+  else if (profile) {   // prezzi aggiornati nel catalogo: riallinea il valore pubblicato
+    try {
+      const st = computeStats({ owned: cleanMap(merged.owned), value: cleanMap(merged.value), qty: cleanMap(merged.qty, true) });
+      if (st && st.collectionValue !== profile.collectionValue) { await setDoc(profRef(uid), { ...st, updatedAt: serverTimestamp() }, { merge: true }); profile.collectionValue = st.collectionValue; }
+    } catch (e) { console.error("Value refresh failed", e); }
+  }
   if (changedLocal) window.dispatchEvent(new Event("motu-remote-loaded"));
 }
 

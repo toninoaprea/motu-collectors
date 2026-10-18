@@ -7,7 +7,7 @@
   // ── IMPOSTAZIONI (modifica qui) ──
   // Tutti i prezzi nel catalogo sono in USD. Il cambio in euro e la data
   // di aggiornamento dei valori si cambiano solo qui.
-  var CONFIG = { usdToEur: 0.92, valuesUpdated: 'October 2026' };
+  var CONFIG = window.MOTU_CONFIG || { usdToEur: 0.92, valuesUpdated: 'October 2026' };   // vale anche per classifica e checklist: si cambia in motu-data.js
   var CUR_KEY = 'motu_currency';
 
   var PLACEHOLDER = 'img/characters/base.png';
@@ -120,7 +120,7 @@
 
   function updateNote() {
     if (!noteEl) return;
-    noteEl.textContent = 'Prices stored in USD' +
+    noteEl.textContent = 'Values are averages for items in good condition; the real value of a piece depends on its condition. Prices stored in USD' +
       (currency === 'EUR' ? ' and converted at 1 USD = ' + CONFIG.usdToEur + ' EUR' : '') +
       '. Market values updated: ' + CONFIG.valuesUpdated + '.';
   }

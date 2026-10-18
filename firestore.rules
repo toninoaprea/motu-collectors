@@ -15,6 +15,7 @@ service cloud.firestore {
         && (!('doubles' in d) || (d.doubles is int && d.doubles >= 0 && d.doubles <= 100000))
         && (!('total' in d) || (d.total is int && d.total >= 0 && d.total <= 100000))
         && (!('owned' in d) || (d.owned is int && d.owned >= 0 && d.owned <= 100000))
+        && (!('collectionValue' in d) || (d.collectionValue is int && d.collectionValue >= 0 && d.collectionValue <= 100000000))
         && (!('catalogTotal' in d) || (d.catalogTotal is int && d.catalogTotal >= 0 && d.catalogTotal <= 100000));
     }
 
