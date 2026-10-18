@@ -79,8 +79,8 @@ window.MOTU_PHOTOS = {
    "img/characters/ori-cl-f-008-2.webp?v=dtx6wp",
    "img/characters/ori-cl-f-008-3.webp?v=dtx6wp"
   ],
-  "preview": "img/characters/ori-cl-f-008-shelf.png?v=du1j23",
-  "thumb": "img/characters/ori-cl-f-008-thumb.webp?v=du1j23"
+  "preview": "img/characters/ori-cl-f-008-shelf.png?v=due1wm",
+  "thumb": "img/characters/ori-cl-f-008-thumb.webp?v=due1wm"
  },
  "ori-cl-f-078": {
   "images": [
