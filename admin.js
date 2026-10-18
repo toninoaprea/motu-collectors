@@ -47,9 +47,9 @@
     $('admSearch').addEventListener('input', search);
     $('admPublish').addEventListener('click', publish);
     $('admSquare').addEventListener('click', squareExisting);
-    $('admCropSize').addEventListener('input', function () { crop.size = parseInt(this.value, 10) / 100; drawCrop(); });
+    $('admCropSize').addEventListener('input', function () { cropTouched = true; crop.size = parseInt(this.value, 10) / 100; drawCrop(); });
     var cv = $('admCrop');
-    function pt(e) { var r = cv.getBoundingClientRect(); crop.cx = (e.clientX - r.left) / r.width; crop.cy = (e.clientY - r.top) / r.height; drawCrop(); }
+    function pt(e) { cropTouched = true; var r = cv.getBoundingClientRect(); crop.cx = (e.clientX - r.left) / r.width; crop.cy = (e.clientY - r.top) / r.height; drawCrop(); }
     cv.addEventListener('pointerdown', function (e) { cv.setPointerCapture(e.pointerId); pt(e); cv.onpointermove = pt; });
     cv.addEventListener('pointerup', function () { cv.onpointermove = null; });
     buildSlots();
@@ -122,7 +122,9 @@
     return out;
   }
 
+  var cropTouched = false, squaring = false;
   function pick(r) {
+    cropTouched = false;
     picked = { id: r.id, name: r.name, serie: r.serie, sub: r.sub, item: r };
     slotFiles = [null, null, null, null, null]; shelfFile = null; frontImg = null;
     var p = $('admPicked'); p.hidden = false;
@@ -292,7 +294,8 @@
     } catch (e) { return setMsg(msg, 'Could not read the existing photos: ' + (e.message || e), 'err'); }
     if (!n) return setMsg(msg, 'The photos already online are all square (or there are none).', 'ok');
     renderSlots();
-    await publish();
+    squaring = true;
+    try { await publish(); } finally { squaring = false; }
   }
 
   // ── pubblicazione (un solo commit) ──
@@ -317,7 +320,7 @@
         else if (map[i + 1]) entry.images.push(map[i + 1]);
       }
       if (shelfFile) { var sp = 'img/characters/' + id + '-shelf.png'; files.push({ path: sp, b64: await b64(await shelfBlob(shelfFile)) }); entry.preview = sp + '?v=' + v; }
-      if (frontImg && frontNow) { var tp = 'img/characters/' + id + '-thumb.webp'; files.push({ path: tp, b64: await b64(await thumbBlob()) }); entry.thumb = tp + '?v=' + v; }
+      if (frontImg && frontNow && ((slotFiles[1] && !squaring) || cropTouched || !ex.thumb)) { var tp = 'img/characters/' + id + '-thumb.webp'; files.push({ path: tp, b64: await b64(await thumbBlob()) }); entry.thumb = tp + '?v=' + v; }
       tick('Reading photos.js…');
 
       var map2 = {};
