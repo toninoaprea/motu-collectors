@@ -5,12 +5,16 @@
 (function () {
   var REPO = 'toninoaprea/motu-collectors', BRANCH = 'main', TOKEN_KEY = 'motu_gh_token';
   var MAX_SIDE = 1000, WEBP_Q = 0.8, SHELF_H = 360, THUMB_PX = 240;
-  var SLOT_NAMES = ['1 · Blister', '2 · Front', '3 · Back', '4 · Extra', '5 · Extra'];
+  // Foto: il suffisso del file indica il ruolo. 1 blister, cb retro blister, 2 fronte, 3 retro, tutti gli altri = extra.
+  // (i file già online -1/-2/-3/-4/-5 restano dove sono; i nuovi extra si chiamano -x1, -x2, ...)
+  var BASE = [['1', 'Blister'], ['cb', 'Card back'], ['2', 'Front'], ['3', 'Back']];
+  var BASE_KEYS = BASE.map(function (b) { return b[0]; });
+  var addedExtras = [];
   var $ = function (id) { return document.getElementById(id); };
 
   var picked = null;                 // { id, name, serie, sub, item }
   var photosMap = {};                // copia di window.MOTU_PHOTOS
-  var slotFiles = [null, null, null, null, null];
+  var slotFiles = {};                // suffisso -> File
   var shelfFile = null;
   var frontImg = null;               // immagine usata per il ritaglio testa
   var crop = { cx: 0.5, cy: 0.2, size: 0.27 };
@@ -52,7 +56,8 @@
     function pt(e) { cropTouched = true; var r = cv.getBoundingClientRect(); crop.cx = (e.clientX - r.left) / r.width; crop.cy = (e.clientY - r.top) / r.height; drawCrop(); }
     cv.addEventListener('pointerdown', function (e) { cv.setPointerCapture(e.pointerId); pt(e); cv.onpointermove = pt; });
     cv.addEventListener('pointerup', function () { cv.onpointermove = null; });
-    buildSlots();
+    buildShelf();
+    $('admAddExtra').addEventListener('click', addExtra);
     if (token()) checkToken(token());
   }
 
@@ -118,20 +123,31 @@
   }
   function bySlot(images) {
     var out = {};
-    images.forEach(function (u, i) { var m = /-(\d)\.webp/.exec(u.split('?')[0]); out[m ? parseInt(m[1], 10) : i + 1] = u; });
+    images.forEach(function (u) { var m = /-([A-Za-z0-9]+)\.webp$/.exec(u.split('?')[0]); if (m) out[m[1]] = u; });
     return out;
   }
+  function extraRank(k) { var m = /^x(\d+)$/.exec(k); return m ? 1000 + parseInt(m[1], 10) : parseInt(k, 10) || 0; }
+  function extraKeys(map) {
+    var ks = Object.keys(map).concat(addedExtras).filter(function (k) { return BASE_KEYS.indexOf(k) < 0; });
+    ks = ks.filter(function (k, i) { return ks.indexOf(k) === i; });
+    if (!ks.length) ks = ['x1'];
+    return ks.sort(function (a, b) { return extraRank(a) - extraRank(b); });
+  }
+  function allKeys(map) { return BASE_KEYS.concat(extraKeys(map)); }
+  function labelFor(k, map) {
+    for (var i = 0; i < BASE.length; i++) if (BASE[i][0] === k) return BASE[i][1];
+    return 'Extra ' + (extraKeys(map).indexOf(k) + 1);
+  }
 
-  var cropTouched = false, squaring = false;
   function pick(r) {
     cropTouched = false;
     picked = { id: r.id, name: r.name, serie: r.serie, sub: r.sub, item: r };
-    slotFiles = [null, null, null, null, null]; shelfFile = null; frontImg = null;
+    slotFiles = {}; addedExtras = []; shelfFile = null; frontImg = null;
     var p = $('admPicked'); p.hidden = false;
     p.innerHTML = '<b>' + esc(r.name) + '</b><br>' + esc(r.serie + ' · ' + r.sub) + ' · <code>' + esc(r.id) + '</code>';
     $('admResults').innerHTML = ''; $('admSearch').value = ''; $('admSerie').value = 'ALL';
     $('admUpload').hidden = false; setMsg($('admMsg'), '');
-    renderSlots();
+    buildSlots();
     loadFrontFromExisting();
   }
 
@@ -147,12 +163,24 @@
   }
   function buildSlots() {
     var wrap = $('admSlots'); wrap.innerHTML = '';
-    SLOT_NAMES.forEach(function (n, i) {
-      var d = document.createElement('div'); d.className = 'adm-slot'; d.id = 'admSlot' + i; wrap.appendChild(d);
-      makeSlot(d, n, 'image/*', function (f) { slotFiles[i] = f; renderSlots(); if (i === 1) loadFrontFromFile(f); });
+    var map = picked ? bySlot(existing().images) : {};
+    allKeys(map).forEach(function (k) {
+      var d = document.createElement('div'); d.className = 'adm-slot'; d.id = 'admSlot_' + k; wrap.appendChild(d);
+      makeSlot(d, labelFor(k, map), 'image/*', function (f) { slotFiles[k] = f; renderSlots(); if (k === '2') loadFrontFromFile(f); });
     });
+    renderSlots();
+  }
+  function buildShelf() {
     var sh = $('admShelfSlot');
     makeSlot(sh, 'Shelf', 'image/png,image/webp', function (f) { shelfFile = f; renderSlots(); autoHead(); });
+  }
+  function addExtra() {
+    if (!picked) return;
+    var map = bySlot(existing().images), n = 1;
+    var used = extraKeys(map).concat(Object.keys(slotFiles));
+    while (used.indexOf('x' + n) >= 0) n++;
+    addedExtras.push('x' + n);
+    buildSlots();
   }
   function slotHtml(label, src, isNew) {
     return (src ? '<img src="' + esc(src) + '" alt="">' : '') + '<span>' + esc(label) + (isNew ? ' · NEW' : '') + '</span>' + (src ? '' : 'click or drop');
@@ -165,9 +193,9 @@
   function renderSlots() {
     if (!picked) return;
     var ex = existing(), map = bySlot(ex.images);
-    SLOT_NAMES.forEach(function (n, i) {
-      var f = slotFiles[i];
-      fill($('admSlot' + i), slotHtml(n, f ? URL.createObjectURL(f) : (map[i + 1] || ''), !!f), !!f);
+    allKeys(map).forEach(function (k) {
+      var f = slotFiles[k], el = $('admSlot_' + k);
+      if (el) fill(el, slotHtml(labelFor(k, map), f ? URL.createObjectURL(f) : (map[k] || ''), !!f), !!f);
     });
     var sh = $('admShelfSlot');
     sh.classList.add('checker');
@@ -180,7 +208,7 @@
   }
   function loadFrontFromFile(f) { loadImg(URL.createObjectURL(f)).then(setFront).catch(function () {}); }
   function loadFrontFromExisting() {
-    var map = bySlot(existing().images), u = map[2];
+    var map = bySlot(existing().images), u = map['2'];
     if (u) loadImg(u).then(setFront).catch(function () { setFront(null); }); else setFront(null);
   }
   function setFront(im) { frontImg = im; crop = { cx: 0.5, cy: 0.17, size: 0.27 }; $('admCropSize').value = 27; autoHead(); }
@@ -283,13 +311,14 @@
     var map = bySlot(existing().images), n = 0;
     setMsg(msg, 'Checking existing photos…');
     try {
-      for (var i = 0; i < 5; i++) {
-        var u = map[i + 1];
-        if (!u || slotFiles[i]) continue;
+      var ks = Object.keys(map);
+      for (var i = 0; i < ks.length; i++) {
+        var k = ks[i], u = map[k];
+        if (!u || slotFiles[k]) continue;
         var r = await fetch(u.split('?')[0] + '?nocache=' + Date.now(), { cache: 'no-store' });
         if (!r.ok) continue;
         var blob = await r.blob(), im = await fileToImg(blob);
-        if (im.naturalWidth !== im.naturalHeight) { slotFiles[i] = blob; n++; }
+        if (im.naturalWidth !== im.naturalHeight) { slotFiles[k] = blob; n++; }
       }
     } catch (e) { return setMsg(msg, 'Could not read the existing photos: ' + (e.message || e), 'err'); }
     if (!n) return setMsg(msg, 'The photos already online are all square (or there are none).', 'ok');
@@ -303,24 +332,25 @@
     if (busy || !picked) return;
     var msg = $('admMsg');
     if (!token()) return setMsg(msg, 'Add the GitHub token first (step 1).', 'err');
-    var anyNew = slotFiles.some(Boolean) || shelfFile;
-    var frontNow = slotFiles[1] || bySlot(existing().images)[2];
+    var anyNew = Object.keys(slotFiles).length || shelfFile;
+    var frontNow = slotFiles['2'] || bySlot(existing().images)['2'];
     if (!anyNew) return setMsg(msg, 'Choose at least one new photo.', 'err');
     busy = true; $('admPublish').disabled = true; $('admProgress').hidden = false;
-    var bar = $('admBar'), steps = 0, total = 6 + slotFiles.filter(Boolean).length + 2;
+    var bar = $('admBar'), steps = 0, total = 6 + Object.keys(slotFiles).length + 2;
     function tick(t) { steps++; bar.style.width = Math.min(100, Math.round(steps / total * 100)) + '%'; setMsg(msg, t); }
     try {
       var id = picked.id, v = Date.now().toString(36).slice(-6), files = [];
       var ex = existing(), map = bySlot(ex.images), entry = { images: [], preview: ex.preview, thumb: ex.thumb };
 
       tick('Processing photos…');
-      for (var i = 0; i < 5; i++) {
-        var path = 'img/characters/' + id + '-' + (i + 1) + '.webp';
-        if (slotFiles[i]) { files.push({ path: path, b64: await b64(await photoBlob(slotFiles[i])) }); entry.images.push(path + '?v=' + v); tick('Processing photos…'); }
-        else if (map[i + 1]) entry.images.push(map[i + 1]);
+      var order = allKeys(map);
+      for (var i = 0; i < order.length; i++) {
+        var k = order[i], path = 'img/characters/' + id + '-' + k + '.webp';
+        if (slotFiles[k]) { files.push({ path: path, b64: await b64(await photoBlob(slotFiles[k])) }); entry.images.push(path + '?v=' + v); tick('Processing photos…'); }
+        else if (map[k]) entry.images.push(map[k]);
       }
       if (shelfFile) { var sp = 'img/characters/' + id + '-shelf.png'; files.push({ path: sp, b64: await b64(await shelfBlob(shelfFile)) }); entry.preview = sp + '?v=' + v; }
-      if (frontImg && frontNow && ((slotFiles[1] && !squaring) || cropTouched || !ex.thumb)) { var tp = 'img/characters/' + id + '-thumb.webp'; files.push({ path: tp, b64: await b64(await thumbBlob()) }); entry.thumb = tp + '?v=' + v; }
+      if (frontImg && frontNow && ((slotFiles['2'] && !squaring) || cropTouched || !ex.thumb)) { var tp = 'img/characters/' + id + '-thumb.webp'; files.push({ path: tp, b64: await b64(await thumbBlob()) }); entry.thumb = tp + '?v=' + v; }
       tick('Reading photos.js…');
 
       var map2 = {};
@@ -348,10 +378,10 @@
       await gh('/git/refs/heads/' + BRANCH, { method: 'PATCH', body: JSON.stringify({ sha: cm.sha }) });
 
       photosMap[id] = entry;
-      slotFiles = [null, null, null, null, null]; shelfFile = null;
+      slotFiles = {}; shelfFile = null;
       bar.style.width = '100%';
       setMsg(msg, 'Published! The photos will be live on the site in 1–2 minutes (GitHub Pages is rebuilding).', 'ok');
-      renderSlots();
+      buildSlots();
     } catch (e) {
       setMsg(msg, e.status === 401 || e.status === 403 ? 'GitHub refused: ' + e.message + ' — check the token and its permissions.' : (e.message || 'Error'), 'err');
     }
