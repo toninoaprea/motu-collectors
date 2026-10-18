@@ -191,5 +191,13 @@ window.MOTU_PHOTOS = {
   ],
   "preview": "img/characters/ori-cl-f-072-shelf.png?v=e4915z",
   "thumb": "img/characters/ori-cl-f-072-thumb.webp?v=e4915z"
+ },
+ "super7-cl-v-007": {
+  "images": [
+   "img/characters/super7-cl-v-007-1.webp?v=e4dare",
+   "img/characters/super7-cl-v-007-cb.webp?v=e4dare"
+  ],
+  "preview": "",
+  "thumb": ""
  }
 };
