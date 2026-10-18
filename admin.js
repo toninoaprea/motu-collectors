@@ -10,6 +10,8 @@
   var BASE = [['1', 'Blister'], ['cb', 'Card back'], ['2', 'Front'], ['3', 'Back']];
   var BASE_KEYS = BASE.map(function (b) { return b[0]; });
   var addedExtras = [];
+  // Foto obbligatorie: blister, retro blister, fronte, retro, scaffale (png), testina (miniatura)
+  var REQUIRED = [['1', 'Blister'], ['cb', 'Card back'], ['2', 'Front'], ['3', 'Back'], ['shelf', 'Shelf'], ['thumb', 'Head']];
   var $ = function (id) { return document.getElementById(id); };
 
   var picked = null;                 // { id, name, serie, sub, item }
@@ -57,6 +59,7 @@
     cv.addEventListener('pointerdown', function (e) { cv.setPointerCapture(e.pointerId); pt(e); cv.onpointermove = pt; });
     cv.addEventListener('pointerup', function () { cv.onpointermove = null; });
     buildShelf();
+    updateTotal();
     $('admAddExtra').addEventListener('click', addExtra);
     if (token()) checkToken(token());
   }
@@ -94,7 +97,29 @@
     var n = REQUIRED.length - miss.length;
     return ' <em class="adm-badge ' + (miss.length ? 'todo' : 'done') + '">' + n + '/' + REQUIRED.length + '</em>';
   }
+  // Totale foto obbligatorie per la serie scelta (o tutto il catalogo)
+  function updateTotal() {
+    var el = $('admTotal'); if (!el || !window.MOTU_CATALOG) return;
+    var serie = $('admSerie').value, have = 0, need = 0, chars = 0, done = 0;
+    Object.keys(window.MOTU_CATALOG).forEach(function (se) {
+      if (serie !== 'ALL' && se !== serie) return;
+      var subs = window.MOTU_CATALOG[se];
+      Object.keys(subs).forEach(function (sub) {
+        subs[sub].forEach(function (r) {
+          var p = photosMap[r.id] || {};
+          var imgs = p.images || r.images || (r.image ? [r.image] : []);
+          var miss = missingFor(bySlot(imgs), !!(p.preview || r.preview), !!(p.thumb || r.thumb));
+          chars++; need += REQUIRED.length; have += REQUIRED.length - miss.length;
+          if (!miss.length) done++;
+        });
+      });
+    });
+    var pct = need ? Math.round(have / need * 100) : 0;
+    el.innerHTML = '<b>' + (serie === 'ALL' ? 'All series' : esc(serie)) + ':</b> ' + have + ' / ' + need + ' required photos (' + pct + '%) · ' + done + ' of ' + chars + ' characters complete' +
+      '<span class="adm-totalbar"><i style="width:' + pct + '%"></i></span>';
+  }
   function search() {
+    updateTotal();
     var q = $('admSearch').value.trim().toLowerCase();
     var serie = $('admSerie').value;
     var box = $('admResults');
@@ -142,7 +167,6 @@
   }
   function allKeys(map) { return BASE_KEYS.concat(extraKeys(map)); }
   // Foto obbligatorie: blister, retro blister, fronte, retro, scaffale (png), testina (miniatura)
-  var REQUIRED = [['1', 'Blister'], ['cb', 'Card back'], ['2', 'Front'], ['3', 'Back'], ['shelf', 'Shelf'], ['thumb', 'Head']];
   function missingFor(map, hasShelf, hasThumb) {
     var out = [];
     REQUIRED.forEach(function (q) {
@@ -403,7 +427,7 @@
       var cm = await gh('/git/commits', { method: 'POST', body: JSON.stringify({ message: 'Photos: ' + picked.name + ' (' + id + ')', tree: nt.sha, parents: [parent] }) });
       await gh('/git/refs/heads/' + BRANCH, { method: 'PATCH', body: JSON.stringify({ sha: cm.sha }) });
 
-      photosMap[id] = entry;
+      photosMap[id] = entry; updateTotal();
       slotFiles = {}; shelfFile = null;
       bar.style.width = '100%';
       setMsg(msg, 'Published! The photos will be live on the site in 1–2 minutes (GitHub Pages is rebuilding).', 'ok');

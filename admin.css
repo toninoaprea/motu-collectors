@@ -41,3 +41,7 @@
 .adm-badge { font-style: normal; font-size: 11px; font-weight: 700; padding: 2px 7px; border-radius: 999px; margin-left: 6px; }
 .adm-badge.todo { background: #fff4e5; color: #8a4b00; }
 .adm-badge.done { background: #e8f5ec; color: #1a7f37; }
+
+.adm-total { font-size: 13px; margin: 10px 0 4px; color: #333; }
+.adm-totalbar { display: block; height: 6px; border-radius: 999px; background: #e5e5e5; margin-top: 6px; overflow: hidden; }
+.adm-totalbar i { display: block; height: 100%; background: #1a7f37; }
