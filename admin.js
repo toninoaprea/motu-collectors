@@ -46,6 +46,7 @@
     sel.addEventListener('change', search);
     $('admSearch').addEventListener('input', search);
     $('admPublish').addEventListener('click', publish);
+    $('admSquare').addEventListener('click', squareExisting);
     $('admCropSize').addEventListener('input', function () { crop.size = parseInt(this.value, 10) / 100; drawCrop(); });
     var cv = $('admCrop');
     function pt(e) { var r = cv.getBoundingClientRect(); crop.cx = (e.clientX - r.left) / r.width; crop.cy = (e.clientY - r.top) / r.height; drawCrop(); }
@@ -233,10 +234,20 @@
   // ── elaborazione immagini ──
   function toBlob(canvas, type, q) { return new Promise(function (res) { canvas.toBlob(res, type, q); }); }
   function fileToImg(f) { return loadImg(URL.createObjectURL(f)); }
+  // Foto quadrata: l'immagine intera (nessun ritaglio) centrata su un quadrato, con lo sfondo preso dagli angoli
   async function photoBlob(f) {
-    var im = await fileToImg(f), sc = Math.min(1, MAX_SIDE / Math.max(im.naturalWidth, im.naturalHeight));
-    var c = document.createElement('canvas'); c.width = Math.round(im.naturalWidth * sc); c.height = Math.round(im.naturalHeight * sc);
-    c.getContext('2d').drawImage(im, 0, 0, c.width, c.height);
+    var im = await fileToImg(f), W = im.naturalWidth, H = im.naturalHeight;
+    var side = Math.min(MAX_SIDE, Math.max(W, H)), sc = side / Math.max(W, H);
+    var w = Math.round(W * sc), h = Math.round(H * sc);
+    var c = document.createElement('canvas'); c.width = side; c.height = side;
+    var ctx = c.getContext('2d', { willReadFrequently: true });
+    var t = document.createElement('canvas'); t.width = w; t.height = h;
+    var tx = t.getContext('2d', { willReadFrequently: true }); tx.drawImage(im, 0, 0, w, h);
+    var pts = [[0, 0], [w - 1, 0], [0, h - 1], [w - 1, h - 1]], r = 0, g = 0, b = 0;
+    pts.forEach(function (p) { var d = tx.getImageData(p[0], p[1], 1, 1).data; r += d[0]; g += d[1]; b += d[2]; });
+    ctx.fillStyle = 'rgb(' + Math.round(r / 4) + ',' + Math.round(g / 4) + ',' + Math.round(b / 4) + ')';
+    ctx.fillRect(0, 0, side, side);
+    ctx.drawImage(t, Math.round((side - w) / 2), Math.round((side - h) / 2));
     return toBlob(c, 'image/webp', WEBP_Q);
   }
   async function shelfBlob(f) {
@@ -261,6 +272,28 @@
     return new Promise(function (res, rej) { var fr = new FileReader(); fr.onload = function () { res(String(fr.result).split(',')[1]); }; fr.onerror = rej; fr.readAsDataURL(blob); });
   }
   function utf8b64(str) { var b = new TextEncoder().encode(str), s = ''; b.forEach(function (x) { s += String.fromCharCode(x); }); return btoa(s); }
+
+  // ── rende quadrate le foto già online del personaggio scelto ──
+  async function squareExisting() {
+    if (busy || !picked) return;
+    var msg = $('admMsg');
+    if (!token()) return setMsg(msg, 'Add the GitHub token first (step 1).', 'err');
+    var map = bySlot(existing().images), n = 0;
+    setMsg(msg, 'Checking existing photos…');
+    try {
+      for (var i = 0; i < 5; i++) {
+        var u = map[i + 1];
+        if (!u || slotFiles[i]) continue;
+        var r = await fetch(u.split('?')[0] + '?nocache=' + Date.now(), { cache: 'no-store' });
+        if (!r.ok) continue;
+        var blob = await r.blob(), im = await fileToImg(blob);
+        if (im.naturalWidth !== im.naturalHeight) { slotFiles[i] = blob; n++; }
+      }
+    } catch (e) { return setMsg(msg, 'Could not read the existing photos: ' + (e.message || e), 'err'); }
+    if (!n) return setMsg(msg, 'The photos already online are all square (or there are none).', 'ok');
+    renderSlots();
+    await publish();
+  }
 
   // ── pubblicazione (un solo commit) ──
   async function publish() {
