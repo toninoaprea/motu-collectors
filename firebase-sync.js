@@ -105,7 +105,9 @@ async function pullAndMerge() {
   } else {
     merged = { owned: remote.owned || {}, value: remote.value || {}, qty: remote.qty || {} };   // il cloud è la verità
   }
-  const changedLocal = JSON.stringify([local.owned, local.value, local.qty]) !== JSON.stringify([merged.owned, merged.value, merged.qty]);
+  // Confronto normalizzato (chiavi ordinate, valori puliti): evita "cambiamenti" fantasma che causavano ricaricamenti continui
+  const norm = d => JSON.stringify([cleanMap(d.owned), cleanMap(d.value), cleanMap(d.qty, true)].map(m => Object.keys(m).sort().map(k => [k, m[k]])));
+  const changedLocal = norm(local) !== norm(merged);
   lsSet(KEYS.owned, cleanMap(merged.owned)); lsSet(KEYS.value, cleanMap(merged.value)); lsSet(KEYS.qty, cleanMap(merged.qty, true));
   lsFlag(K_SYNCED, uid);
   if (first || dirty) await pushNow();
@@ -253,7 +255,12 @@ function showNickModal() {
 }
 
 // Pagine senza gestione propria dei dati (museum, value...): ricarica quando arrivano dati dal cloud
-window.addEventListener("motu-remote-loaded", () => { if (!document.getElementById("motuApp") && !/login\.html$|leaderboard\.html$/.test(location.pathname)) location.reload(); });
+window.addEventListener("motu-remote-loaded", () => {
+  if (document.getElementById("motuApp") || /login\.html$|leaderboard\.html$|admin\.html$/.test(location.pathname)) return;
+  // Sicurezza anti-loop: al massimo un ricaricamento ogni 20 secondi
+  try { const t = parseInt(sessionStorage.getItem("motu_reload_t") || "0", 10); if (Date.now() - t < 20000) return; sessionStorage.setItem("motu_reload_t", String(Date.now())); } catch (e) {}
+  location.reload();
+});
 
 // ── avvio ──
 onAuthStateChanged(auth, async user => {
