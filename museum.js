@@ -84,8 +84,13 @@
       Object.entries(subs).forEach(([sub, items]) => {
         const g = GROUP_MERGE[sub] || sub;
         const title = serie === g ? g : serie + ' \u2014 ' + (GROUP_TITLE[g] || g);
-        items.forEach(item => {
+        // Origins: i "Fan Favorite" (ristampe) hanno uno scaffale a parte subito sotto le Figures
+        const isFan = it => serie === 'ORIGINS' && sub === 'FIGURES' && /\(FAN FAVORITE\)/i.test(it.name);
+        items.filter(it => !isFan(it)).forEach(item => {
           entries.push({ item, serie, sub, group: serie + '|' + g, groupTitle: title });
+        });
+        items.filter(isFan).forEach(item => {
+          entries.push({ item, serie, sub, group: serie + '|FAN FAVORITES', groupTitle: 'ORIGINS \u2014 FAN FAVORITES (RE-RELEASES)' });
         });
       });
     });
