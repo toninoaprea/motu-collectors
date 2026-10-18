@@ -92,6 +92,27 @@
         <div class="adm-progress" id="admProgress" hidden><div id="admBar"></div></div>
         <p class="adm-msg" id="admMsg" role="status"></p>
       </div>
+
+      <div class="adm-box" id="admPrices">
+        <h2 class="adm-h">6 · PRICES (USD)</h2>
+        <p class="adm-hint">Average prices for items in good condition, in <b>USD</b>. Type them in the table, or export a CSV, fill it in Excel / Sheets and import it back. Empty cells keep the current value; the retail price is used until a price is set. Nothing goes online until you press <b>PUBLISH PRICES</b>.</p>
+        <div class="adm-row">
+          <select id="prSerie" class="adm-select" aria-label="Series"></select>
+          <select id="prSub" class="adm-select" aria-label="Subcategory"></select>
+          <input type="search" id="prSearch" class="adm-search" placeholder="Search name…" autocomplete="off" />
+        </div>
+        <div class="adm-row pr-tools">
+          <label class="pr-check"><input type="checkbox" id="prMissing" /> only without price</label>
+          <button class="adm-btn adm-ghost" id="prExport" type="button">EXPORT CSV</button>
+          <button class="adm-btn adm-ghost" id="prImport" type="button">IMPORT CSV</button>
+          <input type="file" id="prFile" accept=".csv,text/csv,text/plain" hidden />
+          <span class="pr-count" id="prCount"></span>
+        </div>
+        <div class="pr-wrap"><table class="pr-table"><thead><tr><th>CHARACTER</th><th>YEAR</th><th class="n">RETAIL</th><th class="n">LOOSE $</th><th class="n">MOC $</th></tr></thead><tbody id="prBody"></tbody></table></div>
+        <button class="adm-btn adm-ghost" id="prMore" type="button" hidden>SHOW MORE</button>
+        <p><button class="adm-btn adm-big" id="prPublish" type="button">PUBLISH PRICES</button></p>
+        <p class="adm-msg" id="prMsg" role="status"></p>
+      </div>
     </div>
   </div>
 
@@ -106,8 +127,10 @@
   <script src="app.js"></script>
   <script src="mobile-nav.js"></script>
   <script src="photos.js"></script>
+  <script src="prices.js"></script>
   <script src="motu-data.js"></script>
   <script type="module" src="firebase-sync.js"></script>
   <script src="admin.js"></script>
+  <script src="admin-prices.js"></script>
 </body>
 </html>

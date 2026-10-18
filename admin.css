@@ -52,3 +52,19 @@
 .adm-hs span { position: absolute; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,.6); color: #fff; font-size: 10px; padding: 2px; }
 .adm-hs.checker img { background: repeating-conic-gradient(#ddd 0 25%, #fff 0 50%) 0 0 / 12px 12px; }
 .adm-hs.on { border-color: var(--red, #c4161c); box-shadow: 0 0 0 2px var(--red, #c4161c); }
+
+/* Prezzi */
+.pr-tools { margin-top: 8px; align-items: center; flex-wrap: wrap; }
+.pr-check { font-size: 13px; display: flex; align-items: center; gap: 6px; }
+.pr-count { margin-left: auto; font-size: 13px; color: #555; }
+.pr-wrap { max-height: 520px; overflow: auto; border: 1px solid #ddd; border-radius: 10px; margin: 10px 0; background: #fff; }
+.pr-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.pr-table th { position: sticky; top: 0; background: #f3f3f3; text-align: left; padding: 8px; z-index: 1; font-size: 11px; letter-spacing: 1px; }
+.pr-table td { padding: 5px 8px; border-top: 1px solid #eee; }
+.pr-table .n { text-align: right; }
+.pr-table .pr-var { color: #777; font-size: 12px; }
+.pr-table .pr-sub { color: #999; font-size: 11px; display: block; }
+.pr-table input { width: 84px; padding: 5px 6px; border: 1px solid #ccc; border-radius: 6px; text-align: right; font-size: 13px; }
+.pr-table input.chg { border-color: #1a7f37; background: #f0faf3; }
+.pr-check { white-space: nowrap; }
+.pr-check input { width: auto; flex: none; }

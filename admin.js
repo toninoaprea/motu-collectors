@@ -464,4 +464,5 @@
     }
     busy = false; $('admPublish').disabled = false;
   }
+  window.MotuAdmin = { gh: gh, token: token, BRANCH: BRANCH, utf8b64: utf8b64, setMsg: setMsg, esc: esc };
 })();

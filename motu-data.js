@@ -1555,6 +1555,22 @@ function getStatsMotu(ownedIds, serie, sub, qtyIds) {
   })));
 })();
 
+// Prezzi: se esiste prices.js (generato dal pannello admin) assegna prezzo loose/MOC (USD) ai pezzi e alle varianti
+(function () {
+  const P = window.MOTU_PRICES;
+  if (!P) return;
+  const apply = (o) => {
+    const p = P[o.id];
+    if (!p) return;
+    if (p.l > 0) o.priceLoose = p.l;
+    if (p.m > 0) o.priceMOC = p.m;
+  };
+  Object.values(CATALOG).forEach(subs => Object.values(subs).forEach(items => items.forEach(it => {
+    apply(it);
+    (it.variants || []).forEach(apply);
+  })));
+})();
+
 // Espone tutto come variabili globali per l'uso in checklist.html
 window.MOTU_SERIE_DEFAULTS = SERIE_DEFAULTS;
 window.MOTU_CATALOG = CATALOG;
