@@ -407,5 +407,10 @@ window.MOTU_PHOTOS = {
   ],
   "preview": "img/characters/ori-cl-x-016-shelf.png?v=h5o6bu",
   "thumb": "img/characters/ori-cl-x-016-thumb.webp?v=h5o6bu"
+ },
+ "ori-cl-x-033": {
+  "images": [],
+  "preview": "img/characters/ori-cl-x-033-shelf.png?v=h5sln8",
+  "thumb": "img/characters/ori-cl-x-033-thumb.webp?v=h5sln8"
  }
 };
