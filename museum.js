@@ -106,15 +106,32 @@
       Object.entries(subs).forEach(([sub, items]) => {
         const g = GROUP_MERGE[sub] || sub;
         const title = serie === g ? g : serie + ' \u2014 ' + (GROUP_TITLE[g] || g);
-        // Origins: i "Fan Favorite" (ristampe) hanno uno scaffale a parte subito sotto le Figures
-        const isFan = it => serie === 'ORIGINS' && sub === 'FIGURES' && /\(FAN FAVORITE\)/i.test(it.name);
+        // Origins: scaffali separati dentro Figures e Deluxe (serie classica, Fan Favorites, Cartoon Collection, 200X)
+        // e Sketchbook raccolti in uno scaffale a parte subito dopo le Exclusives.
+        const isOrigins = serie === 'ORIGINS';
+        const isSketch = it => isOrigins && /^SKETCHBOOK|\bSKETCHBOOK$/i.test(it.name);
+        const is200x = it => isOrigins && (sub === 'FIGURES' || sub === 'DELUXE FIGURES') && /^200X\b/i.test(it.name);
+        const isFan = it => isOrigins && sub === 'FIGURES' && /\(FAN FAVORITE\)/i.test(it.name);
+        const isCartoon = it => isOrigins && sub === 'FIGURES' && /\(CARTOON COLLECTION\)/i.test(it.name);
         const show = it => ownFilter === 'all' || (ownFilter === 'owned') === isOwned(it.id);
-        items.filter(it => !isFan(it) && show(it)).forEach(item => {
-          entries.push({ item, serie, sub, group: serie + '|' + g, groupTitle: title });
-        });
-        items.filter(it => isFan(it) && show(it)).forEach(item => {
-          entries.push({ item, serie, sub, group: serie + '|FAN FAVORITES', groupTitle: 'ORIGINS \u2014 FAN FAVORITES (RE-RELEASES)' });
-        });
+        const push = (list, grp, ttl) => list.filter(show).forEach(item => entries.push({ item, serie, sub, group: serie + '|' + grp, groupTitle: ttl }));
+        const rest = items.filter(it => !isSketch(it));
+        if (isOrigins && (sub === 'FIGURES' || sub === 'DELUXE FIGURES')) {
+          const classic = rest.filter(it => !is200x(it) && !isFan(it) && !isCartoon(it));
+          push(classic, g, title);
+          if (sub === 'FIGURES') {
+            push(rest.filter(isFan), 'FAN FAVORITES', 'ORIGINS \u2014 FAN FAVORITES (RE-RELEASES)');
+            push(rest.filter(it => isCartoon(it) && !is200x(it)), 'CARTOON COLLECTION', 'ORIGINS \u2014 CARTOON COLLECTION');
+          }
+          push(rest.filter(is200x), sub + ' 200X', 'ORIGINS \u2014 ' + (sub === 'FIGURES' ? '200X' : 'DELUXE 200X'));
+        } else {
+          push(rest, g, title);
+        }
+        if (isOrigins && sub === 'EXCLUSIVES') {
+          const sk = [];
+          Object.values(subs).forEach(arr => arr.forEach(it => { if (isSketch(it)) sk.push(it); }));
+          push(sk, 'SKETCHBOOK', 'ORIGINS \u2014 SKETCHBOOK');
+        }
       });
     });
     return entries;
