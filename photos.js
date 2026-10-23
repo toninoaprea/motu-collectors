@@ -385,12 +385,13 @@ window.MOTU_PHOTOS = {
  },
  "ori-cl-f-040": {
   "images": [
-   "img/characters/ori-cl-f-040-1.webp?v=h5k4qp",
-   "img/characters/ori-cl-f-040-2.webp?v=h5k4qp",
-   "img/characters/ori-cl-f-040-3.webp?v=h5k4qp"
+   "img/characters/ori-cl-f-040-1.webp?v=lf28h9",
+   "img/characters/ori-cl-f-040-cb.webp?v=lf28h9",
+   "img/characters/ori-cl-f-040-2.webp?v=lf28h9",
+   "img/characters/ori-cl-f-040-3.webp?v=lf28h9"
   ],
-  "preview": "img/characters/ori-cl-f-040-shelf.png?v=h5k4qp",
-  "thumb": "img/characters/ori-cl-f-040-thumb.webp?v=h5k4qp"
+  "preview": "img/characters/ori-cl-f-040-shelf.png?v=lf28h9",
+  "thumb": "img/characters/ori-cl-f-040-thumb.webp?v=lf28h9"
  },
  "ori-cl-f-095": {
   "images": [
