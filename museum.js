@@ -112,7 +112,7 @@
         const isSketch = it => isOrigins && /^SKETCHBOOK|\bSKETCHBOOK$/i.test(it.name);
         const is200x = it => isOrigins && (sub === 'FIGURES' || sub === 'DELUXE FIGURES') && /^200X\b/i.test(it.name);
         const isFan = it => isOrigins && sub === 'FIGURES' && /\(FAN FAVORITE\)/i.test(it.name);
-        const isCartoon = it => isOrigins && sub === 'FIGURES' && /\(CARTOON COLLECTION\)/i.test(it.name);
+        const isCartoon = it => isOrigins && sub === 'FIGURES' && (/\(CARTOON COLLECTION\)/i.test(it.name) || it.id === 'ori-cl-f-091');
         const show = it => ownFilter === 'all' || (ownFilter === 'owned') === isOwned(it.id);
         const push = (list, grp, ttl) => list.filter(show).forEach(item => entries.push({ item, serie, sub, group: serie + '|' + grp, groupTitle: ttl }));
         const rest = items.filter(it => !isSketch(it));
