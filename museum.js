@@ -157,6 +157,20 @@
     `).join('');
   }
 
+  // Larghezza (in "figure") di un pezzo sulla mensola. Campo item.span per decidere a mano;
+  // altrimenti i "N PACK" nel nome: 2 -> 1.5, 3 -> 2, 4 -> 2.5, 5+ -> 3.
+  function packSpan(item) {
+    if (item.span) return Math.min(Number(item.span) || 1, 4);
+    const m = /\b(\d+)[ -]?PACK\b/i.exec(item.name || '');
+    if (!m) return 1;
+    const n = parseInt(m[1], 10);
+    return n <= 1 ? 1 : n === 2 ? 1.5 : n === 3 ? 2 : n === 4 ? 2.5 : 3;
+  }
+  function spanStyle(item, perShelf) {
+    const sp = packSpan(item);
+    return sp > 1 ? ` style="width:${(sp * 100 / perShelf).toFixed(3)}%"` : '';
+  }
+
   function renderShelves() {
     const entries = collectItems();
     const perShelf = getFiguresPerShelf();
@@ -166,7 +180,13 @@
       const g = entries[s].group;
       let e = s;
       while (e < entries.length && entries[e].group === g) e++;
-      for (let i = s; i < e; i += perShelf) rows.push({ i, end: Math.min(i + perShelf, e), title: i === s ? entries[s].groupTitle : null });
+      for (let i = s; i < e;) {
+        // riempie la mensola finche' lo spazio (in "figure") basta: un pack occupa piu' di una figura
+        let used = 0, k = i;
+        while (k < e && (k === i || used + packSpan(entries[k].item) <= perShelf + 0.001)) { used += packSpan(entries[k].item); k++; }
+        rows.push({ i, end: k, title: i === s ? entries[s].groupTitle : null });
+        i = k;
+      }
       s = e;
     }
     for (const row of rows) {
@@ -179,7 +199,7 @@
             ${rowEntries.map((e, idx) => {
               const images = getItemImages(e.item);
               return `
-                <button class="museum-figure-btn${isOwned(e.item.id) ? ' is-owned' : ''}" data-action="open-card" data-index="${i + idx}" data-id="${esc(e.item.id)}">
+                <button class="museum-figure-btn${isOwned(e.item.id) ? ' is-owned' : ''}${packSpan(e.item) > 1 ? ' is-pack' : ''}"${spanStyle(e.item, perShelf)} data-action="open-card" data-index="${i + idx}" data-id="${esc(e.item.id)}">
                   <span class="museum-figure-img-wrap">
                     <img class="museum-figure-img" src="${esc(e.item.preview || images[0])}" alt="${esc(e.item.name)}" onerror="this.src='${PLACEHOLDER_IMG}'">
                   </span>
@@ -191,7 +211,7 @@
           </div>
           <div class="museum-shelf-plank"></div>
           <div class="museum-shelf-names cols-${perShelf}">
-            ${rowEntries.map(e => `<div class="museum-name-cell">${esc(e.item.name)}</div>`).join('')}
+            ${rowEntries.map(e => `<div class="museum-name-cell"${spanStyle(e.item, perShelf)}>${esc(e.item.name)}</div>`).join('')}
           </div>
         </div>
       `;

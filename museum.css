@@ -173,3 +173,7 @@
 .museum-filter-own { display: inline-flex; gap: 8px; flex-wrap: wrap; justify-content: center; padding-right: 10px; margin-right: 2px; border-right: 2px solid var(--gray-2); }
 .museum-own-chip.current { background: var(--red); color: var(--white); border-color: var(--red); }
 @media (max-width: 640px) { .museum-filter-own { width: 100%; border-right: 0; padding-right: 0; padding-bottom: 6px; } }
+
+/* Pack (2+ personaggi): piu' larghi e un po' piu' alti di una figura singola */
+.museum-figure-btn.is-pack .museum-figure-img-wrap { height: 120px; }
+.museum-figure-btn.is-pack .museum-figure-img { max-height: 120px; }
