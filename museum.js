@@ -158,13 +158,13 @@
   }
 
   // Larghezza (in "figure") di un pezzo sulla mensola. Campo item.span per decidere a mano;
-  // altrimenti i "N PACK" nel nome: 2 -> 1.5, 3 -> 2, 4 -> 2.5, 5+ -> 3.
+  // altrimenti i "N PACK" nel nome: 2 -> 2, 3 -> 2.5, 4 -> 3, 5+ -> 3.5.
   function packSpan(item) {
     if (item.span) return Math.min(Number(item.span) || 1, 4);
     const m = /\b(\d+)[ -]?PACK\b/i.exec(item.name || '');
     if (!m) return 1;
     const n = parseInt(m[1], 10);
-    return n <= 1 ? 1 : n === 2 ? 1.5 : n === 3 ? 2 : n === 4 ? 2.5 : 3;
+    return n <= 1 ? 1 : n === 2 ? 2 : n === 3 ? 2.5 : n === 4 ? 3 : 3.5;
   }
   function spanStyle(item, perShelf) {
     const sp = packSpan(item);
