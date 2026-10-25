@@ -1257,5 +1257,13 @@ window.MOTU_PHOTOS = {
   ],
   "preview": "img/characters/ori-cl-f-116-shelf.png?v=o6smi5",
   "thumb": "img/characters/ori-cl-f-116-thumb.webp?v=o6smi5"
+ },
+ "funko-cl-p-004": {
+  "images": [
+   "img/characters/funko-cl-p-004-1.webp?v=o6xynq",
+   "img/characters/funko-cl-p-004-2.webp?v=o6xynq"
+  ],
+  "preview": "img/characters/funko-cl-p-004-shelf.png?v=o6xynq",
+  "thumb": "img/characters/funko-cl-p-004-thumb.webp?v=o6xynq"
  }
 };
