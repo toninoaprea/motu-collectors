@@ -312,6 +312,7 @@
     ].filter(Boolean).join(' \u00b7 ');
     const bios = window.MOTU_BIOS || {};
     const bio = bios[entry.item.bio || entry.item.name] || '';
+    const codeLine = [entry.item.sku ? 'SKU ' + entry.item.sku : '', entry.item.ean ? 'EAN ' + entry.item.ean : ''].filter(Boolean).join(' \u00b7 ');
     const retailLine = entry.item.priceRetail ? 'Retail price: $' + Number(entry.item.priceRetail).toFixed(2) : '';
     cardEl.innerHTML = `
       <div class="museum-card">
@@ -326,6 +327,7 @@
             ${condHtml(entry.item.id)}
             <div class="museum-card-meta">${esc(metaLine)}</div>
             ${retailLine ? `<div class="museum-card-retail">${esc(retailLine)}</div>` : ''}
+            ${codeLine ? `<div class="museum-card-codes">${esc(codeLine)}</div>` : ''}
             <div class="museum-card-desc">${bio ? esc(bio) : 'Description coming soon.'}</div>
             ${entry.item.desc ? `<div class="museum-card-note">${esc(entry.item.desc)}</div>` : ''}
           </div>
