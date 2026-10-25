@@ -419,6 +419,7 @@ window.MOTU_PHOTOS = {
  "ori-cl-f-096": {
   "images": [
    "img/characters/ori-cl-f-096-1.webp?v=h5zjgj",
+   "img/characters/ori-cl-f-096-cb.webp?v=nx3d44",
    "img/characters/ori-cl-f-096-2.webp?v=h5zjgj",
    "img/characters/ori-cl-f-096-3.webp?v=h5zjgj"
   ],
