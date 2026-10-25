@@ -994,7 +994,7 @@ window.MOTU_PHOTOS = {
  },
  "ori-cl-f-087": {
   "images": [
-   "img/characters/ori-cl-f-087-1.webp?v=nuu7rv",
+   "img/characters/ori-cl-f-087-1.webp?v=nvjb27",
    "img/characters/ori-cl-f-087-cb.webp?v=nuu7rv",
    "img/characters/ori-cl-f-087-2.webp?v=nuu7rv",
    "img/characters/ori-cl-f-087-3.webp?v=nuu7rv"
