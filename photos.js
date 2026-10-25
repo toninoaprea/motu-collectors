@@ -879,5 +879,15 @@ window.MOTU_PHOTOS = {
   ],
   "preview": "img/characters/ori-cl-f-070-shelf.png?v=nro9nh",
   "thumb": "img/characters/ori-cl-f-070-thumb.webp?v=nro9nh"
+ },
+ "ori-cl-f-071": {
+  "images": [
+   "img/characters/ori-cl-f-071-1.webp?v=nrrazz",
+   "img/characters/ori-cl-f-071-cb.webp?v=nrrazz",
+   "img/characters/ori-cl-f-071-2.webp?v=nrrazz",
+   "img/characters/ori-cl-f-071-3.webp?v=nrrazz"
+  ],
+  "preview": "img/characters/ori-cl-f-071-shelf.png?v=nrrazz",
+  "thumb": "img/characters/ori-cl-f-071-thumb.webp?v=nrrazz"
  }
 };
