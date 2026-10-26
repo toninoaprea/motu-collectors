@@ -195,10 +195,11 @@ window.MOTU_PHOTOS = {
  "super7-cl-v-007": {
   "images": [
    "img/characters/super7-cl-v-007-1.webp?v=e4dare",
-   "img/characters/super7-cl-v-007-cb.webp?v=e4dare"
+   "img/characters/super7-cl-v-007-cb.webp?v=e4dare",
+   "img/characters/super7-cl-v-007-2.webp?v=pqtaap"
   ],
-  "preview": "",
-  "thumb": ""
+  "preview": "img/characters/super7-cl-v-007-shelf.png?v=pqtaap",
+  "thumb": "img/characters/super7-cl-v-007-thumb.webp?v=pqtaap"
  },
  "ori-cl-f-015": {
   "images": [
