@@ -1426,7 +1426,7 @@ window.MOTU_PHOTOS = {
  },
  "super7-cl-u-001": {
   "images": [
-   "img/characters/super7-cl-u-001-1.webp?v=ps6vsh"
+   "img/characters/super7-cl-u-001-1.webp?v=psi12q"
   ],
   "preview": "img/characters/super7-cl-u-001-shelf.png?v=ps6vsh",
   "thumb": "img/characters/super7-cl-u-001-thumb.webp?v=ps6vsh"
