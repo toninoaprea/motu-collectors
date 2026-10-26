@@ -1400,8 +1400,8 @@ window.MOTU_PHOTOS = {
   "images": [
    "img/characters/super7-cl-rea-030-1.webp?v=pr1y7b"
   ],
-  "preview": "img/characters/super7-cl-rea-030-shelf.png?v=pr1y7b",
-  "thumb": "img/characters/super7-cl-rea-030-thumb.webp?v=pr1y7b"
+  "preview": "img/characters/super7-cl-rea-030-shelf.png?v=psa91x",
+  "thumb": "img/characters/super7-cl-rea-030-thumb.webp?v=psa91x"
  },
  "super7-cl-rea-015": {
   "images": [
