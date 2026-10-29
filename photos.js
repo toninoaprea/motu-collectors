@@ -1277,7 +1277,15 @@ window.MOTU_PHOTOS = {
    "img/characters/funko-cl-p-001-x2.webp?v=tyd3vh"
   ],
   "preview": "img/characters/funko-cl-p-001-shelf.png?v=oas04o",
-  "thumb": "img/characters/funko-cl-p-001-thumb.webp?v=u3skvm"
+  "thumb": "img/characters/funko-cl-p-001-thumb.webp?v=u6e931",
+  "captions": {
+   "1": "Normal",
+   "2": "Flocked (GameStop)",
+   "3": "Flocked (GameStop)",
+   "cb": "Normal",
+   "x1": "Glow in the Dark (Walmart)",
+   "x2": "Glow in the Dark (Walmart)"
+  }
  },
  "funko-cl-p-002": {
   "images": [
