@@ -1292,10 +1292,14 @@ window.MOTU_PHOTOS = {
  "funko-cl-p-003": {
   "images": [
    "img/characters/funko-cl-p-003-1.webp?v=ob5ztk",
-   "img/characters/funko-cl-p-003-2.webp?v=ob5ztk"
+   "img/characters/funko-cl-p-003-cb.webp?v=u42mnd",
+   "img/characters/funko-cl-p-003-2.webp?v=u42mnd",
+   "img/characters/funko-cl-p-003-3.webp?v=u42mnd",
+   "img/characters/funko-cl-p-003-x1.webp?v=u42mnd",
+   "img/characters/funko-cl-p-003-x2.webp?v=u42mnd"
   ],
   "preview": "img/characters/funko-cl-p-003-shelf.png?v=ob5ztk",
-  "thumb": "img/characters/funko-cl-p-003-thumb.webp?v=ob5ztk"
+  "thumb": "img/characters/funko-cl-p-003-thumb.webp?v=u42mnd"
  },
  "funko-cl-p-005": {
   "images": [
