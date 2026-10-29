@@ -1548,5 +1548,15 @@ window.MOTU_PHOTOS = {
   ],
   "preview": "img/characters/funko-cl-p-038-shelf.png?v=u46fm3",
   "thumb": "img/characters/funko-cl-p-038-thumb.webp?v=u46fm3"
+ },
+ "funko-cl-p-008": {
+  "images": [
+   "img/characters/funko-cl-p-008-1.webp?v=u4b5ii",
+   "img/characters/funko-cl-p-008-cb.webp?v=u4b5ii",
+   "img/characters/funko-cl-p-008-2.webp?v=u4b5ii",
+   "img/characters/funko-cl-p-008-3.webp?v=u4b5ii"
+  ],
+  "preview": "img/characters/funko-cl-p-008-shelf.png?v=u4b5ii",
+  "thumb": "img/characters/funko-cl-p-008-thumb.webp?v=u4b5ii"
  }
 };
