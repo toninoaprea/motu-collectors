@@ -13,6 +13,12 @@
   var cropTouched = false, squaring = false, headSource = null;
   // Foto obbligatorie: blister, retro blister, fronte, retro, scaffale (png), testina (miniatura)
   var REQUIRED = [['1', 'Blister'], ['cb', 'Card back'], ['2', 'Front'], ['3', 'Back'], ['shelf', 'Shelf'], ['thumb', 'Head']];
+  // Funko: niente Card back e Back tra le foto obbligatorie (4 invece di 6); si possono comunque caricare
+  function requiredFor(id) {
+    if (/^funko-/.test(id || '')) return REQUIRED.filter(function (q) { return q[0] !== 'cb' && q[0] !== '3'; });
+    return REQUIRED;
+  }
+  var capVals = {};                  // didascalie delle foto: suffisso -> testo
   var $ = function (id) { return document.getElementById(id); };
 
   var picked = null;                 // { id, name, serie, sub, item }
@@ -95,9 +101,9 @@
   function badge(r) {
     var p = photosMap[r.id] || {};
     var imgs = p.images || r.images || (r.image ? [r.image] : []);
-    var miss = missingFor(bySlot(imgs), !!(p.preview || r.preview), !!(p.thumb || r.thumb));
-    var n = REQUIRED.length - miss.length;
-    return ' <em class="adm-badge ' + (miss.length ? 'todo' : 'done') + '">' + n + '/' + REQUIRED.length + '</em>';
+    var miss = missingFor(bySlot(imgs), !!(p.preview || r.preview), !!(p.thumb || r.thumb), r.id);
+    var rl = requiredFor(r.id).length, n = rl - miss.length;
+    return ' <em class="adm-badge ' + (miss.length ? 'todo' : 'done') + '">' + n + '/' + rl + '</em>';
   }
   // Totale foto obbligatorie per la serie scelta (o tutto il catalogo)
   function updateTotal() {
@@ -110,8 +116,9 @@
         subs[sub].forEach(function (r) {
           var p = photosMap[r.id] || {};
           var imgs = p.images || r.images || (r.image ? [r.image] : []);
-          var miss = missingFor(bySlot(imgs), !!(p.preview || r.preview), !!(p.thumb || r.thumb));
-          chars++; need += REQUIRED.length; have += REQUIRED.length - miss.length;
+          var miss = missingFor(bySlot(imgs), !!(p.preview || r.preview), !!(p.thumb || r.thumb), r.id);
+          var rl = requiredFor(r.id).length;
+          chars++; need += rl; have += rl - miss.length;
           if (!miss.length) done++;
         });
       });
@@ -153,7 +160,7 @@
   function existing() {
     var p = photosMap[picked.id] || {};
     var it = picked.item;
-    return { images: p.images || it.images || (it.image ? [it.image] : []), preview: p.preview || it.preview || '', thumb: p.thumb || it.thumb || '' };
+    return { images: p.images || it.images || (it.image ? [it.image] : []), preview: p.preview || it.preview || '', thumb: p.thumb || it.thumb || '', captions: p.captions || {} };
   }
   function bySlot(images) {
     var out = {};
@@ -169,9 +176,9 @@
   }
   function allKeys(map) { return BASE_KEYS.concat(extraKeys(map)); }
   // Foto obbligatorie: blister, retro blister, fronte, retro, scaffale (png), testina (miniatura)
-  function missingFor(map, hasShelf, hasThumb) {
+  function missingFor(map, hasShelf, hasThumb, id) {
     var out = [];
-    REQUIRED.forEach(function (q) {
+    requiredFor(id).forEach(function (q) {
       var ok = q[0] === 'shelf' ? hasShelf : q[0] === 'thumb' ? (hasThumb || !!map['2']) : !!map[q[0]];
       if (!ok) out.push(q[1]);
     });
@@ -185,7 +192,7 @@
   function pick(r) {
     cropTouched = false; headSource = null;
     picked = { id: r.id, name: r.name, serie: r.serie, sub: r.sub, item: r };
-    slotFiles = {}; addedExtras = []; shelfFile = null; frontImg = null;
+    slotFiles = {}; addedExtras = []; shelfFile = null; frontImg = null; capVals = {};
     var p = $('admPicked'); p.hidden = false;
     p.innerHTML = '<b>' + esc(r.name) + '</b><br>' + esc(r.serie + ' · ' + r.sub) + ' · <code>' + esc(r.id) + '</code>';
     $('admResults').innerHTML = ''; $('admSearch').value = ''; $('admSerie').value = 'ALL';
@@ -211,7 +218,22 @@
       var d = document.createElement('div'); d.className = 'adm-slot'; d.id = 'admSlot_' + k; wrap.appendChild(d);
       makeSlot(d, labelFor(k, map), 'image/*', function (f) { slotFiles[k] = f; renderSlots(); if (k === '2') loadFrontFromFile(f); });
     });
+    buildCaps(map);
     renderSlots();
+  }
+  // Didascalie: una riga di testo per foto (es. "Taiwan", "Glow in the Dark"), mostrata sotto la foto nel museo
+  function buildCaps(map) {
+    var host = $('admCaps');
+    if (!host) { host = document.createElement('div'); host.id = 'admCaps'; host.className = 'adm-caps'; $('admSlots').parentNode.insertBefore(host, $('admSlots').nextSibling); }
+    var saved = existing().captions || {};
+    host.innerHTML = '<div class="adm-caps-t">Captions (optional) - shown under each photo, e.g. the variant name</div>';
+    allKeys(map).forEach(function (k) {
+      if (capVals[k] === undefined) capVals[k] = saved[k] || '';
+      var row = document.createElement('label'); row.className = 'adm-cap';
+      row.innerHTML = '<span>' + esc(labelFor(k, map)) + '</span><input type="text" maxlength="80" placeholder="Caption" value="' + esc(capVals[k]) + '">';
+      row.querySelector('input').addEventListener('input', function (e) { capVals[k] = e.target.value; });
+      host.appendChild(row);
+    });
   }
   function buildShelf() {
     var sh = $('admShelfSlot');
@@ -243,11 +265,12 @@
     var have = {};
     Object.keys(map).forEach(function (k) { have[k] = map[k]; });
     Object.keys(slotFiles).forEach(function (k) { have[k] = 1; });
-    var miss = missingFor(have, !!(shelfFile || ex.preview), !!(ex.thumb));
+    var miss = missingFor(have, !!(shelfFile || ex.preview), !!(ex.thumb), picked.id);
+    var RL = requiredFor(picked.id).length;
     var cnt = $('admCount');
     if (cnt) {
       cnt.className = 'adm-count ' + (miss.length ? 'todo' : 'done');
-      cnt.textContent = miss.length ? (REQUIRED.length - miss.length) + '/' + REQUIRED.length + ' required photos · missing: ' + miss.join(', ') : REQUIRED.length + '/' + REQUIRED.length + ' · all required photos present ✓';
+      cnt.textContent = miss.length ? (RL - miss.length) + '/' + RL + ' required photos · missing: ' + miss.join(', ') : RL + '/' + RL + ' · all required photos present ✓';
     }
     var sh = $('admShelfSlot');
     sh.classList.add('checker');
@@ -409,15 +432,16 @@
     if (busy || !picked) return;
     var msg = $('admMsg');
     if (!token()) return setMsg(msg, 'Add the GitHub token first (step 1).', 'err');
-    var anyNew = Object.keys(slotFiles).length || shelfFile || cropTouched;
+    var capsChanged = Object.keys(capVals).some(function (k) { return (capVals[k] || '').trim() !== ((existing().captions || {})[k] || ''); });
+    var anyNew = Object.keys(slotFiles).length || shelfFile || cropTouched || capsChanged;
     var frontNow = slotFiles['2'] || bySlot(existing().images)['2'];
-    if (!anyNew) return setMsg(msg, 'Choose at least one new photo.', 'err');
+    if (!anyNew) return setMsg(msg, 'Choose at least one new photo or edit a caption.', 'err');
     busy = true; $('admPublish').disabled = true; $('admProgress').hidden = false;
     var bar = $('admBar'), steps = 0, total = 6 + Object.keys(slotFiles).length + 2;
     function tick(t) { steps++; bar.style.width = Math.min(100, Math.round(steps / total * 100)) + '%'; setMsg(msg, t); }
     try {
       var id = picked.id, v = Date.now().toString(36).slice(-6), files = [];
-      var ex = existing(), map = bySlot(ex.images), entry = { images: [], preview: ex.preview, thumb: ex.thumb };
+      var ex = existing(), map = bySlot(ex.images), entry = { images: [], preview: ex.preview, thumb: ex.thumb }, caps = {};
 
       tick('Processing photos…');
       var order = allKeys(map);
@@ -425,7 +449,9 @@
         var k = order[i], path = 'img/characters/' + id + '-' + k + '.webp';
         if (slotFiles[k]) { files.push({ path: path, b64: await b64(await photoBlob(slotFiles[k])) }); entry.images.push(path + '?v=' + v); tick('Processing photos…'); }
         else if (map[k]) entry.images.push(map[k]);
+        if ((slotFiles[k] || map[k]) && (capVals[k] || '').trim()) caps[k] = capVals[k].trim();
       }
+      if (Object.keys(caps).length) entry.captions = caps;
       if (shelfFile) { var sp = 'img/characters/' + id + '-shelf.png'; files.push({ path: sp, b64: await b64(await shelfBlob(shelfFile)) }); entry.preview = sp + '?v=' + v; }
       if (frontImg && (cropTouched || (slotFiles['2'] && !squaring) || !ex.thumb)) { var tp = 'img/characters/' + id + '-thumb.webp'; files.push({ path: tp, b64: await b64(await thumbBlob()) }); entry.thumb = tp + '?v=' + v; }
       tick('Reading photos.js…');

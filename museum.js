@@ -256,12 +256,14 @@
   let cardEl = null;
   let cardImages = [];
   let cardIndex = 0;
+  let cardItem = null;
 
   function openCard(entryIndex) {
     const entries = shelvesEl._entries || [];
     const entry = entries[entryIndex];
     if (!entry) return;
     cardImages = getItemImages(entry.item);
+    cardItem = entry.item;
     cardIndex = 0;
     if (!cardEl) {
       cardEl = document.createElement('div');
@@ -282,6 +284,8 @@
     cardIndex = (cardIndex + delta + cardImages.length) % cardImages.length;
     const img = cardEl && cardEl.querySelector('.museum-card-img');
     if (img) img.src = cardImages[cardIndex];
+    const capEl = cardEl && cardEl.querySelector('.museum-card-caption');
+    if (capEl) { const t = captionFor(cardIndex); capEl.textContent = t; capEl.hidden = !t; }
   }
 
   // Il fondo dello spazio foto prende il colore dello sfondo della foto
@@ -323,6 +327,15 @@
     return w || null;
   }
 
+  // Didascalia della foto corrente (photos.js -> captions, chiave = suffisso del file: 1, 2, cb, x1...)
+  function captionFor(i) {
+    const caps = cardItem && cardItem.captions;
+    const u = cardImages[i];
+    if (!caps || !u) return '';
+    const m = /-([A-Za-z0-9]+)\.webp$/.exec(String(u).split('?')[0]);
+    return (m && caps[m[1]]) || '';
+  }
+
   function renderCard(entry) {
     const hasMultiple = cardImages.length > 1;
     const metaLine = [
@@ -359,6 +372,7 @@
               <img class="museum-card-img" src="${esc(cardImages[cardIndex])}" alt="${esc(entry.item.name)}" onerror="this.src='${PLACEHOLDER_IMG}'">
               ${hasMultiple ? `<button class="museum-card-nav next" data-action="card-next" aria-label="Successiva">\u203a</button>` : ''}
             </div>
+            <div class="museum-card-caption"${captionFor(cardIndex) ? '' : ' hidden'}>${esc(captionFor(cardIndex))}</div>
           </div>
         </div>
       </div>

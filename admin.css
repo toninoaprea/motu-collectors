@@ -68,3 +68,9 @@
 .pr-table input.chg { border-color: #1a7f37; background: #f0faf3; }
 .pr-check { white-space: nowrap; }
 .pr-check input { width: auto; flex: none; }
+
+.adm-caps { margin: 14px 0; }
+.adm-caps-t { font-size: 12px; opacity: .8; margin-bottom: 6px; }
+.adm-cap { display: flex; align-items: center; gap: 8px; margin: 4px 0; font-size: 13px; }
+.adm-cap span { width: 80px; flex: none; opacity: .8; }
+.adm-cap input { flex: 1; min-width: 0; padding: 6px 8px; border-radius: 6px; border: 1px solid #888; background: transparent; color: inherit; font: inherit; }

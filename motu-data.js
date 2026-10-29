@@ -1860,6 +1860,7 @@ function getStatsMotu(ownedIds, serie, sub, qtyIds) {
     if (p.images && p.images.length) it.images = p.images;
     if (p.preview) it.preview = p.preview;
     if (p.thumb) it.thumb = p.thumb;
+    if (p.captions) it.captions = p.captions;
   })));
 })();
 
