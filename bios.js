@@ -6,6 +6,8 @@
 // aggiungere nel catalogo il campo  bio: 'HE-MAN'.
 // ============================================================
 window.MOTU_BIOS = {
+  'MUMM-RA': 'Mumm-Ra the Ever-Living is the sinister sorcerer-mummy and arch-enemy of the ThunderCats, an ancient evil who draws power from dark forces. In this crossover Funko Soda release he joins the Masters of the Universe line as a rival of the heroes.',
+  'SNOUT SPROUT': 'Snout Spout is an elephant-like Heroic Warrior with a long trunk that can squirt water and sound loud blasts. Gentle but brave, he uses his trunk and his strength to defend Eternia and help He-Man against the forces of Skeletor.',
   'PRINCE ADAM': 'Prince Adam is the heir to the throne of Eternia, a seemingly carefree and lazy young man who spends his days with friends and his cowardly green tiger Cringer. In truth he is He-Man\'s secret identity: raising the Sword of Power, he transforms into the most powerful man in the universe.',
   'KING HISS': 'King Hiss is the cunning ruler of the Snake Men, an ancient serpent race that Skeletor and the Evil Warriors woke from long slumber. His staff grants him mastery over snakes, and his army spreads fear across Eternia as it tries to conquer the land.',
   'SY-KLONE': 'Sy-Klone is one of the Heroic Warriors, a dashing hero who can spin at tornado speed. His spinning ability and high-speed twisters make him a handy ally against Skeletor\'s forces, though his temper is as stormy as his power.',
