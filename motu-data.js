@@ -1695,6 +1695,16 @@ const CATALOG = {
       { id: 'funko-cl-p-090', sku: 'TV #1662', bio: 'SKELETOR', name: 'SKELETOR (TURTLES OF GRAYSKULL)', year: '', wave: 'POP! #1662', priceLoose: 0, priceMOC: 0, priceRetail: 0, variants: [] },
       { id: 'funko-cl-p-092', sku: 'Town #51', bio: 'SORCERESS', name: 'SORCERESS WITH CASTLE GRAYSKULL (LIVE ACTION)', year: '', wave: 'POP! #51', priceLoose: 0, priceMOC: 0, priceRetail: 0, variants: [] },
     ],
+    'MOVIES (2026)': [
+      { id: 'funko-cl-m-001', sku: 'Movies #2020', name: 'HE-MAN', year: '2026', wave: 'MOVIES 2026 · #2020', priceLoose: 0, priceMOC: 0, priceRetail: 14.99, variants: [] },
+      { id: 'funko-cl-m-002', sku: 'Movies #2021', name: 'SKELETOR', year: '2026', wave: 'MOVIES 2026 · #2021', priceLoose: 0, priceMOC: 0, priceRetail: 14.99, variants: [] },
+      { id: 'funko-cl-m-003', sku: 'Movies #2022', name: 'MAN-AT-ARMS', year: '2026', wave: 'MOVIES 2026 · #2022', priceLoose: 0, priceMOC: 0, priceRetail: 0, variants: [] },
+      { id: 'funko-cl-m-004', sku: 'Movies #2024', name: 'TRAP JAW', year: '2026', wave: 'MOVIES 2026 · #2024', priceLoose: 0, priceMOC: 0, priceRetail: 0, variants: [] },
+      { id: 'funko-cl-m-005', sku: 'Movies #2025', bio: 'PRINCE ADAM', name: 'ADAM', year: '2026', wave: 'MOVIES 2026 · #2025', priceLoose: 0, priceMOC: 0, priceRetail: 14.99, variants: [] },
+      { id: 'funko-cl-m-006', sku: 'Movies #2026', name: 'EVIL-LYN', year: '2026', wave: 'MOVIES 2026 · #2026', priceLoose: 0, priceMOC: 0, priceRetail: 0, variants: [] },
+      { id: 'funko-cl-m-007', sku: 'Movies #2027', bio: 'CRINGER', name: 'BABY CRINGER (FLOCKED, TARGET)', year: '2026', wave: 'MOVIES 2026 · #2027', priceLoose: 0, priceMOC: 0, priceRetail: 0, variants: [] },
+      { id: 'funko-cl-m-008', sku: 'Movies #2069', bio: 'ORKO', name: 'ORKO (SDCC / SUMMER CONVENTION)', year: '2026', wave: 'MOVIES 2026 · #2069', priceLoose: 0, priceMOC: 0, priceRetail: 0, variants: [] },
+    ],
     'SODA': [
       { id: 'funko-cl-s-001', desc: 'Funko Soda release: limited edition of 8,400 pieces. Variants: Flocked (Chase) 1,600 pieces, International 4,200 pieces, International Flocked 800 pieces.', name: 'BEAST MAN', year: '', wave: 'SODA', priceLoose: 0, priceMOC: 0, priceRetail: 0, variants: [{ id: 'funko-cl-s-001-a', name: 'Flocked (Chase)', priceLoose: 0, priceMOC: 0 },{ id: 'funko-cl-s-001-b', name: 'International', priceLoose: 0, priceMOC: 0 },{ id: 'funko-cl-s-001-c', name: 'International Flocked', priceLoose: 0, priceMOC: 0 }] },
       { id: 'funko-cl-s-002', desc: 'Funko Soda release: limited edition of 4,000 (Wondrous Con 2020 exclusive) pieces.', name: 'FAKER', year: '2020', wave: 'SODA', priceLoose: 0, priceMOC: 0, priceRetail: 0, variants: [] },
@@ -1723,16 +1733,6 @@ const CATALOG = {
       { id: 'funko-cl-d-005', sku: 'Dorbz #245', desc: 'Funko Dorbz release. Funko Shop exclusive, limited edition of 3,000.', name: 'SHE-RA', year: '', wave: 'DORBZ #245', priceLoose: 0, priceMOC: 0, priceRetail: 0, variants: [] },
       { id: 'funko-cl-d-006', sku: 'Dorbz #262', desc: 'Funko Dorbz release. Walmart exclusive.', name: 'FAKER', year: '', wave: 'DORBZ #262', priceLoose: 0, priceMOC: 0, priceRetail: 0, variants: [] },
       { id: 'funko-cl-d-007', sku: 'Dorbz #422', desc: 'Funko Dorbz release. Specialty Series exclusive.', name: 'ORKO', year: '', wave: 'DORBZ #422', priceLoose: 0, priceMOC: 0, priceRetail: 0, variants: [] },
-    ],
-    'MOVIES (2026)': [
-      { id: 'funko-cl-m-001', sku: 'Movies #2020', name: 'HE-MAN', year: '2026', wave: 'MOVIES 2026 · #2020', priceLoose: 0, priceMOC: 0, priceRetail: 14.99, variants: [] },
-      { id: 'funko-cl-m-002', sku: 'Movies #2021', name: 'SKELETOR', year: '2026', wave: 'MOVIES 2026 · #2021', priceLoose: 0, priceMOC: 0, priceRetail: 14.99, variants: [] },
-      { id: 'funko-cl-m-003', sku: 'Movies #2022', name: 'MAN-AT-ARMS', year: '2026', wave: 'MOVIES 2026 · #2022', priceLoose: 0, priceMOC: 0, priceRetail: 0, variants: [] },
-      { id: 'funko-cl-m-004', sku: 'Movies #2024', name: 'TRAP JAW', year: '2026', wave: 'MOVIES 2026 · #2024', priceLoose: 0, priceMOC: 0, priceRetail: 0, variants: [] },
-      { id: 'funko-cl-m-005', sku: 'Movies #2025', bio: 'PRINCE ADAM', name: 'ADAM', year: '2026', wave: 'MOVIES 2026 · #2025', priceLoose: 0, priceMOC: 0, priceRetail: 14.99, variants: [] },
-      { id: 'funko-cl-m-006', sku: 'Movies #2026', name: 'EVIL-LYN', year: '2026', wave: 'MOVIES 2026 · #2026', priceLoose: 0, priceMOC: 0, priceRetail: 0, variants: [] },
-      { id: 'funko-cl-m-007', sku: 'Movies #2027', bio: 'CRINGER', name: 'BABY CRINGER (FLOCKED, TARGET)', year: '2026', wave: 'MOVIES 2026 · #2027', priceLoose: 0, priceMOC: 0, priceRetail: 0, variants: [] },
-      { id: 'funko-cl-m-008', sku: 'Movies #2069', bio: 'ORKO', name: 'ORKO (SDCC / SUMMER CONVENTION)', year: '2026', wave: 'MOVIES 2026 · #2069', priceLoose: 0, priceMOC: 0, priceRetail: 0, variants: [] },
     ],
   },
   'STATUES': {
