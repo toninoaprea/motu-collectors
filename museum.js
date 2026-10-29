@@ -98,6 +98,7 @@
   };
 
   // Stesso ordine della checklist: serie, sottocategoria, pezzo. Ogni sottocategoria ha i suoi scaffali.
+  const FUNKO_BIG = ['funko-cl-p-003', 'funko-cl-p-012', 'funko-cl-p-025', 'funko-cl-p-027', 'funko-cl-p-033'];
   function collectItems() {
     const entries = [];
     MUSEUM_SERIES.forEach(serie => {
@@ -124,6 +125,13 @@
             push(rest.filter(it => isCartoon(it) && !is200x(it)), 'CARTOON COLLECTION', 'ORIGINS \u2014 CARTOON COLLECTION');
           }
           push(rest.filter(is200x), sub + ' 200X', 'ORIGINS \u2014 ' + (sub === 'FIGURES' ? '200X' : 'DELUXE 200X'));
+        } else if (serie === 'FUNKO' && sub === 'POP!') {
+          // Pop piccoli, poi i 10 pollici (scaffale a parte), poi Town e Rides (larghi 2 posti) in fondo
+          const big = it => FUNKO_BIG.indexOf(it.id) !== -1;
+          const wide = it => Number(it.span) > 1;
+          push(rest.filter(it => !big(it) && !wide(it)), g, title);
+          push(rest.filter(big), 'POP 10 INCH', 'FUNKO \u2014 POP! 10 INCH');
+          push(rest.filter(it => wide(it) && !big(it)), 'POP TOWN RIDES', 'FUNKO \u2014 POP! TOWN & RIDES');
         } else {
           push(rest, g, title);
         }
