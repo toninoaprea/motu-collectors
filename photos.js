@@ -1315,11 +1315,15 @@ window.MOTU_PHOTOS = {
  },
  "funko-cl-p-007": {
   "images": [
-   "img/characters/funko-cl-p-007-1.webp?v=oc3x7m",
-   "img/characters/funko-cl-p-007-2.webp?v=oc3x7m"
+   "img/characters/funko-cl-p-007-1.webp?v=tyo7e7",
+   "img/characters/funko-cl-p-007-cb.webp?v=tyo7e7",
+   "img/characters/funko-cl-p-007-2.webp?v=tyo7e7",
+   "img/characters/funko-cl-p-007-3.webp?v=tyo7e7",
+   "img/characters/funko-cl-p-007-x2.webp?v=tyo7e7",
+   "img/characters/funko-cl-p-007-x3.webp?v=tyo7e7"
   ],
   "preview": "img/characters/funko-cl-p-007-shelf.png?v=oc3x7m",
-  "thumb": "img/characters/funko-cl-p-007-thumb.webp?v=oc3x7m"
+  "thumb": "img/characters/funko-cl-p-007-thumb.webp?v=tyo7e7"
  },
  "super7-cl-v-011": {
   "images": [
