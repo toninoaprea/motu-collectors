@@ -20,6 +20,18 @@
     try { window.dispatchEvent(new Event('motu-data-changed')); } catch (e) {}
   }
   function isOwned(id) { return !!loadMap('motu_owned_ids')[id]; }
+  // Un pezzo risulta posseduto se hai il pezzo base OPPURE almeno una delle sue varianti
+  function itemOwned(item) {
+    if (isOwned(item.id)) return true;
+    return (item.variants || []).some(v => isOwned(v.id));
+  }
+  function findItem(id) {
+    for (const serie in CATALOG) for (const sub in CATALOG[serie]) {
+      const it = CATALOG[serie][sub].find(x => x.id === id);
+      if (it) return it;
+    }
+    return null;
+  }
   function setOwned(id, on) {
     const owned = loadMap('motu_owned_ids');
     if (on) owned[id] = true; else {
@@ -114,7 +126,7 @@
         const is200x = it => isOrigins && (sub === 'FIGURES' || sub === 'DELUXE FIGURES') && /^200X\b/i.test(it.name);
         const isFan = it => isOrigins && sub === 'FIGURES' && /\(FAN FAVORITE\)/i.test(it.name);
         const isCartoon = it => isOrigins && sub === 'FIGURES' && (/\(CARTOON COLLECTION\)/i.test(it.name) || it.id === 'ori-cl-f-091');
-        const show = it => ownFilter === 'all' || (ownFilter === 'owned') === isOwned(it.id);
+        const show = it => ownFilter === 'all' || (ownFilter === 'owned') === itemOwned(it);
         const push = (list, grp, ttl) => list.filter(show).forEach(item => entries.push({ item, serie, sub, group: serie + '|' + grp, groupTitle: ttl }));
         const rest = items.filter(it => !isSketch(it));
         if (isOrigins && (sub === 'FIGURES' || sub === 'DELUXE FIGURES')) {
@@ -207,11 +219,12 @@
             ${rowEntries.map((e, idx) => {
               const images = getItemImages(e.item);
               return `
-                <button class="museum-figure-btn${isOwned(e.item.id) ? ' is-owned' : ''}${packSpan(e.item) > 1 ? ' is-pack' : ''}"${spanStyle(e.item, perShelf)} data-action="open-card" data-index="${i + idx}" data-id="${esc(e.item.id)}">
+                <button class="museum-figure-btn${itemOwned(e.item) ? ' is-owned' : ''}${packSpan(e.item) > 1 ? ' is-pack' : ''}"${spanStyle(e.item, perShelf)} data-action="open-card" data-index="${i + idx}" data-id="${esc(e.item.id)}">
                   <span class="museum-figure-img-wrap">
                     <img class="museum-figure-img" src="${esc(e.item.preview || images[0])}" alt="${esc(e.item.name)}" onerror="this.src='${PLACEHOLDER_IMG}'">
                   </span>
                   <span class="museum-owned-badge" aria-hidden="true">\u2665</span>
+                  ${(e.item.variants || []).length ? `<span class="museum-variant-badge" title="${(e.item.variants || []).length} variants">+${(e.item.variants || []).length}</span>` : ''}
                   <span class="museum-figure-shadow"></span>
                 </button>
               `;
@@ -328,9 +341,9 @@
         <div class="museum-card-layout">
           <div class="museum-card-info">
             <div class="museum-card-name">${esc(entry.item.name)}</div>
-            <button class="museum-heart${isOwned(entry.item.id) ? ' on' : ''}" data-action="toggle-owned" data-id="${esc(entry.item.id)}" aria-pressed="${isOwned(entry.item.id)}">
-              <span class="museum-heart-ico">${isOwned(entry.item.id) ? '\u2665' : '\u2661'}</span>
-              <span class="museum-heart-txt">${isOwned(entry.item.id) ? 'In my collection' : 'Add to my collection'}</span>
+            <button class="museum-heart${itemOwned(entry.item) ? ' on' : ''}" data-action="toggle-owned" data-id="${esc(entry.item.id)}" aria-pressed="${itemOwned(entry.item)}">
+              <span class="museum-heart-ico">${itemOwned(entry.item) ? '\u2665' : '\u2661'}</span>
+              <span class="museum-heart-txt">${itemOwned(entry.item) ? 'In my collection' : 'Add to my collection'}</span>
             </button>
             ${condHtml(entry.item.id)}
             <div class="museum-card-meta">${esc(metaLine)}</div>
@@ -338,6 +351,7 @@
             ${codeLine ? `<div class="museum-card-codes">${esc(codeLine)}</div>` : ''}
             <div class="museum-card-desc">${bio ? esc(bio) : 'Description coming soon.'}</div>
             ${entry.item.desc ? `<div class="museum-card-note">${esc(entry.item.desc)}</div>` : ''}
+            ${(entry.item.variants || []).length ? `<div class="museum-card-variants"><div class="museum-card-variants-t">Variants (${entry.item.variants.length})</div>${entry.item.variants.map(v => `<div class="museum-card-variant${isOwned(v.id) ? ' on' : ''}">${isOwned(v.id) ? '\u2665' : '\u2661'} ${esc(v.name)}</div>`).join('')}</div>` : ''}
           </div>
           <div class="museum-card-gallery">
             <div class="museum-card-stage">
@@ -392,8 +406,10 @@
       }
       if (action === 'toggle-owned') {
         const id = navEl.getAttribute('data-id');
-        const on = !isOwned(id);
+        const itm = findItem(id);
+        const on = itm ? !itemOwned(itm) : !isOwned(id);
         setOwned(id, on);
+        if (!on && itm) (itm.variants || []).forEach(v => { if (isOwned(v.id)) setOwned(v.id, false); });
         navEl.classList.toggle('on', on);
         navEl.setAttribute('aria-pressed', on ? 'true' : 'false');
         navEl.querySelector('.museum-heart-ico').textContent = on ? '\u2665' : '\u2661';
