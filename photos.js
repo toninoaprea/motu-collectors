@@ -1458,5 +1458,13 @@ window.MOTU_PHOTOS = {
   ],
   "preview": "img/characters/super7-cl-u-005-shelf.png?v=psg7s6",
   "thumb": "img/characters/super7-cl-u-005-thumb.webp?v=psg7s6"
+ },
+ "funko-cl-p-046": {
+  "images": [
+   "img/characters/funko-cl-p-046-1.webp?v=txkvu6",
+   "img/characters/funko-cl-p-046-cb.webp?v=txkvu6"
+  ],
+  "preview": "img/characters/funko-cl-p-046-shelf.png?v=txkvu6",
+  "thumb": "img/characters/funko-cl-p-046-thumb.webp?v=txkvu6"
  }
 };
