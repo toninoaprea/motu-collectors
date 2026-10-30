@@ -1579,6 +1579,12 @@ window.MOTU_PHOTOS = {
    "img/characters/funko-cl-p-008-3.webp?v=u4b5ii"
   ],
   "preview": "img/characters/funko-cl-p-008-shelf.png?v=u4b5ii",
-  "thumb": "img/characters/funko-cl-p-008-thumb.webp?v=u4b5ii"
+  "thumb": "img/characters/funko-cl-p-008-thumb.webp?v=u4b5ii",
+  "captions": {
+   "1": "Standard",
+   "2": "Eddi-fied (Chase)",
+   "3": "Eddi-fied (Chase)",
+   "cb": "Standard"
+  }
  }
 };
