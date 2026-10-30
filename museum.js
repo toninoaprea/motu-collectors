@@ -368,11 +368,11 @@
           </div>
           <div class="museum-card-gallery">
             <div class="museum-card-stage">
+              <div class="museum-card-caption"${captionFor(cardIndex) ? '' : ' hidden'}>${esc(captionFor(cardIndex))}</div>
               ${hasMultiple ? `<button class="museum-card-nav prev" data-action="card-prev" aria-label="Precedente">\u2039</button>` : ''}
               <img class="museum-card-img" src="${esc(cardImages[cardIndex])}" alt="${esc(entry.item.name)}" onerror="this.src='${PLACEHOLDER_IMG}'">
               ${hasMultiple ? `<button class="museum-card-nav next" data-action="card-next" aria-label="Successiva">\u203a</button>` : ''}
             </div>
-            <div class="museum-card-caption"${captionFor(cardIndex) ? '' : ' hidden'}>${esc(captionFor(cardIndex))}</div>
           </div>
         </div>
       </div>
