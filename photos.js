@@ -1519,7 +1519,13 @@ window.MOTU_PHOTOS = {
    "img/characters/funko-cl-p-047-3.webp?v=txpdh1"
   ],
   "preview": "img/characters/funko-cl-p-047-shelf.png?v=txpdh1",
-  "thumb": "img/characters/funko-cl-p-047-thumb.webp?v=txpdh1"
+  "thumb": "img/characters/funko-cl-p-047-thumb.webp?v=txpdh1",
+  "captions": {
+   "1": "Standard",
+   "2": "Metallic (Gemini Collectibles)",
+   "3": "Metallic (Gemini Collectibles)",
+   "cb": "Standard"
+  }
  },
  "funko-cl-p-025": {
   "images": [
