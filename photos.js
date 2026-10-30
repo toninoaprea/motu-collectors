@@ -1640,5 +1640,13 @@ window.MOTU_PHOTOS = {
    "3": "Flocked (Target Con 2022)",
    "cb": "Standard"
   }
+ },
+ "funko-cl-p-060": {
+  "images": [
+   "img/characters/funko-cl-p-060-1.webp?v=vhqqb5",
+   "img/characters/funko-cl-p-060-cb.webp?v=vhqqb5"
+  ],
+  "preview": "img/characters/funko-cl-p-060-shelf.png?v=vhqqb5",
+  "thumb": "img/characters/funko-cl-p-060-thumb.webp?v=vhqqb5"
  }
 };
