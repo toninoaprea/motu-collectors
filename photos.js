@@ -1313,7 +1313,15 @@ window.MOTU_PHOTOS = {
    "img/characters/funko-cl-p-003-x2.webp?v=u42mnd"
   ],
   "preview": "img/characters/funko-cl-p-003-shelf.png?v=ob5ztk",
-  "thumb": "img/characters/funko-cl-p-003-thumb.webp?v=u42mnd"
+  "thumb": "img/characters/funko-cl-p-003-thumb.webp?v=u42mnd",
+  "captions": {
+   "1": "Standard",
+   "2": "Glow in the Dark (GameStop)",
+   "3": "Glow in the Dark (GameStop)",
+   "cb": "Standard",
+   "x1": "Disco, Black Hood (Funko Shop)",
+   "x2": "Disco, Black Hood (Funko Shop)"
+  }
  },
  "funko-cl-p-005": {
   "images": [
