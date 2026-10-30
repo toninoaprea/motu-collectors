@@ -1613,5 +1613,21 @@ window.MOTU_PHOTOS = {
   ],
   "preview": "img/characters/funko-cl-p-066-shelf.png?v=vh6l5e",
   "thumb": "img/characters/funko-cl-p-066-thumb.webp?v=vh6l5e"
+ },
+ "funko-cl-p-078": {
+  "images": [
+   "img/characters/funko-cl-p-078-1.webp?v=vhdtw8",
+   "img/characters/funko-cl-p-078-cb.webp?v=vhdtw8",
+   "img/characters/funko-cl-p-078-2.webp?v=vhdtw8",
+   "img/characters/funko-cl-p-078-3.webp?v=vhdtw8"
+  ],
+  "preview": "img/characters/funko-cl-p-078-shelf.png?v=vhdtw8",
+  "thumb": "img/characters/funko-cl-p-078-thumb.webp?v=vhdtw8",
+  "captions": {
+   "1": "Standard",
+   "2": "Flocked (Target Con 2022)",
+   "3": "Flocked (Target Con 2022)",
+   "cb": "Standard"
+  }
  }
 };
