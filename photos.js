@@ -1341,7 +1341,15 @@ window.MOTU_PHOTOS = {
    "img/characters/funko-cl-p-007-x3.webp?v=tyo7e7"
   ],
   "preview": "img/characters/funko-cl-p-007-shelf.png?v=oc3x7m",
-  "thumb": "img/characters/funko-cl-p-007-thumb.webp?v=tyo7e7"
+  "thumb": "img/characters/funko-cl-p-007-thumb.webp?v=vg8rlr",
+  "captions": {
+   "1": "Standard",
+   "2": "Glow in the Dark (Gemini / Chalice Collectibles)",
+   "3": "Glow in the Dark (Gemini / Chalice Collectibles)",
+   "cb": "Standard",
+   "x2": "Disco, Black Hood (SDCC 2013, LE 480)",
+   "x3": "Disco, Black Hood (SDCC 2013, LE 480)"
+  }
  },
  "super7-cl-v-011": {
   "images": [
