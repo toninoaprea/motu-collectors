@@ -1295,7 +1295,7 @@ window.MOTU_PHOTOS = {
    "img/characters/funko-cl-p-002-3.webp?v=txroj5"
   ],
   "preview": "img/characters/funko-cl-p-002-shelf.png?v=ob4cee",
-  "thumb": "img/characters/funko-cl-p-002-thumb.webp?v=vfz9fk",
+  "thumb": "img/characters/funko-cl-p-002-thumb.webp?v=vg538j",
   "captions": {
    "1": "Standard",
    "2": "Flocked (NYCC 2017)",
