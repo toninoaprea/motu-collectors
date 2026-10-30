@@ -1594,5 +1594,10 @@ window.MOTU_PHOTOS = {
    "3": "Eddi-fied (Chase)",
    "cb": "Standard"
   }
+ },
+ "funko-cl-p-018": {
+  "images": [],
+  "preview": "",
+  "thumb": ""
  }
 };
