@@ -1602,9 +1602,20 @@ window.MOTU_PHOTOS = {
   }
  },
  "funko-cl-p-018": {
-  "images": [],
-  "preview": "",
-  "thumb": ""
+  "images": [
+   "img/characters/funko-cl-p-018-1.webp?v=vhk9mk",
+   "img/characters/funko-cl-p-018-cb.webp?v=vhk9mk",
+   "img/characters/funko-cl-p-018-2.webp?v=vhk9mk",
+   "img/characters/funko-cl-p-018-3.webp?v=vhk9mk"
+  ],
+  "preview": "img/characters/funko-cl-p-018-shelf.png?v=vhk9mk",
+  "thumb": "img/characters/funko-cl-p-018-thumb.webp?v=vhk9mk",
+  "captions": {
+   "1": "Standard",
+   "2": "Temple of Darkness",
+   "3": "Temple of Darkness",
+   "cb": "Standard"
+  }
  },
  "funko-cl-p-066": {
   "images": [
