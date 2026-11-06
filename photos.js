@@ -1736,5 +1736,21 @@ window.MOTU_PHOTOS = {
   ],
   "preview": "img/characters/funko-cl-p-023-shelf.png?v=5g599i",
   "thumb": "img/characters/funko-cl-p-023-thumb.webp?v=5g599i"
+ },
+ "funko-cl-p-030": {
+  "images": [
+   "img/characters/funko-cl-p-030-1.webp?v=5g8e8r",
+   "img/characters/funko-cl-p-030-cb.webp?v=5g8e8r",
+   "img/characters/funko-cl-p-030-2.webp?v=5g8e8r",
+   "img/characters/funko-cl-p-030-3.webp?v=5g8e8r"
+  ],
+  "preview": "img/characters/funko-cl-p-030-shelf.png?v=5g8e8r",
+  "thumb": "img/characters/funko-cl-p-030-thumb.webp?v=5g8e8r",
+  "captions": {
+   "1": "Standard",
+   "2": "Blue (Chase)",
+   "3": "Blue (Chase)",
+   "cb": "Standard"
+  }
  }
 };
