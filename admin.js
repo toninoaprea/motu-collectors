@@ -180,6 +180,8 @@
     var out = [];
     requiredFor(id).forEach(function (q) {
       var ok = q[0] === 'shelf' ? hasShelf : q[0] === 'thumb' ? (hasThumb || !!map['2']) : !!map[q[0]];
+      // Funko: la seconda foto vale in qualsiasi slot (Front, Card back, Back o extra), non solo in Front
+      if (!ok && q[0] === '2' && /^funko-/.test(id || '')) ok = Object.keys(map).some(function (k) { return k !== '1' && k !== 'shelf' && k !== 'thumb' && !!map[k]; });
       if (!ok) out.push(q[1]);
     });
     return out;
