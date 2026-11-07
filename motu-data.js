@@ -1743,6 +1743,9 @@ const CATALOG = {
       { id: 'funko-cl-d-005', sku: 'Dorbz #245', desc: 'Funko Dorbz release. Funko Shop exclusive, limited edition of 3,000.', name: 'SHE-RA', year: '', wave: 'DORBZ #245', priceLoose: 0, priceMOC: 0, priceRetail: 0, variants: [] },
       { id: 'funko-cl-d-006', sku: 'Dorbz #262', desc: 'Funko Dorbz release. Walmart exclusive.', name: 'FAKER', year: '', wave: 'DORBZ #262', priceLoose: 0, priceMOC: 0, priceRetail: 0, variants: [] },
       { id: 'funko-cl-d-007', sku: 'Dorbz #422', desc: 'Funko Dorbz release. Specialty Series exclusive.', name: 'ORKO', year: '', wave: 'DORBZ #422', priceLoose: 0, priceMOC: 0, priceRetail: 0, variants: [] },
+      { id: 'funko-cl-d-008', sku: 'Dorbz 3-Pack', desc: 'Funko Dorbz release, sold in a 3-pack. Funko.com exclusive (2017), limited to 3,000 packs.', name: 'SPIKOR', year: '2017', wave: 'DORBZ 3-PACK', priceLoose: 0, priceMOC: 0, priceRetail: 0, variants: [] },
+      { id: 'funko-cl-d-009', sku: 'Dorbz 3-Pack', desc: 'Funko Dorbz release, sold in a 3-pack. Funko.com exclusive (2017), limited to 3,000 packs.', name: 'TRAP JAW', year: '2017', wave: 'DORBZ 3-PACK', priceLoose: 0, priceMOC: 0, priceRetail: 0, variants: [] },
+      { id: 'funko-cl-d-010', sku: 'Dorbz 3-Pack', desc: 'Funko Dorbz release, sold in a 3-pack. Funko.com exclusive (2017), limited to 3,000 packs.', name: 'SCARE GLOW', year: '2017', wave: 'DORBZ 3-PACK', priceLoose: 0, priceMOC: 0, priceRetail: 0, variants: [] },
     ],
   },
   'STATUES': {
