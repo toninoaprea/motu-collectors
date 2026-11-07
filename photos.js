@@ -2008,5 +2008,18 @@ window.MOTU_PHOTOS = {
    "2": "Flocked (Chase)",
    "cb": "Standard"
   }
+ },
+ "funko-cl-s-006": {
+  "images": [
+   "img/characters/funko-cl-s-006-1.webp?v=6iens1",
+   "img/characters/funko-cl-s-006-cb.webp?v=6iens1",
+   "img/characters/funko-cl-s-006-2.webp?v=6iens1"
+  ],
+  "preview": "img/characters/funko-cl-s-006-shelf.png?v=6iens1",
+  "thumb": "img/characters/funko-cl-s-006-thumb.webp?v=6iens1",
+  "captions": {
+   "2": "Animated (Chase)",
+   "cb": "Standard"
+  }
  }
 };
