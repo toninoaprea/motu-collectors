@@ -1911,5 +1911,13 @@ window.MOTU_PHOTOS = {
    "2": "Chase, teal (LE 800)",
    "cb": "Standard"
   }
+ },
+ "funko-cl-p-043": {
+  "images": [
+   "img/characters/funko-cl-p-043-1.webp?v=6gevja",
+   "img/characters/funko-cl-p-043-cb.webp?v=6gevja"
+  ],
+  "preview": "img/characters/funko-cl-p-043-shelf.png?v=6gevja",
+  "thumb": "img/characters/funko-cl-p-043-thumb.webp?v=6gevja"
  }
 };
