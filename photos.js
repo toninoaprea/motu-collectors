@@ -1896,5 +1896,20 @@ window.MOTU_PHOTOS = {
   ],
   "preview": "img/characters/funko-cl-p-065-shelf.png?v=6g0hi5",
   "thumb": "img/characters/funko-cl-p-065-thumb.webp?v=6g0hi5"
+ },
+ "funko-cl-p-094": {
+  "images": [
+   "img/characters/funko-cl-p-094-1.webp?v=6g92o2",
+   "img/characters/funko-cl-p-094-cb.webp?v=6g92o2",
+   "img/characters/funko-cl-p-094-2.webp?v=6g92o2",
+   "img/characters/funko-cl-p-094-3.webp?v=6g92o2"
+  ],
+  "preview": "img/characters/funko-cl-p-094-shelf.png?v=6g92o2",
+  "thumb": "img/characters/funko-cl-p-094-thumb.webp?v=6g92o2",
+  "captions": {
+   "1": "Standard",
+   "2": "Chase, teal (LE 800)",
+   "cb": "Standard"
+  }
  }
 };
