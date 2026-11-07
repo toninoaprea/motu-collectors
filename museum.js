@@ -142,7 +142,6 @@
           const big = it => FUNKO_BIG.indexOf(it.id) !== -1;
           const wide = it => Number(it.span) > 1;
           push(rest.filter(it => !big(it) && !wide(it)), g, title);
-          push(rest.filter(big), 'POP 10 INCH', 'FUNKO \u2014 POP! 10 INCH');
           push(rest.filter(it => wide(it) && !big(it)), 'POP TOWN RIDES', 'FUNKO \u2014 POP! TOWN & RIDES');
         } else {
           push(rest, g, title);
