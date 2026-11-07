@@ -2034,5 +2034,18 @@ window.MOTU_PHOTOS = {
    "2": "Snakemen (Chase)",
    "cb": "Standard"
   }
+ },
+ "funko-cl-s-013": {
+  "images": [
+   "img/characters/funko-cl-s-013-1.webp?v=6ikbst",
+   "img/characters/funko-cl-s-013-cb.webp?v=6ikbst",
+   "img/characters/funko-cl-s-013-2.webp?v=6ikbst"
+  ],
+  "preview": "img/characters/funko-cl-s-013-shelf.png?v=6ikbst",
+  "thumb": "img/characters/funko-cl-s-013-thumb.webp?v=6ikbst",
+  "captions": {
+   "2": "Metallic (Chase)",
+   "cb": "Standard"
+  }
  }
 };
