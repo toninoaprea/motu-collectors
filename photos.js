@@ -1954,5 +1954,18 @@ window.MOTU_PHOTOS = {
    "2": "Metallic (Chase)",
    "cb": "Standard"
   }
+ },
+ "funko-cl-s-011": {
+  "images": [
+   "img/characters/funko-cl-s-011-1.webp?v=6gzriy",
+   "img/characters/funko-cl-s-011-cb.webp?v=6gzriy",
+   "img/characters/funko-cl-s-011-2.webp?v=6gzriy"
+  ],
+  "preview": "img/characters/funko-cl-s-011-shelf.png?v=6gzriy",
+  "thumb": "img/characters/funko-cl-s-011-thumb.webp?v=6gzriy",
+  "captions": {
+   "2": "Glitter (Chase)",
+   "cb": "Standard"
+  }
  }
 };
