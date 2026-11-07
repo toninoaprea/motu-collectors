@@ -2055,5 +2055,18 @@ window.MOTU_PHOTOS = {
   ],
   "preview": "img/characters/funko-cl-s-002-shelf.png?v=6mmwyf",
   "thumb": "img/characters/funko-cl-s-002-thumb.webp?v=6mmwyf"
+ },
+ "funko-cl-s-003": {
+  "images": [
+   "img/characters/funko-cl-s-003-1.webp?v=6mq29m",
+   "img/characters/funko-cl-s-003-cb.webp?v=6mq29m",
+   "img/characters/funko-cl-s-003-2.webp?v=6mq29m"
+  ],
+  "preview": "img/characters/funko-cl-s-003-shelf.png?v=6mq29m",
+  "thumb": "img/characters/funko-cl-s-003-thumb.webp?v=6mq29m",
+  "captions": {
+   "2": "Slimer (Chase)",
+   "cb": "Standard"
+  }
  }
 };
