@@ -1816,5 +1816,13 @@ window.MOTU_PHOTOS = {
    "3": "Comic (FYE)",
    "cb": "Standard"
   }
+ },
+ "funko-cl-p-011": {
+  "images": [
+   "img/characters/funko-cl-p-011-1.webp?v=6fhogy",
+   "img/characters/funko-cl-p-011-cb.webp?v=6fhogy"
+  ],
+  "preview": "img/characters/funko-cl-p-011-shelf.png?v=6fhogy",
+  "thumb": "img/characters/funko-cl-p-011-thumb.webp?v=6fhogy"
  }
 };
