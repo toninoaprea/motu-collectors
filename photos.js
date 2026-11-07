@@ -1800,5 +1800,21 @@ window.MOTU_PHOTOS = {
   ],
   "preview": "img/characters/funko-cl-p-013-shelf.png?v=5gmxuj",
   "thumb": "img/characters/funko-cl-p-013-thumb.webp?v=5gmxuj"
+ },
+ "funko-cl-p-044": {
+  "images": [
+   "img/characters/funko-cl-p-044-1.webp?v=6ffvml",
+   "img/characters/funko-cl-p-044-cb.webp?v=6ffvml",
+   "img/characters/funko-cl-p-044-2.webp?v=6ffvml",
+   "img/characters/funko-cl-p-044-3.webp?v=6ffvml"
+  ],
+  "preview": "img/characters/funko-cl-p-044-shelf.png?v=6ffvml",
+  "thumb": "img/characters/funko-cl-p-044-thumb.webp?v=6ffvml",
+  "captions": {
+   "1": "Standard",
+   "2": "Comic (FYE)",
+   "3": "Comic (FYE)",
+   "cb": "Standard"
+  }
  }
 };
