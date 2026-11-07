@@ -1931,9 +1931,15 @@ window.MOTU_PHOTOS = {
  "funko-cl-s-017": {
   "images": [
    "img/characters/funko-cl-s-017-1.webp?v=6gjmrv",
-   "img/characters/funko-cl-s-017-cb.webp?v=6gjmrv"
+   "img/characters/funko-cl-s-017-cb.webp?v=6gquo1",
+   "img/characters/funko-cl-s-017-2.webp?v=6gquo1",
+   "img/characters/funko-cl-s-017-3.webp?v=6gquo1"
   ],
   "preview": "img/characters/funko-cl-s-017-shelf.png?v=6gjmrv",
-  "thumb": "img/characters/funko-cl-s-017-thumb.webp?v=6gjmrv"
+  "thumb": "img/characters/funko-cl-s-017-thumb.webp?v=6gquo1",
+  "captions": {
+   "2": "Metallic (Chase)",
+   "cb": "Standard"
+  }
  }
 };
