@@ -1660,10 +1660,18 @@ window.MOTU_PHOTOS = {
  "funko-cl-p-079": {
   "images": [
    "img/characters/funko-cl-p-079-1.webp?v=vhvlkd",
-   "img/characters/funko-cl-p-079-cb.webp?v=vhvlkd"
+   "img/characters/funko-cl-p-079-cb.webp?v=vhvlkd",
+   "img/characters/funko-cl-p-079-2.webp?v=6fknfn",
+   "img/characters/funko-cl-p-079-3.webp?v=6fknfn"
   ],
   "preview": "img/characters/funko-cl-p-079-shelf.png?v=vhvlkd",
-  "thumb": "img/characters/funko-cl-p-079-thumb.webp?v=vhvlkd"
+  "thumb": "img/characters/funko-cl-p-079-thumb.webp?v=6fknfn",
+  "captions": {
+   "1": "Standard",
+   "2": "Flocked (Funko Shop)",
+   "3": "Flocked (Funko Shop)",
+   "cb": "Standard"
+  }
  },
  "funko-cl-p-097": {
   "images": [
