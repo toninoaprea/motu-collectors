@@ -2021,5 +2021,18 @@ window.MOTU_PHOTOS = {
    "2": "Animated (Chase)",
    "cb": "Standard"
   }
+ },
+ "funko-cl-s-005": {
+  "images": [
+   "img/characters/funko-cl-s-005-1.webp?v=6ignpd",
+   "img/characters/funko-cl-s-005-cb.webp?v=6ignpd",
+   "img/characters/funko-cl-s-005-2.webp?v=6ignpd"
+  ],
+  "preview": "img/characters/funko-cl-s-005-shelf.png?v=6ignpd",
+  "thumb": "img/characters/funko-cl-s-005-thumb.webp?v=6ignpd",
+  "captions": {
+   "2": "Snakemen (Chase)",
+   "cb": "Standard"
+  }
  }
 };
