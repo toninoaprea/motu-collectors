@@ -1980,5 +1980,19 @@ window.MOTU_PHOTOS = {
    "2": "Chase",
    "cb": "Standard"
   }
+ },
+ "funko-cl-s-016": {
+  "images": [
+   "img/characters/funko-cl-s-016-1.webp?v=6hw5bv",
+   "img/characters/funko-cl-s-016-cb.webp?v=6hw5bv",
+   "img/characters/funko-cl-s-016-2.webp?v=6hw5bv",
+   "img/characters/funko-cl-s-016-3.webp?v=6hw5bv"
+  ],
+  "preview": "img/characters/funko-cl-s-016-shelf.png?v=6hw5bv",
+  "thumb": "img/characters/funko-cl-s-016-thumb.webp?v=6hw5bv",
+  "captions": {
+   "2": "Scented (Chase)",
+   "cb": "Standard"
+  }
  }
 };
