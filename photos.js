@@ -2047,5 +2047,13 @@ window.MOTU_PHOTOS = {
    "2": "Metallic (Chase)",
    "cb": "Standard"
   }
+ },
+ "funko-cl-s-002": {
+  "images": [
+   "img/characters/funko-cl-s-002-1.webp?v=6mmwyf",
+   "img/characters/funko-cl-s-002-cb.webp?v=6mmwyf"
+  ],
+  "preview": "img/characters/funko-cl-s-002-shelf.png?v=6mmwyf",
+  "thumb": "img/characters/funko-cl-s-002-thumb.webp?v=6mmwyf"
  }
 };
