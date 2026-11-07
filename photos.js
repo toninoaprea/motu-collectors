@@ -2068,5 +2068,22 @@ window.MOTU_PHOTOS = {
    "2": "Slimer (Chase)",
    "cb": "Standard"
   }
+ },
+ "funko-cl-s-012": {
+  "images": [
+   "img/characters/funko-cl-s-012-1.webp?v=6mwmn4",
+   "img/characters/funko-cl-s-012-cb.webp?v=6mwmn4",
+   "img/characters/funko-cl-s-012-2.webp?v=6mwmn4",
+   "img/characters/funko-cl-s-012-3.webp?v=6mwmn4",
+   "img/characters/funko-cl-s-012-x1.webp?v=6mwmn4"
+  ],
+  "preview": "img/characters/funko-cl-s-012-shelf.png?v=6mwmn4",
+  "thumb": "img/characters/funko-cl-s-012-thumb.webp?v=6mwmn4",
+  "captions": {
+   "2": "Battle Armor (Chase)",
+   "3": "Wondrous Con exclusive",
+   "cb": "Standard",
+   "x1": "Wondrous Con exclusive"
+  }
  }
 };
