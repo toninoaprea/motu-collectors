@@ -1941,5 +1941,18 @@ window.MOTU_PHOTOS = {
    "2": "Metallic (Chase)",
    "cb": "Standard"
   }
+ },
+ "funko-cl-s-008": {
+  "images": [
+   "img/characters/funko-cl-s-008-1.webp?v=6gvw7y",
+   "img/characters/funko-cl-s-008-cb.webp?v=6gvw7y",
+   "img/characters/funko-cl-s-008-2.webp?v=6gvw7y"
+  ],
+  "preview": "img/characters/funko-cl-s-008-shelf.png?v=6gvw7y",
+  "thumb": "img/characters/funko-cl-s-008-thumb.webp?v=6gvw7y",
+  "captions": {
+   "2": "Metallic (Chase)",
+   "cb": "Standard"
+  }
  }
 };
