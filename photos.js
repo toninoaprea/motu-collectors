@@ -2085,5 +2085,13 @@ window.MOTU_PHOTOS = {
    "cb": "Standard",
    "x1": "Wondrous Con exclusive"
   }
+ },
+ "funko-cl-p-098": {
+  "images": [
+   "img/characters/funko-cl-p-098-1.webp?v=6n0952",
+   "img/characters/funko-cl-p-098-cb.webp?v=6n0952"
+  ],
+  "preview": "img/characters/funko-cl-p-098-shelf.png?v=6n0952",
+  "thumb": "img/characters/funko-cl-p-098-thumb.webp?v=6n0952"
  }
 };
