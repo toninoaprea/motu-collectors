@@ -2130,15 +2130,17 @@ window.MOTU_PHOTOS = {
  },
  "funko-cl-d-001": {
   "images": [
-   "img/characters/funko-cl-d-001-1.webp?v=ciwedk",
+   "img/characters/funko-cl-d-001-1.webp?v=cpp5i4",
    "img/characters/funko-cl-d-001-cb.webp?v=ciwedk",
-   "img/characters/funko-cl-d-001-2.webp?v=ciwedk",
+   "img/characters/funko-cl-d-001-2.webp?v=cpp5i4",
    "img/characters/funko-cl-d-001-3.webp?v=ciwedk"
   ],
   "preview": "img/characters/funko-cl-d-001-shelf.png?v=ciwedk",
-  "thumb": "img/characters/funko-cl-d-001-thumb.webp?v=ciwedk",
+  "thumb": "img/characters/funko-cl-d-001-thumb.webp?v=cpp5i4",
   "captions": {
+   "1": "Standard",
    "2": "Prince Adam (Chase)",
+   "3": "Prince Adam (Chase)",
    "cb": "Standard"
   }
  },
