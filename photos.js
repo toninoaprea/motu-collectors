@@ -2155,5 +2155,19 @@ window.MOTU_PHOTOS = {
    "2": "Black Hood (Chase)",
    "cb": "Standard"
   }
+ },
+ "funko-cl-d-004": {
+  "images": [
+   "img/characters/funko-cl-d-004-1.webp?v=ckrwvs",
+   "img/characters/funko-cl-d-004-cb.webp?v=ckrwvs",
+   "img/characters/funko-cl-d-004-2.webp?v=ckrwvs",
+   "img/characters/funko-cl-d-004-3.webp?v=ckrwvs"
+  ],
+  "preview": "img/characters/funko-cl-d-004-shelf.png?v=ckrwvs",
+  "thumb": "img/characters/funko-cl-d-004-thumb.webp?v=ckrwvs",
+  "captions": {
+   "2": "Blue (Chase)",
+   "cb": "Standard"
+  }
  }
 };
