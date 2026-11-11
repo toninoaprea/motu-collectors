@@ -1738,7 +1738,7 @@ const CATALOG = {
     ],
     'DORBZ': [
       { id: 'funko-cl-d-001', sku: 'Dorbz #241', desc: 'Funko Dorbz release (small vinyl figure).', name: 'HE-MAN', year: '', wave: 'DORBZ #241', priceLoose: 0, priceMOC: 0, priceRetail: 0, variants: [{ id: 'funko-cl-d-001-a', name: 'Prince Adam (Chase)', priceLoose: 0, priceMOC: 0 }] },
-      { id: 'funko-cl-d-002', sku: 'Dorbz #242', desc: 'Funko Dorbz release (small vinyl figure).', name: 'SKELETOR', year: '', wave: 'DORBZ #242', priceLoose: 0, priceMOC: 0, priceRetail: 0, variants: [{ id: 'funko-cl-d-002-a', name: 'Black Hood (Chase)', priceLoose: 0, priceMOC: 0 }] },
+      { id: 'funko-cl-d-002', sku: 'Dorbz #242', desc: 'Funko Dorbz release (small vinyl figure).', name: 'SKELETOR', year: '', wave: 'DORBZ #242', priceLoose: 0, priceMOC: 0, priceRetail: 0, variants: [{ id: 'funko-cl-d-002-a', name: 'Black Hood (Chase)', priceLoose: 0, priceMOC: 0 }, { id: 'funko-cl-d-002-b', name: 'Disco Metallic (Big Apple Collectibles exclusive, 2018)', priceLoose: 0, priceMOC: 0 }] },
       { id: 'funko-cl-d-003', sku: 'Dorbz #243', desc: 'Funko Dorbz release (small vinyl figure).', name: 'MAN-AT-ARMS', year: '', wave: 'DORBZ #243', priceLoose: 0, priceMOC: 0, priceRetail: 0, variants: [] },
       { id: 'funko-cl-d-004', sku: 'Dorbz #244', desc: 'Funko Dorbz release (small vinyl figure).', name: 'MER-MAN', year: '', wave: 'DORBZ #244', priceLoose: 0, priceMOC: 0, priceRetail: 0, variants: [{ id: 'funko-cl-d-004-a', name: 'Blue (Chase)', priceLoose: 0, priceMOC: 0 }] },
       { id: 'funko-cl-d-005', sku: 'Dorbz #245', desc: 'Funko Dorbz release. Funko Shop exclusive, limited edition of 3,000.', name: 'SHE-RA', year: '', wave: 'DORBZ #245', priceLoose: 0, priceMOC: 0, priceRetail: 0, variants: [] },
