@@ -2169,5 +2169,13 @@ window.MOTU_PHOTOS = {
    "2": "Blue (Chase)",
    "cb": "Standard"
   }
+ },
+ "funko-cl-d-005": {
+  "images": [
+   "img/characters/funko-cl-d-005-1.webp?v=ckt8q4",
+   "img/characters/funko-cl-d-005-cb.webp?v=ckt8q4"
+  ],
+  "preview": "img/characters/funko-cl-d-005-shelf.png?v=ckt8q4",
+  "thumb": "img/characters/funko-cl-d-005-thumb.webp?v=ckt8q4"
  }
 };
