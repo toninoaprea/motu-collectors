@@ -2141,5 +2141,19 @@ window.MOTU_PHOTOS = {
    "2": "Prince Adam (Chase)",
    "cb": "Standard"
   }
+ },
+ "funko-cl-d-002": {
+  "images": [
+   "img/characters/funko-cl-d-002-1.webp?v=cizirl",
+   "img/characters/funko-cl-d-002-cb.webp?v=cizirl",
+   "img/characters/funko-cl-d-002-2.webp?v=cizirl",
+   "img/characters/funko-cl-d-002-3.webp?v=cizirl"
+  ],
+  "preview": "img/characters/funko-cl-d-002-shelf.png?v=cizirl",
+  "thumb": "img/characters/funko-cl-d-002-thumb.webp?v=cizirl",
+  "captions": {
+   "2": "Black Hood (Chase)",
+   "cb": "Standard"
+  }
  }
 };
