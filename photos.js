@@ -2221,5 +2221,18 @@ window.MOTU_PHOTOS = {
   ],
   "preview": "img/characters/funko-cl-d-010-shelf.png?v=gqykn3",
   "thumb": "img/characters/funko-cl-d-010-thumb.webp?v=gqykn3"
+ },
+ "funko-cl-s-004": {
+  "images": [
+   "img/characters/funko-cl-s-004-1.webp?v=gr141c",
+   "img/characters/funko-cl-s-004-cb.webp?v=gr141c",
+   "img/characters/funko-cl-s-004-2.webp?v=gr141c"
+  ],
+  "preview": "img/characters/funko-cl-s-004-shelf.png?v=gr141c",
+  "thumb": "img/characters/funko-cl-s-004-thumb.webp?v=gr141c",
+  "captions": {
+   "2": "Battle Mode (Chase)",
+   "cb": "Standard"
+  }
  }
 };
