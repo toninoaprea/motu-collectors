@@ -124,19 +124,21 @@
         const isOrigins = serie === 'ORIGINS';
         const isSketch = it => isOrigins && /^SKETCHBOOK|\bSKETCHBOOK$/i.test(it.name);
         const is200x = it => isOrigins && (sub === 'FIGURES' || sub === 'DELUXE FIGURES') && /^200X\b/i.test(it.name);
+        const isMovie = it => isOrigins && (sub === 'FIGURES' || sub === 'DELUXE FIGURES') && /\(MOVIE\b/i.test(it.name);
         const isFan = it => isOrigins && sub === 'FIGURES' && /\(FAN FAVORITE\)/i.test(it.name);
         const isCartoon = it => isOrigins && sub === 'FIGURES' && (/\(CARTOON COLLECTION\)/i.test(it.name) || it.id === 'ori-cl-f-091');
         const show = it => ownFilter === 'all' || (ownFilter === 'owned') === itemOwned(it);
         const push = (list, grp, ttl) => list.filter(show).forEach(item => entries.push({ item, serie, sub, group: serie + '|' + grp, groupTitle: ttl }));
         const rest = items.filter(it => !isSketch(it));
         if (isOrigins && (sub === 'FIGURES' || sub === 'DELUXE FIGURES')) {
-          const classic = rest.filter(it => !is200x(it) && !isFan(it) && !isCartoon(it));
+          const classic = rest.filter(it => !is200x(it) && !isFan(it) && !isCartoon(it) && !isMovie(it));
           push(classic, g, title);
           if (sub === 'FIGURES') {
             push(rest.filter(isFan), 'FAN FAVORITES', 'ORIGINS \u2014 FAN FAVORITES (RE-RELEASES)');
             push(rest.filter(it => isCartoon(it) && !is200x(it)), 'CARTOON COLLECTION', 'ORIGINS \u2014 CARTOON COLLECTION');
           }
           push(rest.filter(is200x), sub + ' 200X', 'ORIGINS \u2014 ' + (sub === 'FIGURES' ? '200X' : 'DELUXE 200X'));
+          push(rest.filter(it => isMovie(it) && !is200x(it)), sub + ' MOVIE', 'ORIGINS \u2014 ' + (sub === 'FIGURES' ? 'MOVIE (2026)' : 'DELUXE MOVIE (2026)'));
         } else if (serie === 'FUNKO' && sub === 'POP!') {
           // Pop piccoli, poi i 10 pollici (scaffale a parte), poi Town e Rides (larghi 2 posti) in fondo
           const big = it => FUNKO_BIG.indexOf(it.id) !== -1;
