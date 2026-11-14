@@ -2234,5 +2234,18 @@ window.MOTU_PHOTOS = {
    "2": "Battle Mode (Chase)",
    "cb": "Standard"
   }
+ },
+ "funko-cl-s-010": {
+  "images": [
+   "img/characters/funko-cl-s-010-1.webp?v=gr79x6",
+   "img/characters/funko-cl-s-010-cb.webp?v=gr79x6",
+   "img/characters/funko-cl-s-010-2.webp?v=gr79x6"
+  ],
+  "preview": "img/characters/funko-cl-s-010-shelf.png?v=gr79x6",
+  "thumb": "img/characters/funko-cl-s-010-thumb.webp?v=gr79x6",
+  "captions": {
+   "2": "Glow in the Dark (Chase)",
+   "cb": "Standard"
+  }
  }
 };
