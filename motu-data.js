@@ -1747,6 +1747,9 @@ const CATALOG = {
       { id: 'funko-cl-d-008', sku: 'Dorbz 3-Pack', desc: 'Funko Dorbz release, sold in a 3-pack. Funko.com exclusive (2017), limited to 3,000 packs.', name: 'SPIKOR', year: '2017', wave: 'DORBZ 3-PACK', priceLoose: 0, priceMOC: 0, priceRetail: 0, variants: [] },
       { id: 'funko-cl-d-009', sku: 'Dorbz 3-Pack', desc: 'Funko Dorbz release, sold in a 3-pack. Funko.com exclusive (2017), limited to 3,000 packs.', name: 'TRAP JAW', year: '2017', wave: 'DORBZ 3-PACK', priceLoose: 0, priceMOC: 0, priceRetail: 0, variants: [] },
       { id: 'funko-cl-d-010', sku: 'Dorbz 3-Pack', desc: 'Funko Dorbz release, sold in a 3-pack. Funko.com exclusive (2017), limited to 3,000 packs.', name: 'SCARE GLOW', year: '2017', wave: 'DORBZ 3-PACK', priceLoose: 0, priceMOC: 0, priceRetail: 0, variants: [] },
+      { id: 'funko-cl-d-011', sku: 'Dorbz 2-Pack', bio: 'MOSS MAN', desc: 'Funko Dorbz release, sold in a 2-pack with Beast Man. Funko Shop exclusive (2017), limited to 3,000 packs.', name: 'MOSS MAN', year: '2017', wave: 'DORBZ 2-PACK', priceLoose: 0, priceMOC: 0, priceRetail: 0, variants: [] },
+      { id: 'funko-cl-d-012', sku: 'Dorbz 2-Pack', bio: 'BEAST MAN', desc: 'Funko Dorbz release, sold in a 2-pack with Moss Man. Funko Shop exclusive (2017), limited to 3,000 packs.', name: 'BEAST MAN', year: '2017', wave: 'DORBZ 2-PACK', priceLoose: 0, priceMOC: 0, priceRetail: 0, variants: [] },
+      { id: 'funko-cl-d-013', span: 2, sku: 'Dorbz Ridez', bio: 'SKELETOR', desc: 'Funko Dorbz Ridez release (2017). SDCC and Toy Tokyo exclusive, later released through the Funko Shop.', name: 'SKELETOR WITH PANTHOR', year: '2017', wave: 'DORBZ RIDEZ', priceLoose: 0, priceMOC: 0, priceRetail: 0, variants: [] },
     ],
   },
   'STATUES': {
