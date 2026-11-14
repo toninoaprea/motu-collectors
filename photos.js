@@ -2263,11 +2263,11 @@ window.MOTU_PHOTOS = {
  },
  "funko-cl-s-007": {
   "images": [
-   "img/characters/funko-cl-s-007-1.webp?v=greveo",
-   "img/characters/funko-cl-s-007-cb.webp?v=greveo"
+   "img/characters/funko-cl-s-007-1.webp?v=grimpj",
+   "img/characters/funko-cl-s-007-cb.webp?v=grimpj"
   ],
-  "preview": "img/characters/funko-cl-s-007-shelf.png?v=greveo",
-  "thumb": "img/characters/funko-cl-s-007-thumb.webp?v=greveo"
+  "preview": "img/characters/funko-cl-s-007-shelf.png?v=grimpj",
+  "thumb": "img/characters/funko-cl-s-007-thumb.webp?v=grimpj"
  },
  "funko-cl-d-012": {
   "images": [
