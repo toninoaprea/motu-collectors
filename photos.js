@@ -2247,5 +2247,18 @@ window.MOTU_PHOTOS = {
    "2": "Glow in the Dark (Chase)",
    "cb": "Standard"
   }
+ },
+ "funko-cl-s-015": {
+  "images": [
+   "img/characters/funko-cl-s-015-1.webp?v=gr9xjx",
+   "img/characters/funko-cl-s-015-cb.webp?v=gr9xjx",
+   "img/characters/funko-cl-s-015-2.webp?v=gr9xjx"
+  ],
+  "preview": "img/characters/funko-cl-s-015-shelf.png?v=gr9xjx",
+  "thumb": "img/characters/funko-cl-s-015-thumb.webp?v=gr9xjx",
+  "captions": {
+   "2": "Metallic (Chase)",
+   "cb": "Standard"
+  }
  }
 };
