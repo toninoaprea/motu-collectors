@@ -24,6 +24,7 @@
   var picked = null;                 // { id, name, serie, sub, item }
   var photosMap = {};                // copia di window.MOTU_PHOTOS
   var slotFiles = {};                // suffisso -> File
+  var removed = {};                  // suffisso -> true: foto esistente da togliere alla pubblicazione
   var shelfFile = null;
   var frontImg = null;               // immagine usata per il ritaglio testa
   var crop = { cx: 0.5, cy: 0.2, size: 0.27 };
@@ -194,7 +195,7 @@
   function pick(r) {
     cropTouched = false; headSource = null;
     picked = { id: r.id, name: r.name, serie: r.serie, sub: r.sub, item: r };
-    slotFiles = {}; addedExtras = []; shelfFile = null; frontImg = null; capVals = {};
+    slotFiles = {}; removed = {}; addedExtras = []; shelfFile = null; frontImg = null; capVals = {};
     var p = $('admPicked'); p.hidden = false;
     p.innerHTML = '<b>' + esc(r.name) + '</b><br>' + esc(r.serie + ' · ' + r.sub) + ' · <code>' + esc(r.id) + '</code>';
     $('admResults').innerHTML = ''; $('admSearch').value = ''; $('admSerie').value = 'ALL';
@@ -262,10 +263,20 @@
     var ex = existing(), map = bySlot(ex.images);
     allKeys(map).forEach(function (k) {
       var f = slotFiles[k], el = $('admSlot_' + k);
-      if (el) fill(el, slotHtml(labelFor(k, map), f ? URL.createObjectURL(f) : (map[k] || ''), !!f), !!f);
+      if (el) {
+        fill(el, slotHtml(labelFor(k, map), f ? URL.createObjectURL(f) : (map[k] || ''), !!f), !!f);
+        el.classList.toggle('removed', !!removed[k]);
+        if (map[k] && !f) {
+          var xb = document.createElement('button'); xb.type = 'button'; xb.className = 'adm-slot-x';
+          xb.textContent = removed[k] ? 'UNDO' : '\u2715';
+          xb.title = removed[k] ? 'Keep this photo' : 'Remove this photo on publish';
+          xb.addEventListener('click', function (e) { e.stopPropagation(); e.preventDefault(); if (removed[k]) delete removed[k]; else removed[k] = true; renderSlots(); });
+          el.appendChild(xb);
+        }
+      }
     });
     var have = {};
-    Object.keys(map).forEach(function (k) { have[k] = map[k]; });
+    Object.keys(map).forEach(function (k) { if (!removed[k]) have[k] = map[k]; });
     Object.keys(slotFiles).forEach(function (k) { have[k] = 1; });
     var miss = missingFor(have, !!(shelfFile || ex.preview), !!(ex.thumb), picked.id);
     var RL = requiredFor(picked.id).length;
@@ -435,9 +446,10 @@
     var msg = $('admMsg');
     if (!token()) return setMsg(msg, 'Add the GitHub token first (step 1).', 'err');
     var capsChanged = Object.keys(capVals).some(function (k) { return (capVals[k] || '').trim() !== ((existing().captions || {})[k] || ''); });
-    var anyNew = Object.keys(slotFiles).length || shelfFile || cropTouched || capsChanged;
+    var anyNew = Object.keys(slotFiles).length || Object.keys(removed).length || shelfFile || cropTouched || capsChanged;
     var frontNow = slotFiles['2'] || bySlot(existing().images)['2'];
-    if (!anyNew) return setMsg(msg, 'Choose at least one new photo or edit a caption.', 'err');
+    var delFiles = [];
+    if (!anyNew) return setMsg(msg, 'Choose at least one new photo, remove one or edit a caption.', 'err');
     busy = true; $('admPublish').disabled = true; $('admProgress').hidden = false;
     var bar = $('admBar'), steps = 0, total = 6 + Object.keys(slotFiles).length + 2;
     function tick(t) { steps++; bar.style.width = Math.min(100, Math.round(steps / total * 100)) + '%'; setMsg(msg, t); }
@@ -450,6 +462,7 @@
       for (var i = 0; i < order.length; i++) {
         var k = order[i], path = 'img/characters/' + id + '-' + k + '.webp';
         if (slotFiles[k]) { files.push({ path: path, b64: await b64(await photoBlob(slotFiles[k])) }); entry.images.push(path + '?v=' + v); tick('Processing photos…'); }
+        else if (map[k] && removed[k]) { delFiles.push(map[k].split('?')[0]); continue; }
         else if (map[k]) entry.images.push(map[k]);
         if ((slotFiles[k] || map[k]) && (capVals[k] || '').trim()) caps[k] = capVals[k].trim();
       }
@@ -477,13 +490,14 @@
         var bl = await gh('/git/blobs', { method: 'POST', body: JSON.stringify({ content: files[k].b64, encoding: 'base64' }) });
         tree.push({ path: files[k].path, mode: '100644', type: 'blob', sha: bl.sha });
       }
+      delFiles.forEach(function (p) { tree.push({ path: p, mode: '100644', type: 'blob', sha: null }); });
       tick('Creating commit…');
       var nt = await gh('/git/trees', { method: 'POST', body: JSON.stringify({ base_tree: pc.tree.sha, tree: tree }) });
       var cm = await gh('/git/commits', { method: 'POST', body: JSON.stringify({ message: 'Photos: ' + picked.name + ' (' + id + ')', tree: nt.sha, parents: [parent] }) });
       await gh('/git/refs/heads/' + BRANCH, { method: 'PATCH', body: JSON.stringify({ sha: cm.sha }) });
 
       photosMap[id] = entry; updateTotal();
-      slotFiles = {}; shelfFile = null;
+      slotFiles = {}; removed = {}; shelfFile = null;
       bar.style.width = '100%';
       setMsg(msg, 'Published! The photos will be live on the site in 1–2 minutes (GitHub Pages is rebuilding).', 'ok');
       buildSlots();

@@ -74,3 +74,8 @@
 .adm-cap { display: flex; align-items: center; gap: 8px; margin: 4px 0; font-size: 13px; }
 .adm-cap span { width: 80px; flex: none; opacity: .8; }
 .adm-cap input { flex: 1; min-width: 0; padding: 6px 8px; border-radius: 6px; border: 1px solid #888; background: transparent; color: inherit; font: inherit; }
+
+.adm-slot-x { position: absolute; top: 4px; right: 4px; z-index: 3; border: 0; border-radius: 50%; min-width: 24px; height: 24px; padding: 0 6px; background: rgba(196,22,28,.92); color: #fff; font-size: 12px; font-weight: 700; cursor: pointer; line-height: 24px; }
+.adm-slot.removed { border-color: #c4161c; border-style: solid; }
+.adm-slot.removed img { opacity: .25; filter: grayscale(1); }
+.adm-slot.removed span { background: #c4161c; }
