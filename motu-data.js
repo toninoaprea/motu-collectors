@@ -1620,7 +1620,7 @@ const CATALOG = {
   'FUNKO': {
     'POP! TV (BY BOX NUMBER)': [
       { id: 'funko-cl-p-006', sku: 'TV #17', bio: 'HE-MAN', name: 'HE-MAN (TELEVISION)', year: '', wave: 'POP! #17', priceLoose: 0, priceMOC: 0, priceRetail: 0, variants: [] },
-      { id: 'funko-cl-p-042', sku: 'TV #18', name: 'SHE-RA', year: '', wave: 'POP! #18', priceLoose: 0, priceMOC: 0, priceRetail: 0, variants: [{ id: 'funko-cl-p-042-a', name: 'Metallic (Funko Shop, Loungefly bundle)', priceLoose: 0, priceMOC: 0 }] },
+      { id: 'funko-cl-p-042', sku: 'TV #18', name: 'SHE-RA', year: '', wave: 'POP! #18', priceLoose: 0, priceMOC: 0, priceRetail: 0, variants: [] },
       { id: 'funko-cl-p-007', sku: 'TV #19', name: 'SKELETOR', year: '', wave: 'POP! #19', priceLoose: 0, priceMOC: 0, priceRetail: 0, variants: [{ id: 'funko-cl-p-007-a', name: 'Glow in the Dark (Gemini / Chalice Collectibles)', priceLoose: 0, priceMOC: 0 },{ id: 'funko-cl-p-007-b', name: 'Disco, Black Hood (SDCC 2013, LE 480)', priceLoose: 0, priceMOC: 0 }] },
       { id: 'funko-cl-p-043', sku: 'TV #20', name: 'SPIKOR', year: '', wave: 'POP! #20', priceLoose: 0, priceMOC: 0, priceRetail: 0, variants: [] },
       { id: 'funko-cl-p-035', sku: 'TV #21', name: 'HORDAK', year: '', wave: 'POP! #21', priceLoose: 0, priceMOC: 0, priceRetail: 0, variants: [] },
@@ -1669,7 +1669,7 @@ const CATALOG = {
             { id: 'funko-cl-p-024', bio: 'SKELETOR', name: 'SKELETOR (GLOW)', year: '', wave: 'POP!', priceLoose: 0, priceMOC: 0, priceRetail: 0, variants: [] },
     ],
     'RETRO TOYS (BY BOX NUMBER)': [
-      { id: 'funko-cl-p-009', sku: 'Retro #38', bio: 'SHE-RA', name: 'SHE-RA (GLOW IN THE DARK)', year: '', wave: 'POP! #38', priceLoose: 0, priceMOC: 0, priceRetail: 0, variants: [] },
+      { id: 'funko-cl-p-009', sku: 'Retro #38', bio: 'SHE-RA', name: 'SHE-RA', year: '', wave: 'POP! #38', priceLoose: 0, priceMOC: 0, priceRetail: 0, variants: [{ id: 'funko-cl-p-009-a', name: 'Glow in the Dark (Specialty Series)', priceLoose: 0, priceMOC: 0 }, { id: 'funko-cl-p-009-b', name: 'Metallic (WonderCon 2022, limited to 3,000)', priceLoose: 0, priceMOC: 0 }] },
       { id: 'funko-cl-p-067', sku: 'Retro #39', bio: 'SKELETOR', name: 'TERROR CLAWS SKELETOR', year: '', wave: 'POP! #39', priceLoose: 0, priceMOC: 0, priceRetail: 0, variants: [{ id: 'funko-cl-p-067-a', name: 'Metallic (Target)', priceLoose: 0, priceMOC: 0 }] },
       { id: 'funko-cl-p-028', sku: 'Retro #40', name: 'GRIZZLOR', year: '', wave: 'POP! #40', priceLoose: 0, priceMOC: 0, priceRetail: 0, variants: [{ id: 'funko-cl-p-028-a', name: 'Flocked (Funko Shop)', priceLoose: 0, priceMOC: 0 }] },
       { id: 'funko-cl-p-036', sku: 'Retro #41', name: 'KOBRA KHAN', year: '', wave: 'POP! #41', priceLoose: 0, priceMOC: 0, priceRetail: 0, variants: [] },
@@ -1883,14 +1883,14 @@ function getStatsMotu(ownedIds, serie, sub, qtyIds) {
   const total = scope.length;
   const owned = scope.filter(i => ownedIds[i.id]).length;
   // Pezzi: l'unità e' la variante (se ne hai segnata almeno una) oppure il personaggio.
-  let unique = 0, pieces = 0;
+  let unique = 0, pieces = 0, variants = 0;
   scope.forEach(i => {
     if (!ownedIds[i.id]) return;
     const vOwned = (i.variants || []).filter(v => ownedIds[v.id]);
-    if (vOwned.length) { unique += vOwned.length; vOwned.forEach(v => { pieces += qty(v.id); }); }
+    if (vOwned.length) { variants += vOwned.length; unique += vOwned.length; vOwned.forEach(v => { pieces += qty(v.id); }); }
     else { unique += 1; pieces += qty(i.id); }
   });
-  return { total, owned, missing: total - owned, pct: total ? Math.round(owned / total * 100) : 0, unique, doubles: pieces - unique, pieces };
+  return { total, owned, missing: total - owned, pct: total ? Math.round(owned / total * 100) : 0, unique, doubles: pieces - unique, pieces, variants };
 }
 
 // Foto: se esiste photos.js (generato da prepara_foto.py) assegna foto, scaffale e testina ai personaggi
