@@ -2492,5 +2492,13 @@ window.MOTU_PHOTOS = {
    "3": "Flocked (Funko Shop)",
    "cb": "Standard"
   }
+ },
+ "funko-cl-p-042": {
+  "images": [
+   "img/characters/funko-cl-p-042-1.webp?v=mljkld",
+   "img/characters/funko-cl-p-042-cb.webp?v=mljkld"
+  ],
+  "preview": "img/characters/funko-cl-p-042-shelf.png?v=mljkld",
+  "thumb": "img/characters/funko-cl-p-042-thumb.webp?v=mljkld"
  }
 };
