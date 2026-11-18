@@ -1666,8 +1666,7 @@ const CATALOG = {
       { id: 'funko-cl-p-085', sku: 'TV #1836', bio: 'SHE-RA', name: 'SHE-RA (FACET)', year: '', wave: 'POP! #1836', priceLoose: 0, priceMOC: 0, priceRetail: 0, variants: [] },
       { id: 'funko-cl-p-098', sku: 'TV #1984', desc: 'Funko Pop! Keldor, Alliance Entertainment (AE) exclusive sticker.', name: 'KELDOR (AE EXCLUSIVE)', year: '2026', wave: 'POP! #1984', priceLoose: 0, priceMOC: 0, priceRetail: 0, variants: [] },
       { id: 'funko-cl-p-097', sku: 'TV #2490', bio: 'SKELETOR', desc: 'Funko Pop! translucent Skeletor, Funko.com exclusive, limited edition of 5,000 pieces (about 120 with the QR Code sticker).', name: 'SKELETOR (TRANSLUCENT, FUNKO.COM)', year: '2026', wave: 'POP! #2490', priceLoose: 0, priceMOC: 0, priceRetail: 0, variants: [] },
-            { id: 'funko-cl-p-024', bio: 'SKELETOR', name: 'SKELETOR (GLOW)', year: '', wave: 'POP!', priceLoose: 0, priceMOC: 0, priceRetail: 0, variants: [] },
-    ],
+                ],
     'RETRO TOYS (BY BOX NUMBER)': [
       { id: 'funko-cl-p-009', sku: 'Retro #38', bio: 'SHE-RA', name: 'SHE-RA', year: '', wave: 'POP! #38', priceLoose: 0, priceMOC: 0, priceRetail: 0, variants: [{ id: 'funko-cl-p-009-a', name: 'Glow in the Dark (Specialty Series)', priceLoose: 0, priceMOC: 0 }, { id: 'funko-cl-p-009-b', name: 'Metallic (WonderCon 2022, limited to 3,000)', priceLoose: 0, priceMOC: 0 }] },
       { id: 'funko-cl-p-067', sku: 'Retro #39', bio: 'SKELETOR', name: 'TERROR CLAWS SKELETOR', year: '', wave: 'POP! #39', priceLoose: 0, priceMOC: 0, priceRetail: 0, variants: [{ id: 'funko-cl-p-067-a', name: 'Metallic (Target)', priceLoose: 0, priceMOC: 0 }] },
@@ -1734,10 +1733,12 @@ const CATALOG = {
     ],
     'FREDDY FUNKO': [
       { id: 'funko-cl-p-080', sku: 'Freddy #53', bio: 'FREDDY FUNKO', name: 'FREDDY FUNKO HE-MAN (SDCC 2016, LE 400)', year: '', wave: 'POP! #53', priceLoose: 0, priceMOC: 0, priceRetail: 0, variants: [] },
+      { id: 'funko-cl-p-103', sku: 'Freddy #54', desc: 'Funko Original, Freddy Funko dressed as Skeletor. SDCC 2016 exclusive, limited to 400 pieces. Variants of this mold exist outside the MOTU line.', name: 'FREDDY FUNKO AS SKELETOR (SDCC 2016, LE 400)', year: '2016', wave: 'POP! #54', priceLoose: 0, priceMOC: 0, priceRetail: 0, variants: [] },
       { id: 'funko-cl-p-093', sku: 'SE', bio: 'PRINCE ADAM', name: 'FREDDY FUNKO AS PRINCE ADAM (FUNDAYS 2022, LE 4000)', year: '2022', wave: 'POP! SE', priceLoose: 0, priceMOC: 0, priceRetail: 0, variants: [] },
       { id: 'funko-cl-p-094', sku: 'SE', bio: 'MER-MAN', name: 'FREDDY FUNKO AS MER-MAN (FUNDAYS, LE 2000)', year: '', wave: 'POP! SE', priceLoose: 0, priceMOC: 0, priceRetail: 0, variants: [{ id: 'funko-cl-p-094-a', name: 'Chase, teal (LE 800)', priceLoose: 0, priceMOC: 0 }] },
       { id: 'funko-cl-p-095', sku: 'SE', bio: 'SORCERESS', name: 'FRANNY FUNKO AS SORCERESS (FUNDAYS, LE 2500)', year: '', wave: 'POP! SE', priceLoose: 0, priceMOC: 0, priceRetail: 0, variants: [{ id: 'funko-cl-p-095-a', name: 'Diamond Collection, Chase (LE 250)', priceLoose: 0, priceMOC: 0 }] },
       { id: 'funko-cl-p-096', sku: 'SE', bio: 'HORDE TROOPER', name: 'FREDDY FUNKO AS HORDE TROOPER (FUNDAYS, LE 550)', year: '', wave: 'POP! SE', priceLoose: 0, priceMOC: 0, priceRetail: 0, variants: [] },
+      { id: 'funko-cl-p-104', sku: 'SE', desc: 'Funko Original, Freddy Funko dressed as King Randor. Freddy\'s Funtastic Voyage (Fundays 2024), Online Edition, limited to 2,000 pieces. Metallic version: Show Edition, limited to 250 pieces.', name: 'FREDDY FUNKO AS KING RANDOR (FUNDAYS 2024, LE 2000)', year: '2024', wave: 'POP! SE', priceLoose: 0, priceMOC: 0, priceRetail: 0, variants: [{ id: 'funko-cl-p-104-a', name: 'Metallic (Show Edition, LE 250)', priceLoose: 0, priceMOC: 0 }] },
       { id: 'funko-cl-s-019', bio: 'HE-MAN', desc: 'Funko Soda release: Camp Fundays exclusive, limited edition of 5,000 pieces.', name: 'FREDDY FUNKO AS HE-MAN', year: '', wave: 'SODA', priceLoose: 0, priceMOC: 0, priceRetail: 0, variants: [] },
     ],
     'JUMBO (10 INCH)': [
