@@ -2476,5 +2476,21 @@ window.MOTU_PHOTOS = {
    "3": "Metallic (Target)",
    "cb": "Standard"
   }
+ },
+ "funko-cl-p-028": {
+  "images": [
+   "img/characters/funko-cl-p-028-1.webp?v=mlgqhi",
+   "img/characters/funko-cl-p-028-cb.webp?v=mlgqhi",
+   "img/characters/funko-cl-p-028-2.webp?v=mlgqhi",
+   "img/characters/funko-cl-p-028-3.webp?v=mlgqhi"
+  ],
+  "preview": "img/characters/funko-cl-p-028-shelf.png?v=mlgqhi",
+  "thumb": "img/characters/funko-cl-p-028-thumb.webp?v=mlgqhi",
+  "captions": {
+   "1": "Standard",
+   "2": "Flocked (Funko Shop)",
+   "3": "Flocked (Funko Shop)",
+   "cb": "Standard"
+  }
  }
 };
