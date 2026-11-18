@@ -2520,5 +2520,13 @@ window.MOTU_PHOTOS = {
    "x1": "Metallic (WonderCon 2022, limited to 3,000)",
    "x2": "Metallic (WonderCon 2022, limited to 3,000)"
   }
+ },
+ "funko-cl-p-010": {
+  "images": [
+   "img/characters/funko-cl-p-010-1.webp?v=mm281s",
+   "img/characters/funko-cl-p-010-cb.webp?v=mm281s"
+  ],
+  "preview": "img/characters/funko-cl-p-010-shelf.png?v=mm281s",
+  "thumb": "img/characters/funko-cl-p-010-thumb.webp?v=mm281s"
  }
 };
