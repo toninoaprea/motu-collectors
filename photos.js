@@ -2500,5 +2500,25 @@ window.MOTU_PHOTOS = {
   ],
   "preview": "img/characters/funko-cl-p-042-shelf.png?v=mljkld",
   "thumb": "img/characters/funko-cl-p-042-thumb.webp?v=mljkld"
+ },
+ "funko-cl-p-009": {
+  "images": [
+   "img/characters/funko-cl-p-009-1.webp?v=mlnbde",
+   "img/characters/funko-cl-p-009-cb.webp?v=mlnbde",
+   "img/characters/funko-cl-p-009-2.webp?v=mlnbde",
+   "img/characters/funko-cl-p-009-3.webp?v=mlnbde",
+   "img/characters/funko-cl-p-009-x1.webp?v=mlnbde",
+   "img/characters/funko-cl-p-009-x2.webp?v=mlnbde"
+  ],
+  "preview": "img/characters/funko-cl-p-009-shelf.png?v=mlnbde",
+  "thumb": "img/characters/funko-cl-p-009-thumb.webp?v=mlnbde",
+  "captions": {
+   "1": "Standard",
+   "2": "Glow in the Dark (Specialty Series)",
+   "3": "Glow in the Dark (Specialty Series)",
+   "cb": "Standard",
+   "x1": "Metallic (WonderCon 2022, limited to 3,000)",
+   "x2": "Metallic (WonderCon 2022, limited to 3,000)"
+  }
  }
 };
