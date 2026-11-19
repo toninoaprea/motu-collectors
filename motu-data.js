@@ -1707,10 +1707,6 @@ const CATALOG = {
       { id: 'funko-cl-p-022', sku: 'Art #16', bio: 'HE-MAN', name: 'HE-MAN (ART SERIES)', year: '', wave: 'POP! #16', priceLoose: 0, priceMOC: 0, priceRetail: 0, variants: [] },
       { id: 'funko-cl-p-021', sku: 'Art #17', bio: 'SKELETOR', name: 'SKELETOR (ART SERIES)', year: '', wave: 'POP! #17', priceLoose: 0, priceMOC: 0, priceRetail: 0, variants: [] },
     ],
-    'ROCK CANDY': [
-      { id: 'funko-cl-p-099', sku: 'Rock Candy', bio: 'EVIL-LYN', desc: 'Funko Pop! Rock Candy Evil-Lyn (2018), Specialty Series exclusive.', name: 'EVIL-LYN (ROCK CANDY, SPECIALTY SERIES)', year: '2018', wave: 'POP! ROCK CANDY', priceLoose: 0, priceMOC: 0, priceRetail: 0, variants: [] },
-      { id: 'funko-cl-p-100', sku: 'Rock Candy', bio: 'SHE-RA', desc: 'Funko Pop! Rock Candy She-Ra, SDCC 2017 exclusive, limited edition of 1,250 pieces.', name: 'SHE-RA (ROCK CANDY, SDCC 2017)', year: '2017', wave: 'POP! ROCK CANDY', priceLoose: 0, priceMOC: 0, priceRetail: 0, variants: [] },
-    ],
     'TOWN & RIDES (BY BOX NUMBER)': [
       { id: 'funko-cl-p-013', span: 2, sku: 'Town #23', bio: 'SKELETOR', name: 'SKELETOR WITH SNAKE MOUNTAIN', year: '', wave: 'POP! #23', priceLoose: 0, priceMOC: 0, priceRetail: 0, variants: [] },
       { id: 'funko-cl-p-092', span: 2, sku: 'Town #51', bio: 'SORCERESS', name: 'SORCERESS WITH CASTLE GRAYSKULL (LIVE ACTION)', year: '', wave: 'POP! #51', priceLoose: 0, priceMOC: 0, priceRetail: 0, variants: [] },
