@@ -2584,5 +2584,13 @@ window.MOTU_PHOTOS = {
    "3": "Glow in the Dark",
    "cb": "Standard"
   }
+ },
+ "funko-cl-p-041": {
+  "images": [
+   "img/characters/funko-cl-p-041-1.webp?v=o2nhdv",
+   "img/characters/funko-cl-p-041-cb.webp?v=o2nhdv"
+  ],
+  "preview": "img/characters/funko-cl-p-041-shelf.png?v=o2nhdv",
+  "thumb": "img/characters/funko-cl-p-041-thumb.webp?v=o2nhdv"
  }
 };
