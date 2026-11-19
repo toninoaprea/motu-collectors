@@ -795,7 +795,7 @@ const CATALOG = {
       { id: 'super7-cl-rea-030', name: 'TEELA (SHIVA)', year: '', wave: 'REACTION', priceLoose: 0, priceMOC: 0, priceRetail: 0, variants: [], desc: 'ReAction 3.75-inch retro figure. Includes brown staff.' },
       { id: 'super7-cl-rea-031', name: 'HORDAK (GREY)', year: '', wave: 'REACTION', priceLoose: 0, priceMOC: 0, priceRetail: 0, variants: [], desc: 'ReAction 3.75-inch retro figure. Includes blaster and red vinyl cape.' },
       { id: 'super7-cl-rea-032', name: 'MAN-AT-ARMS (MOVIE ACCURATE)', year: '', wave: 'REACTION', priceLoose: 0, priceMOC: 0, priceRetail: 0, variants: [], desc: 'ReAction 3.75-inch retro figure. Includes light grey mace.' },
-      { id: 'super7-cl-rea-033', name: 'MER-MAN (CARRY-CASE COLOR)', year: '', wave: 'REACTION', priceLoose: 0, priceMOC: 0, priceRetail: 0, variants: [], desc: 'ReAction 3.75-inch retro figure. Includes sword.' },
+      { id: 'super7-cl-rea-033', name: 'MER-MAN (MINI-COMIC)', year: '2017', wave: 'REACTION', priceLoose: 0, priceMOC: 0, priceRetail: 0, variants: [], desc: 'ReAction 3.75-inch retro figure with mini-comic, in carry-case colors. Exclusive to the MOTU ReAction Carrying Case (July 2017); the case holds 24 figures. Includes sword.' },
       { id: 'super7-cl-rea-034', name: 'RAM MAN (MINI-COMICS)', year: '', wave: 'REACTION', priceLoose: 0, priceMOC: 0, priceRetail: 0, variants: [], desc: 'ReAction 3.75-inch retro figure. Includes dark grey plastic axe.' },
       { id: 'super7-cl-rea-035', name: 'SLIME PIT HE-MAN (MINI-COMIC)', year: '', wave: 'REACTION', priceLoose: 0, priceMOC: 0, priceRetail: 0, variants: [], desc: 'ReAction 3.75-inch retro figure. Includes light green plastic Power Sword.' },
       { id: 'super7-cl-rea-036', name: 'SKELETOR (CLEAR BLUE)', year: '', wave: 'REACTION', priceLoose: 0, priceMOC: 0, priceRetail: 0, variants: [], desc: 'ReAction 3.75-inch retro figure. Includes Havoc Staff.' },
@@ -809,7 +809,7 @@ const CATALOG = {
       { id: 'super7-cl-rea-044', name: 'BEAST MAN (MINI-COMIC)', year: '', wave: 'REACTION', priceLoose: 0, priceMOC: 0, priceRetail: 0, variants: [] },
       { id: 'super7-cl-rea-045', name: 'STRATOS (BLUE BEARD)', year: '', wave: 'REACTION', priceLoose: 0, priceMOC: 0, priceRetail: 0, variants: [] },
       { id: 'super7-cl-rea-046', name: 'STRATOS (MINI-COMIC)', year: '', wave: 'REACTION', priceLoose: 0, priceMOC: 0, priceRetail: 0, variants: [] },
-      { id: 'super7-cl-rea-047', name: 'STRATOS (REVERSE COLOR)', year: '', wave: 'REACTION', priceLoose: 0, priceMOC: 0, priceRetail: 0, variants: [] },
+            { id: 'super7-cl-rea-048', name: 'MER-MAN (MINI-COMIC)', year: '2017', wave: 'REACTION', priceLoose: 0, priceMOC: 0, priceRetail: 0, variants: [], desc: 'ReAction 3.75-inch retro figure with mini-comic. Exclusive to the MOTU ReAction Carrying Case (July 2017); the case holds 24 figures.' },
     ],
     'CLUB GRAYSKULL': [
       { id: 'super7-cl-cg-001', ean: '086547346214', name: 'HORDAK', year: '', wave: 'CLUB GRAYSKULL', priceLoose: 0, priceMOC: 0, priceRetail: 35, variants: [], desc: 'Super7 release (Masters of the Universe Classics style). Includes Imp, Imp-Trunk and alternate cannon arm.' },
