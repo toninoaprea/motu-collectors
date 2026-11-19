@@ -2718,5 +2718,13 @@ window.MOTU_PHOTOS = {
    "2": "Metallic (Show Edition, LE 250)",
    "cb": "Standard"
   }
+ },
+ "funko-cl-p-103": {
+  "images": [
+   "img/characters/funko-cl-p-103-1.webp?v=o3s2cj",
+   "img/characters/funko-cl-p-103-cb.webp?v=o3s2cj"
+  ],
+  "preview": "img/characters/funko-cl-p-103-shelf.png?v=o3s2cj",
+  "thumb": "img/characters/funko-cl-p-103-thumb.webp?v=o3s2cj"
  }
 };
