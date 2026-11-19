@@ -2742,5 +2742,21 @@ window.MOTU_PHOTOS = {
   ],
   "preview": "img/characters/funko-cl-s-019-shelf.png?v=o43inb",
   "thumb": "img/characters/funko-cl-s-019-thumb.webp?v=o43inb"
+ },
+ "funko-cl-p-106": {
+  "images": [
+   "img/characters/funko-cl-p-106-1.webp?v=o4k995",
+   "img/characters/funko-cl-p-106-cb.webp?v=o4k995",
+   "img/characters/funko-cl-p-106-2.webp?v=o4k995",
+   "img/characters/funko-cl-p-106-3.webp?v=o4k995"
+  ],
+  "preview": "img/characters/funko-cl-p-106-shelf.png?v=o4k995",
+  "thumb": "img/characters/funko-cl-p-106-thumb.webp?v=o4k995",
+  "captions": {
+   "1": "Standard",
+   "2": "Snake Man-At-Arms",
+   "3": "Snake Man-At-Arms",
+   "cb": "Standard"
+  }
  }
 };
