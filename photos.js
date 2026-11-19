@@ -2568,5 +2568,21 @@ window.MOTU_PHOTOS = {
   ],
   "preview": "img/characters/funko-cl-p-070-shelf.png?v=o2ed1w",
   "thumb": "img/characters/funko-cl-p-070-thumb.webp?v=o2ed1w"
+ },
+ "funko-cl-p-071": {
+  "images": [
+   "img/characters/funko-cl-p-071-1.webp?v=o2gurp",
+   "img/characters/funko-cl-p-071-cb.webp?v=o2gurp",
+   "img/characters/funko-cl-p-071-2.webp?v=o2gurp",
+   "img/characters/funko-cl-p-071-3.webp?v=o2gurp"
+  ],
+  "preview": "img/characters/funko-cl-p-071-shelf.png?v=o2gurp",
+  "thumb": "img/characters/funko-cl-p-071-thumb.webp?v=o2gurp",
+  "captions": {
+   "1": "Standard",
+   "2": "Glow in the Dark",
+   "3": "Glow in the Dark",
+   "cb": "Standard"
+  }
  }
 };
