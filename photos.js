@@ -2704,5 +2704,19 @@ window.MOTU_PHOTOS = {
   ],
   "preview": "img/characters/funko-cl-p-093-shelf.png?v=o3n3s5",
   "thumb": "img/characters/funko-cl-p-093-thumb.webp?v=o3n3s5"
+ },
+ "funko-cl-p-104": {
+  "images": [
+   "img/characters/funko-cl-p-104-1.webp?v=o3q6ze",
+   "img/characters/funko-cl-p-104-cb.webp?v=o3q6ze",
+   "img/characters/funko-cl-p-104-2.webp?v=o3q6ze"
+  ],
+  "preview": "img/characters/funko-cl-p-104-shelf.png?v=o3q6ze",
+  "thumb": "img/characters/funko-cl-p-104-thumb.webp?v=o3q6ze",
+  "captions": {
+   "1": "Standard",
+   "2": "Metallic (Show Edition, LE 250)",
+   "cb": "Standard"
+  }
  }
 };
