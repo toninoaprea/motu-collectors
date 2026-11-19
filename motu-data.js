@@ -723,6 +723,8 @@ const CATALOG = {
   },
   'SUPER 7': {
     'ULTIMATE': [
+      { id: 'super7-cl-u-gs-001', name: 'GIANT SIZE HE-MAN (TEST SHOT)', year: '2015', wave: '2015 - TEST SHOT', priceLoose: 0, priceMOC: 0, priceRetail: 95, variants: [], desc: 'Super7 giant size test shot: unpainted figure cast in mixed-color injected plastic, like the first factory shots. Limit one set per person; $95 each (June 2015).' },
+      { id: 'super7-cl-u-gs-002', name: 'GIANT SIZE SKELETOR (TEST SHOT)', year: '2015', wave: '2015 - TEST SHOT', priceLoose: 0, priceMOC: 0, priceRetail: 95, variants: [], desc: 'Super7 giant size test shot: unpainted figure cast in mixed-color injected plastic, like the first factory shots. Limit one set per person; $95 each (June 2015).' },
       { id: 'super7-cl-u-001', ean: '086547344975', name: 'FAKER', year: '2017', wave: '2017 - WAVE 1', priceLoose: 0, priceMOC: 0, priceRetail: 35, variants: [], desc: 'Super7 release (Masters of the Universe Classics style). Includes 3 head sculpts (regular, robotic and toy-accurate), half-power sword, 2 full-power swords, shield and battle axe.' },
       { id: 'super7-cl-u-002', ean: '086547344951', name: 'HE-MAN', year: '2017', wave: '2017 - WAVE 1', priceLoose: 0, priceMOC: 0, priceRetail: 35, variants: [], desc: 'Super7 release (Masters of the Universe Classics style). Includes two heads, shield, battle axe, half sword and sword.' },
       { id: 'super7-cl-u-003', ean: '086547344999', name: 'RAM MAN', year: '2017', wave: '2017 - WAVE 1', priceLoose: 0, priceMOC: 0, priceRetail: 35, variants: [], desc: 'Super7 release (Masters of the Universe Classics style). Includes 2 head sculpts and an axe.' },
@@ -761,6 +763,9 @@ const CATALOG = {
       { id: 'super7-cl-v-027', ean: '811169038243', name: 'ORKO (SHADOW)', year: '2019', wave: '2019 - WAVE 4', priceLoose: 0, priceMOC: 0, priceRetail: 19.99, variants: [], desc: 'Super7 release (Masters of the Universe Classics style). Includes two magic wands, a flower and a magical blast effect.' },
       { id: 'super7-cl-v-028', ean: '811169038335', name: 'SHADOW WEAVER', year: '2019', wave: '2019 - WAVE 4', priceLoose: 0, priceMOC: 0, priceRetail: 19.99, variants: [], desc: 'Super7 release (Masters of the Universe Classics style). Includes 2 magic wands.' },
       { id: 'super7-cl-v-029', ean: '811169038328', name: 'STRATOS', year: '2019', wave: '2019 - WAVE 4', priceLoose: 0, priceMOC: 0, priceRetail: 19.99, variants: [], desc: 'Super7 release (Masters of the Universe Classics style). Includes Emerald Staff.' },
+          ],
+    'SOFT VINYL': [
+{ id: 'super7-cl-v-030', name: 'LEO SKELETOR (SOFT VINYL)', year: '2016', wave: 'SOFT VINYL', priceLoose: 0, priceMOC: 0, priceRetail: 65, variants: [], desc: 'Super7 soft vinyl figure inspired by the Indian Leo Skeletor variant. Dark blue vinyl with charcoal grey, yellow and grey sprays, deep red eyes. Includes Havoc Staff; deluxe window box. On sale March 3, 2016.' },
     ],
     'REACTION': [
       { id: 'super7-cl-rea-001', name: 'SKELETOR', year: '', wave: 'REACTION', priceLoose: 0, priceMOC: 0, priceRetail: 0, variants: [], desc: 'ReAction 3.75-inch retro figure. Includes Havoc Staff.' },
