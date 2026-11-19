@@ -1709,14 +1709,14 @@ const CATALOG = {
     ],
     'TOWN & RIDES (BY BOX NUMBER)': [
       { id: 'funko-cl-p-013', span: 2, sku: 'Town #23', bio: 'SKELETOR', name: 'SKELETOR WITH SNAKE MOUNTAIN', year: '', wave: 'POP! #23', priceLoose: 0, priceMOC: 0, priceRetail: 0, variants: [] },
-      { id: 'funko-cl-p-092', span: 2, sku: 'Town #51', bio: 'SORCERESS', name: 'SORCERESS WITH CASTLE GRAYSKULL (LIVE ACTION)', year: '', wave: 'POP! #51', priceLoose: 0, priceMOC: 0, priceRetail: 0, variants: [] },
-      { id: 'funko-cl-p-078', span: 2, sku: 'Rides #84', bio: 'BATTLE CAT', name: 'HE-MAN ON BATTLE CAT', year: '', wave: 'POP! #84', priceLoose: 0, priceMOC: 0, priceRetail: 0, variants: [{ id: 'funko-cl-p-078-a', name: 'Flocked (Target Con 2022)', priceLoose: 0, priceMOC: 0 }] },
+            { id: 'funko-cl-p-078', span: 2, sku: 'Rides #84', bio: 'BATTLE CAT', name: 'HE-MAN ON BATTLE CAT', year: '', wave: 'POP! #84', priceLoose: 0, priceMOC: 0, priceRetail: 0, variants: [{ id: 'funko-cl-p-078-a', name: 'Flocked (Target Con 2022)', priceLoose: 0, priceMOC: 0 }] },
       { id: 'funko-cl-p-079', span: 2, sku: 'Rides #98', bio: 'SKELETOR', name: 'SKELETOR ON PANTHOR', year: '', wave: 'POP! #98', priceLoose: 0, priceMOC: 0, priceRetail: 0, variants: [{ id: 'funko-cl-p-079-a', name: 'Flocked (Funko Shop)', priceLoose: 0, priceMOC: 0 }] },
       { id: 'funko-cl-p-026', span: 2, sku: 'Rides #278', bio: 'SKELETOR', name: 'SKELETOR ON NIGHT STALKER', year: '', wave: 'POP! #278', priceLoose: 0, priceMOC: 0, priceRetail: 0, variants: [] },
       { id: 'funko-cl-p-023', span: 2, sku: 'Rides #279', bio: 'SHE-RA', name: 'SHE-RA ON SWIFT WIND', year: '', wave: 'POP! #279', priceLoose: 0, priceMOC: 0, priceRetail: 0, variants: [] },
       { id: 'funko-cl-p-066', span: 2, sku: 'Rides #999', bio: 'SCARE GLOW', name: 'SCARE MARE & SCARE GLOW (FUSION)', year: '', wave: 'POP! #999', priceLoose: 0, priceMOC: 0, priceRetail: 0, variants: [] },
     ],
     'MOVIES (2026)': [
+{ id: 'funko-cl-p-092', span: 2, sku: 'Town #51', bio: 'SORCERESS', name: 'SORCERESS WITH CASTLE GRAYSKULL (LIVE ACTION)', year: '', wave: 'POP! #51', priceLoose: 0, priceMOC: 0, priceRetail: 0, variants: [] },
       { id: 'funko-cl-m-001', sku: 'Movies #2020', name: 'HE-MAN', year: '2026', wave: 'MOVIES 2026 · #2020', priceLoose: 0, priceMOC: 0, priceRetail: 14.99, variants: [] },
       { id: 'funko-cl-m-002', sku: 'Movies #2021', name: 'SKELETOR', year: '2026', wave: 'MOVIES 2026 · #2021', priceLoose: 0, priceMOC: 0, priceRetail: 14.99, variants: [] },
       { id: 'funko-cl-m-003', sku: 'Movies #2022', name: 'MAN-AT-ARMS', year: '2026', wave: 'MOVIES 2026 · #2022', priceLoose: 0, priceMOC: 0, priceRetail: 0, variants: [] },
