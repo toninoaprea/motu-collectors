@@ -2758,5 +2758,14 @@ window.MOTU_PHOTOS = {
    "3": "Snake Man-At-Arms",
    "cb": "Standard"
   }
+ },
+ "super7-cl-rea-002": {
+  "images": [
+   "img/characters/super7-cl-rea-002-1.webp?v=pbng5d",
+   "img/characters/super7-cl-rea-002-cb.webp?v=pbng5d",
+   "img/characters/super7-cl-rea-002-2.webp?v=pbng5d"
+  ],
+  "preview": "img/characters/super7-cl-rea-002-shelf.png?v=pbng5d",
+  "thumb": "img/characters/super7-cl-rea-002-thumb.webp?v=pbng5d"
  }
 };
