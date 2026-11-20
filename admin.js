@@ -18,6 +18,8 @@
   var REACTION_REQ = [['1', 'Photo 1'], ['2', 'Photo 2'], ['3', 'Photo 3'], ['shelf', 'Shelf'], ['thumb', 'Head']];
   function requiredFor(id) {
     if (/^super7-cl-rea-/.test(id || '')) return REACTION_REQ;
+    // Super7 Ultimate/Vintage: 5 foto, il retro (3) e' extra opzionale
+    if (/^super7-cl-[uv]-/.test(id || '')) return REQUIRED.filter(function (q) { return q[0] !== '3'; });
     if (/^funko-/.test(id || '')) return REQUIRED.filter(function (q) { return q[0] !== 'cb' && q[0] !== '3'; });
     return REQUIRED;
   }
