@@ -14,7 +14,10 @@
   // Foto obbligatorie: blister, retro blister, fronte, retro, scaffale (png), testina (miniatura)
   var REQUIRED = [['1', 'Blister'], ['cb', 'Card back'], ['2', 'Front'], ['3', 'Back'], ['shelf', 'Shelf'], ['thumb', 'Head']];
   // Funko: niente Card back e Back tra le foto obbligatorie (4 invece di 6); si possono comunque caricare
+  // Super7 ReAction: 3 foto (in qualsiasi slot) + scaffale + testina = 5
+  var REACTION_REQ = [['1', 'Photo 1'], ['2', 'Photo 2'], ['3', 'Photo 3'], ['shelf', 'Shelf'], ['thumb', 'Head']];
   function requiredFor(id) {
+    if (/^super7-cl-rea-/.test(id || '')) return REACTION_REQ;
     if (/^funko-/.test(id || '')) return REQUIRED.filter(function (q) { return q[0] !== 'cb' && q[0] !== '3'; });
     return REQUIRED;
   }
@@ -182,6 +185,10 @@
     requiredFor(id).forEach(function (q) {
       var ok = q[0] === 'shelf' ? hasShelf : q[0] === 'thumb' ? (hasThumb || !!map['2']) : !!map[q[0]];
       // Funko: la seconda foto vale in qualsiasi slot (Front, Card back, Back o extra), non solo in Front
+      if (/^super7-cl-rea-/.test(id || '') && q[0] !== 'shelf' && q[0] !== 'thumb') {
+        var cnt = Object.keys(map).filter(function (k) { return k !== 'shelf' && k !== 'thumb' && !!map[k]; }).length;
+        ok = cnt >= Number(q[0]);
+      }
       if (!ok && q[0] === '2' && /^funko-/.test(id || '')) ok = Object.keys(map).some(function (k) { return k !== '1' && k !== 'shelf' && k !== 'thumb' && !!map[k]; });
       if (!ok) out.push(q[1]);
     });
