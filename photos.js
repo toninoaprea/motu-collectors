@@ -2907,5 +2907,14 @@ window.MOTU_PHOTOS = {
   ],
   "preview": "img/characters/super7-cl-v-018-shelf.png?v=qjz1e9",
   "thumb": "img/characters/super7-cl-v-018-thumb.webp?v=qjz1e9"
+ },
+ "super7-cl-v-019": {
+  "images": [
+   "img/characters/super7-cl-v-019-1.webp?v=qk62sc",
+   "img/characters/super7-cl-v-019-cb.webp?v=qk62sc",
+   "img/characters/super7-cl-v-019-2.webp?v=qk62sc"
+  ],
+  "preview": "img/characters/super7-cl-v-019-shelf.png?v=qk62sc",
+  "thumb": "img/characters/super7-cl-v-019-thumb.webp?v=qk62sc"
  }
 };
