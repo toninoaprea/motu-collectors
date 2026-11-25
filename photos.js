@@ -3102,5 +3102,14 @@ window.MOTU_PHOTOS = {
   ],
   "preview": "img/characters/super7-cl-rea-033-shelf.png?v=wj4v76",
   "thumb": "img/characters/super7-cl-rea-033-thumb.webp?v=wj4v76"
+ },
+ "super7-cl-rea-019": {
+  "images": [
+   "img/characters/super7-cl-rea-019-1.webp?v=wjc8s0",
+   "img/characters/super7-cl-rea-019-cb.webp?v=wjc8s0",
+   "img/characters/super7-cl-rea-019-2.webp?v=wjc8s0"
+  ],
+  "preview": "img/characters/super7-cl-rea-019-shelf.png?v=wjc8s0",
+  "thumb": "img/characters/super7-cl-rea-019-thumb.webp?v=wjc8s0"
  }
 };
