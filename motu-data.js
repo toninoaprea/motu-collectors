@@ -800,7 +800,7 @@ const CATALOG = {
       { id: 'super7-cl-rea-018', sku: 'AR0012489', name: 'FAKER (ORIGINAL TOY COLORS)', year: '2018', wave: '2018 - SERIES 4', priceLoose: 0, priceMOC: 0, priceRetail: 0, variants: [], desc: 'ReAction 3.75-inch retro figure. Includes sword.' },
       { id: 'super7-cl-rea-017', sku: 'AR0012490', name: 'EVIL-LYN', year: '2018', wave: '2018 - SERIES 4', priceLoose: 0, priceMOC: 0, priceRetail: 0, variants: [], desc: 'ReAction 3.75-inch retro figure. Includes staff.' },
       { id: 'super7-cl-rea-022', sku: 'AR0012491', name: 'SCARE GLOW', year: '2018', wave: '2018 - SERIES 4', priceLoose: 0, priceMOC: 0, priceRetail: 0, variants: [], desc: 'ReAction 3.75-inch retro figure. Includes halberd.' },
-      { id: 'super7-cl-rea-058', sku: 'AR0013711', name: 'SHE-RA & HORDAK (SAN DIEGO COMIC-CON EXCLUSIVE)', year: '', wave: 'REACTION', priceLoose: 0, priceMOC: 0, priceRetail: 0, variants: [] },
+      { id: 'super7-cl-rea-058', span: 2, sku: 'AR0013711', name: 'SHE-RA & HORDAK (SAN DIEGO COMIC-CON EXCLUSIVE)', year: '', wave: 'REACTION', priceLoose: 0, priceMOC: 0, priceRetail: 0, variants: [] },
       { id: 'super7-cl-rea-045', sku: 'AR0014365', name: 'STRATOS (BLUE WINGS, POWER-CON EXCLUSIVE)', year: '2018', wave: '2018 - POWER-CON', priceLoose: 0, priceMOC: 0, priceRetail: 0, variants: [] },
       { id: 'super7-cl-rea-070', sku: 'AR0014366', name: 'STRATOS (ORIGINAL TOY COLORS, POWER-CON EXCLUSIVE)', year: '2018', wave: '2018 - POWER-CON', priceLoose: 0, priceMOC: 0, priceRetail: 0, variants: [] },
       { id: 'super7-cl-rea-046', sku: 'AR0014367', name: 'STRATOS (MINI-COMICS COLORS, POWER-CON EXCLUSIVE)', year: '2018', wave: '2018 - POWER-CON', priceLoose: 0, priceMOC: 0, priceRetail: 0, variants: [] },
