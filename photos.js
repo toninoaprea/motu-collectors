@@ -3209,8 +3209,8 @@ window.MOTU_PHOTOS = {
  },
  "commemorative-cl-f-003": {
   "images": [
-   "img/characters/commemorative-cl-f-003-1.webp?v=y1iomw",
-   "img/characters/commemorative-cl-f-003-cb.webp?v=y1iomw",
+   "img/characters/commemorative-cl-f-003-1.webp?v=y1o2uw",
+   "img/characters/commemorative-cl-f-003-cb.webp?v=y1o2uw",
    "img/characters/commemorative-cl-f-003-2.webp?v=y1iomw",
    "img/characters/commemorative-cl-f-003-3.webp?v=y1iomw"
   ],
